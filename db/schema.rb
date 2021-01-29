@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_01_29_122340) do
     t.string "hint"
     t.float "latitude"
     t.float "longitude"
+    t.string "location"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 2021_01_29_122340) do
     t.bigint "users_id"
     t.float "latitude"
     t.float "longitude"
+    t.string "location"
     t.integer "radius"
     t.datetime "start_time"
     t.datetime "end_time"

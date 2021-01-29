@@ -27,10 +27,18 @@
   </div>
 
   <div class="input">
-    <%= form.label :radius, :class => 'input-label' %>
-    <%= form.range_field :radius, in: 1..10, :class => 'input-range' %>
+    <%= form.label :location, :class => 'input-label' %>
+    <%= form.text_field :location, :class => 'input-text' %>
   </div>
 
+  <%= map(:center => {
+  :latlng => [47.802087, 13.032622],
+  :zoom => 18
+  }) %>
+
+  <div class="input">
+    <%= form.label :radius, :class => 'input-label' %>
+    <%= form.range_field :radius, in: 1..10, :class => 'input-range' %>
   </div>
 
   <div class="actions">

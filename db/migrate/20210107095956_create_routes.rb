@@ -7,6 +7,7 @@ class CreateRoutes < ActiveRecord::Migration[6.0]
       t.references :users, null: true, foreign_key: true
       t.float :latitude
       t.float :longitude
+      t.string :location
       t.integer :radius
       t.timestamp :start_time
       t.timestamp :end_time

@@ -4,7 +4,7 @@
     display: inline-block;
     vertical-align: middle;
     margin: 2%;
-    padding: ($default_padding/2) $default_padding;
+    padding: $default_padding;
     background: $brown;
     border: none;
     border-radius: $borderradius;
@@ -17,6 +17,7 @@
     min-width: 100px;
     transition: all .3s ease-in;
     outline: none;
+    font-size: 1.5rem;
     -webkit-appearance: none;
     -moz-appearance: none;
   

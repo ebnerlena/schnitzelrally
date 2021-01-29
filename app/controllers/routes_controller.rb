@@ -21,7 +21,9 @@ class RoutesController < ApplicationController
   end
 
   def join_route
-    # @route = Route.find(params[:id])
+    @user = current_user
+    @route = Route.find(123)
+    @route.users.push(@user)
     render 'index'
   end
 
@@ -33,6 +35,10 @@ class RoutesController < ApplicationController
   def create
     @route = Route.new(route_params)
     @route.user = current_user
+
+    results = Geocoder.search([@route.latitude, @route.longitude])
+    puts results.first.address
+    @route.location = results.first.address
     
     respond_to do |format|
       if @route.save

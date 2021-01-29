@@ -1,10 +1,12 @@
 .input {
     display: flex;
     flex-direction: column;
+    margin-top: $default_margin;
+    margin-bottom: $default_margin;
 
     input, select {
         width: 15rem;
-        height: 25px;
+        height: 20px;
         border-radius: $borderradius;
         -webkit-border-radius: 12px;
         -moz-border-radius: 12px;
@@ -45,7 +47,8 @@
 input[type=range]{
     -webkit-appearance: none;
      /* fix for FF unable to apply focus style bug  */
-     border: 1px solid white; 
+     border: none; 
+     background: $backgroundColor;
      /*required for proper track sizing in FF*/
      width: 15rem;
 }
@@ -78,7 +81,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 input[type=range]::-moz-range-track {
-    width: 300px;
+    width: 15rem;
     height: 5px;
     background: $cardBackground;
     border: none;
@@ -95,7 +98,7 @@ input[type=range]::-moz-range-thumb {
 
 /*hide the outline behind the border*/
 input[type=range]:-moz-focusring {
-    outline: 1px solid white;
+    outline: none;
     outline-offset: -1px;
 }
 
