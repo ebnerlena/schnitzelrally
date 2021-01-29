@@ -1,0 +1,104 @@
+.input {
+    display: flex;
+    flex-direction: column;
+
+    input, select {
+        width: 15rem;
+        height: 25px;
+        border-radius: $borderradius;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border: 2px $grey solid;
+        transition: all .3s ease;
+        padding: ($default_padding/2) $default_padding;
+        outline: none;
+        max-width: 30em;
+        color: $grey;
+    }
+
+    &-label {
+        font-family: $inconsolata;
+        font-size: 25px;
+        font-weight: 600;
+        padding-left: 3px;
+    }
+
+    &-text {
+
+        &:hover, &:focus {
+            box-shadow: 0 0 5px $grey;
+        }
+
+    }
+    &-range {
+
+    }
+
+    &-select {
+        &:hover, &:focus {
+            box-shadow: 0 0 5px $grey;
+        }
+    }
+}
+
+//style range
+input[type=range]{
+    -webkit-appearance: none;
+     /* fix for FF unable to apply focus style bug  */
+     border: 1px solid white; 
+     /*required for proper track sizing in FF*/
+     width: 15rem;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 15rem;
+    height: 7px;
+    background: $cardBackground;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: $brown;
+    margin-top: -6px;
+    transition: all .3s ease;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: $cardBackground;
+}
+
+input[type=range]::-moz-range-track {
+    width: 300px;
+    height: 5px;
+    background: $cardBackground;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: $brown;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring {
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+input[type=range]:focus::-moz-range-track {
+    background: $cardBackground;
+}

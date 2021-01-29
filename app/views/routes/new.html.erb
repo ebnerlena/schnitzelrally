@@ -1,0 +1,10 @@
+<h2>Route erstellen</h2>
+
+<%= render 'form', route: @route %>
+
+<%= map(:center => {
+  :latlng => [47.802087, 13.032622],
+  :zoom => 18
+}) %>
+
+<%= link_to 'Back', routes_path %>

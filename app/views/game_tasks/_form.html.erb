@@ -1,0 +1,52 @@
+<%= form_with(model: game_task, local: true) do |form| %>
+  <% if game_task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
+
+      <ul>
+        <% game_task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input">
+    <%= form.label :name, :class => 'input-label' %>
+    <%= form.text_field :name, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label :description, :class => 'input-label' %>
+    <%= form.text_field :description, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label :hint, :class => 'input-label' %>
+    <%= form.text_field :hint, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label :latitude, :class => 'input-label' %>
+    <%= form.text_field :latitude, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label :longitude, :class => 'input-label' %>
+    <%= form.text_field :longitude, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label :user_id, :class => 'input-label' %>
+    <%= form.text_field :user_id, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label :users_id, :class => 'input-label' %>
+    <%= form.text_field :users_id, :class => 'input-text' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Erstellen', :class => 'btn' %>
+  </div>
+<% end %>

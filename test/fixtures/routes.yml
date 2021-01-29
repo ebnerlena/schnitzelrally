@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 
+  tasks: one
+  user: one
+  users: one
+  latitude: 1.5
+  longitude: 1.5
+  radius: 1
+  start_time: 2021-01-07 10:59:57
+  end_time: 2021-01-07 10:59:57
+
+two:
+  id: 
+  tasks: two
+  user: two
+  users: two
+  latitude: 1.5
+  longitude: 1.5
+  radius: 1
+  start_time: 2021-01-07 10:59:57
+  end_time: 2021-01-07 10:59:57

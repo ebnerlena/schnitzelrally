@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @game_task.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @game_task.description %>
+</p>
+
+<p>
+  <strong>Hint:</strong>
+  <%= @game_task.hint %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @game_task.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @game_task.longitude %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @game_task.user_id %>
+</p>
+
+<p>
+  <strong>Users:</strong>
+  <%= @game_task.users_id %>
+</p>
+
+<%= link_to 'Edit', edit_game_task_path(@game_task) %> |
+<%= link_to 'Back', game_tasks_path %>

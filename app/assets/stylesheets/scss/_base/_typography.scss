@@ -1,0 +1,29 @@
+html {
+    font-size: 16px;
+    font-family: $roboto, 'sans-serif';
+    color: $grey;
+
+    h1 {
+        font-family: $inconsolata, $roboto, 'sans-serif';
+        font-size: $h1_font_size;
+        margin: $h1_margin;
+    }
+
+    h2 {
+        font-family: $inconsolata, $roboto, 'sans-serif';
+        font-size: $h2_font_size;
+        margin: $h2_margin;
+    }
+
+    h3 {
+        font-family: $inconsolata, $roboto, 'sans-serif';
+        font-size: $h3_font_size;
+        margin: $h3_margin;
+    }
+
+    p {
+        font-family: $roboto, 'sans-serif';
+        font-size: $p_font_size;
+    }
+
+}

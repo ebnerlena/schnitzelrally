@@ -1,0 +1,18 @@
+<%= form_with(url: join_route_routes_path) do |form| %>
+
+  <div class="input">
+    <%= form.label :id, :class => 'input-label' %>
+    <%= form.text_field :id, :class => 'input-text' %>
+  </div>
+
+   <div class="input">
+    <%= form.label :user, :class => 'input-label' %>
+    <%= form.text_field :id, :class => 'input-text' %>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Route joinen', :class => 'btn' %>
+  </div>
+<% end %>

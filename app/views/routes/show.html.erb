@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @route.id %>
+</p>
+
+<p>
+  <strong>Tasks:</strong>
+  <%# <%= @route.tasks_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @route.user_id %>
+</p>
+
+<p>
+  <strong>Users:</strong>
+  <%# <%= if @route.users.present? @route.users_id %> 
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @route.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @route.longitude %>
+</p>
+
+<p>
+  <strong>Radius:</strong>
+  <%= @route.radius %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @route.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @route.end_time %>
+</p>
+
+<%= link_to 'Edit', edit_route_path(@route) %> |
+<%= link_to 'Back', routes_path %>

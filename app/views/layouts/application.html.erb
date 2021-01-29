@@ -1,15 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
   <head>
-    <title>Prototype01</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Virtuelle Schnitzeljagd</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+  
+    <%= stylesheet_link_tag 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <%= javascript_include_tag 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+  <header>
+    <h1>Virtuelle Schnitzeljagd</h1>
+    <nav> 
+        <%= render_login %> 
+        <%= render_logout %>
+
+    </nav>
+  </header>
+  <main>
     <%= yield %>
+  </main>
+    <footer> 
+      <p>&copy; by Anna Seidl & Lena Ebner </p> 
+      <p>I am the footer :) </p>
+    </footer>
   </body>
 </html>

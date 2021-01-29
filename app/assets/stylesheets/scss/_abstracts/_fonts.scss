@@ -1,0 +1,59 @@
+//Font imports 
+
+// Roboto
+@font-face {
+    font-family: 'Roboto';
+    src:  font-url('Roboto/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    }
+@font-face {
+    font-family: 'Roboto';
+    src:  font-url('Roboto/Roboto-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    }
+@font-face {
+    font-family: 'Roboto';
+    src: font-url('Roboto//Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+@font-face {
+    font-family: 'Roboto';
+    src: font-url('Roboto/Roboto-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    }
+@font-face {
+    font-family: 'Roboto';
+    src: font-url('Roboto/Roboto-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    }
+@font-face {
+    font-family: 'Roboto';
+    src: font-url('Roboto/Roboto-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    }
+
+    // Inconsolata
+@font-face {
+    font-family: 'Inconsolata';
+    src: font-url('Inconsolata/Inconsolata-Regular.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    }
+@font-face {
+    font-family: 'Inconsolata';
+    src: font-url('Inconsolata/Inconsolata-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+@font-face {
+    font-family: 'Inconsolata';
+    src: font-url('Inconsolata/Inconsolata-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    }
