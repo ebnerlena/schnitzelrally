@@ -18,5 +18,15 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+window.onload = (e) => {
+    if (window.location.pathname == "/routes/new") {
+        const p = document.querySelector(".input-range_value");
+        let range = document.querySelector(".input-range");
+        p.innerHTML = range.value + " km";
 
-
+        range.oninput = (e) => {
+            range = document.querySelector(".input-range");
+            p.innerHTML = range.value + " km";
+        }
+    }
+}

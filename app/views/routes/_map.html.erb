@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-map">
+        <%= map(:center => {
+            :latlng => [route.latitude, route.longitude],
+            :zoom => 5
+        },
+        # :markers => [
+        #     {
+        #       :latlng => [@route.latitude, @route.longitude]
+        #     }
+        #   ]
+        ) %>
+    </div>
+</div>

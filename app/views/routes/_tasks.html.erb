@@ -1,0 +1,22 @@
+<div class="card">
+    <p><%= route.game_tasks.size %> Aufgaben gesamt</p>
+    
+    <% if route.game_tasks.empty? %>
+        <div class="card-tasks">
+            <p> Du hast noch keine Tasks erstellt.. go wild und erstelle einen </p>
+        </div>
+    <% else %>  
+        <div class="card-tasks">
+            <h3>Deine erstellten Aufgaben</h3>  
+            <ul class="card-tasks_list">
+                <% route.game_tasks.each do | task | %>
+                    <div class="task">
+                        <div class="task-header"> <p class="task-name"><strong><%= task.name %></strong></p> <p> Edit </p> </div>
+                        <p class="task-description"><%= task.description %></p>
+                    </div>
+                <% end %>
+            </ul>
+        </div>    
+    <% end %>   
+    <%= link_to '+', new_route_game_task_path(route.id),  { class: 'btn' } %>
+</div>

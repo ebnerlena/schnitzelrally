@@ -26,14 +26,11 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @game_task.user_id %>
+  <strong>Location:</strong>
+  <%= @game_task.location %>
 </p>
 
-<p>
-  <strong>Users:</strong>
-  <%= @game_task.users_id %>
-</p>
+
 
 <%= link_to 'Edit', edit_game_task_path(@game_task) %> |
-<%= link_to 'Back', game_tasks_path %>
+<%= link_to 'Back', route_game_task_path(@route, @game_task) %>

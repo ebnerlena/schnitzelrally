@@ -1,5 +1,4 @@
-
-<%= form_with(model: game_task, local: true) do |form| %>
+<%= form_with(model: [@route, @game_task], url: route_game_task_path, method: "post", local: true) do |form| %>
   <% if game_task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
@@ -37,15 +36,10 @@
     <%= form.text_field :longitude, :class => 'input-text' %>
   </div>
 
-  <div class="input">
-    <%= form.label :user_id, :class => 'input-label' %>
-    <%= form.text_field :user_id, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label :users_id, :class => 'input-label' %>
-    <%= form.text_field :users_id, :class => 'input-text' %>
-  </div>
+  <%= map(:center => {
+    :latlng => [47.802087, 13.032622],
+    :zoom => 15
+  }) %>
 
   <div class="actions">
     <%= form.submit 'Erstellen', :class => 'btn' %>

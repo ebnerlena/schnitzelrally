@@ -5,43 +5,20 @@
   <%= @route.id %>
 </p>
 
-
 <p>
   <strong>Owner:</strong>
   <%= @route.player_id %>
 </p>
 
+<div class="card">
+  <div class="card-nav"> 
+    <h3 class="card-nav_element">Karte</h3>
+    <h3 class="card-nav_element">Aufgaben</h3>
+  </div>
+    
+  <%= render 'map', route: @route %>
 
-  
-<p>
-  <strong>Latitude:</strong>
-  <%= @route.latitude %>
-</p>
+  <%= render 'tasks', route: @route %>
+</div>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @route.longitude %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @route.location %>
-</p>
-
-<p>
-  <strong>Radius:</strong>
-  <%= @route.radius %>
-</p>
-
-<p>
-  <strong>Start time:</strong>
-  <%= @route.start_time %>
-</p>
-
-<p>
-  <strong>End time:</strong>
-  <%= @route.end_time %>
-</p>
-
-<%= link_to 'Edit', edit_route_path(@route) %> |
 <%= link_to 'Back', routes_path %>

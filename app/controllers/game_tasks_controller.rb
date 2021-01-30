@@ -13,7 +13,12 @@ class GameTasksController < ApplicationController
 
   # GET /game_tasks/new
   def new
-    @game_task = GameTask.new
+    # @player = Player.where(user_id: current_user.id, route_id: params[:route_id]).first
+    
+    # @game_task.player = @player
+    @route = Route.find(params[:route_id])
+    @game_task = GameTask.new(route: @route)
+    @game_task.route_id = @route.id
   end
 
   # GET /game_tasks/1/edit
@@ -23,6 +28,9 @@ class GameTasksController < ApplicationController
   # POST /game_tasks.json
   def create
     @game_task = GameTask.new(game_task_params)
+
+    results = Geocoder.search([@game_task.latitude, @game_task.longitude])
+    @game_task.location = results.first.address
 
     respond_to do |format|
       if @game_task.save
@@ -68,6 +76,6 @@ class GameTasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def game_task_params
-    params.require(:game_task).permit(:name, :description, :hint, :latitude, :longitude, :user_id, :users_id)
+    params.require(:game_task).permit(:name, :description, :hint, :latitude, :longitude)
   end
 end

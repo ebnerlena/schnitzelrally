@@ -32,14 +32,24 @@
         }
 
     }
-    &-range {
-
-    }
 
     &-select {
         &:hover, &:focus {
             box-shadow: 0 0 5px $grey;
         }
+    }
+
+    .input-label_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+    
+        .input-range_value {
+            margin: 0;
+            font-weight: 600;
+        }
+        
     }
 }
 
