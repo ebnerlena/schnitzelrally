@@ -1,3 +1,7 @@
+.button_to,
+.actions {
+    text-align: center;
+}
 
 .btn {
     position: relative;
@@ -14,31 +18,31 @@
     line-height: 1;
     text-align: center;
     text-decoration: none;
-    min-width: 100px;
+    min-width: 180px;
     transition: all .3s ease-in;
     outline: none;
     font-size: 1.5rem;
     -webkit-appearance: none;
     -moz-appearance: none;
-  
+
     &:hover:not(.btn_active),
     &:focus {
-      transform: scale(1.05);
-      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+        transform: scale(1.05);
+        box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
-  }
+}
   
-  .btn_active, .btn:active {
+.btn_active, .btn:active {
     color: transparent;
     transform: scale(0.98);
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  }
-  
-  .btn_disabled, .btn:disabled {
+}
+
+.btn_disabled, .btn:disabled {
     pointer-events: none;
     background: $cardBackground;
-  }
-  
-  .btn_icon {
+}
+
+.btn_icon {
     min-width: 0;
-  }
+}

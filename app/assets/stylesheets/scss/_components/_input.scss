@@ -5,8 +5,8 @@
     margin-bottom: $default_margin;
 
     input, select {
-        width: 15rem;
-        height: 20px;
+        //width: 15rem;
+        height: 22px;
         border-radius: $borderradius;
         -webkit-border-radius: 12px;
         -moz-border-radius: 12px;
@@ -44,17 +44,18 @@
 }
 
 //style range
-input[type=range]{
+input[type=range] {
     -webkit-appearance: none;
-     /* fix for FF unable to apply focus style bug  */
-     border: none; 
-     background: $backgroundColor;
-     /*required for proper track sizing in FF*/
-     width: 15rem;
+    /* fix for FF unable to apply focus style bug  */
+    border: none; 
+    background: $backgroundColor;
+    /*required for proper track sizing in FF*/
+    width: 100%;
+    padding: ($default_padding/2) 0;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-    width: 15rem;
+    //width: 15rem;
     height: 7px;
     background: $cardBackground;
     border: none;
@@ -81,7 +82,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 input[type=range]::-moz-range-track {
-    width: 15rem;
+    //width: 15rem;
     height: 5px;
     background: $cardBackground;
     border: none;
@@ -104,4 +105,13 @@ input[type=range]:-moz-focusring {
 
 input[type=range]:focus::-moz-range-track {
     background: $cardBackground;
+}
+
+.numbering {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+        margin-top: 0;
+    }
 }

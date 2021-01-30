@@ -17,15 +17,11 @@ class RoutesController < ApplicationController
   end
 
   def join
+    @route = Route.last
     render '_form_join'
   end
 
-  def join_route
-    @user = current_user
-    @route = Route.find(123)
-    @route.users.push(@user)
-    render 'index'
-  end
+  def join_route;  end
 
   # GET /routes/1/edit
   def edit; end
@@ -34,10 +30,13 @@ class RoutesController < ApplicationController
   # POST /routes.json
   def create
     @route = Route.new(route_params)
-    @route.user = current_user
+    @route.save
+    
+    @player = Player.new(name: "I am a new Player", user_id: current_user.id, route_id: @route.id)
+    @player.save
+    @route.player_id = @player.id
 
     results = Geocoder.search([@route.latitude, @route.longitude])
-    puts results.first.address
     @route.location = results.first.address
     
     respond_to do |format|
@@ -54,9 +53,15 @@ class RoutesController < ApplicationController
   # PATCH/PUT /routes/1
   # PATCH/PUT /routes/1.json
   def update
+    # gets used as join method now 
+
+    @player = Player.where(user_id: current_or_guest_user.id)
+    @route = Route.find(params[:id])
+    @route.players.push(@player)
+
     respond_to do |format|
       if @route.update(route_params)
-        format.html { redirect_to @route, notice: 'Route was successfully updated.' }
+        format.html { redirect_to @route, notice: 'Joined Route successfully' }
         format.json { render :show, status: :ok, location: @route }
       else
         format.html { render :edit }
@@ -84,7 +89,7 @@ class RoutesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def route_params
-    params.require(:route).permit(:id, :tasks_id, :user_id, :users_id, :latitude, :longitude, :radius, :start_time,
+    params.require(:route).permit(:id, :latitude, :longitude, :radius, :start_time,
                                   :end_time)
   end
 end
