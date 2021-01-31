@@ -3,7 +3,7 @@
     
     <% if route.game_tasks.empty? %>
         <div class="card-tasks">
-            <p> Du hast noch keine Tasks erstellt.. go wild und erstelle einen </p>
+            <p> Du hast noch keine Aufgaben erstellt... go wild und erstelle eine </p>
         </div>
     <% else %>  
         <div class="card-tasks">
@@ -18,5 +18,5 @@
             </ul>
         </div>    
     <% end %>   
-    <%= link_to '+', new_route_game_task_path(route.id),  { class: 'btn' } %>
+    <%= link_to '+', new_game_task_path,  {params: {"game_task"=>{ route_id: route.id }}, class: 'btn' } %>
 </div>
