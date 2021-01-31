@@ -9,16 +9,20 @@ class GameTasksController < ApplicationController
 
   # GET /game_tasks/1
   # GET /game_tasks/1.json
-  def show; end
+  def show
+    @route = Route.last
+  end
 
   # GET /game_tasks/new
   def new
     # @player = Player.where(user_id: current_user.id, route_id: params[:route_id]).first
     
     # @game_task.player = @player
-    @route = Route.find(params[:route_id])
-    @game_task = GameTask.new(route: @route)
+    @route = Route.last
+    # @player = Player.last # where(user_id: current_user.id, route_id: @route.id).first
+    @game_task = GameTask.new()
     @game_task.route_id = @route.id
+    # @game_task.player = @player
   end
 
   # GET /game_tasks/1/edit
@@ -27,7 +31,9 @@ class GameTasksController < ApplicationController
   # POST /game_tasks
   # POST /game_tasks.json
   def create
+
     @game_task = GameTask.new(game_task_params)
+    @game_task.route_id = Route.last.id
 
     results = Geocoder.search([@game_task.latitude, @game_task.longitude])
     @game_task.location = results.first.address

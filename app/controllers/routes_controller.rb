@@ -9,7 +9,9 @@ class RoutesController < ApplicationController
 
   # GET /routes/1
   # GET /routes/1.json
-  def show; end
+  def show
+    @player = Player.last
+  end
 
   # GET /routes/new
   def new

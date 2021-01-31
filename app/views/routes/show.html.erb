@@ -7,7 +7,7 @@
 
 <p>
   <strong>Owner:</strong>
-  <%= @route.player_id %>
+  <%= Player.find(@route.player_id).name %>
 </p>
 
 <div class="card">

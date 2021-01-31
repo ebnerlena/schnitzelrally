@@ -1,4 +1,18 @@
-<%= form_with(model: [@route, @game_task], url: route_game_task_path, method: "post", local: true) do |form| %>
+<% if @route.nil? %>
+  <p> Route is nill </p>
+<% else %>
+
+<p> Route notnil </p>
+<% end %>
+
+<% if @game_task.nil? %>
+  <p> Game task = nil </p>
+  <% else %>
+
+  <p> Game task not nil </p>
+  <% end %>
+
+<%= form_with(model: @game_task, method: "post",  local: true) do |form| %>
   <% if game_task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
@@ -37,8 +51,8 @@
   </div>
 
   <%= map(:center => {
-    :latlng => [47.802087, 13.032622],
-    :zoom => 15
+    :latlng => [@route.latitude, @route.longitude],
+    :zoom => 10
   }) %>
 
   <div class="actions">
