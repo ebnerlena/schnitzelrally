@@ -1,24 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Game Id:</strong>
-  <%= @route.game_id %>
-</p>
-
-<p>
-<%#   <strong> Owner:</strong> %>  
-  <%= Player.find(@route.player_id).name %>
+  <strong>Name:</strong>
+  <%= @route.current_task.name %>
 </p>
 
 <div class="card">
-  <div class="card-nav"> 
-    <h3 class="card-nav_element">Karte</h3>
-    <h3 class="card-nav_element">Aufgaben</h3>
-  </div>
-    
-  <%= render 'map', route: @route %>
-
-  <%= render 'tasks', route: @route %>
+  <p> <%= @route.current_task.hint %> </p>
 </div>
 
-<%= link_to 'Back', routes_path %>
+<%= link_to 'Bin da', routes_path, {class: 'btn' } %>

@@ -41,12 +41,11 @@ class Route < ApplicationRecord
     puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
-  def self.start
+  def start
     update(game_state: 'running')
     save!
-    @current_task_index.plus
-    @current_task = game_tasks.first
     @tasks = game_tasks.clone
+    @current_task = @tasks.first
 
   end
 

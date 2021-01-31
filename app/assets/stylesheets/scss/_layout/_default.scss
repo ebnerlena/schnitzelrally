@@ -2,36 +2,8 @@ body {
     padding: $default_padding;
 
     #map {
-        //width: 90vw;
+        width: 90vw;
         height: 40vh;
         max-width: 500px;
-    }
-
-    .card-nav {
-        display: flex;
-        justify-content: space-between;
-        
-        .card-nav_element {
-            position: relative;
-            display: inline-block;
-            vertical-align: middle;
-            margin: 2%;
-            padding: $default_padding;
-            background: $green;
-            border: none;
-            border-radius: 3px;
-            white-space: none;
-            cursor: pointer;
-            color: $white;
-            line-height: 1;
-            text-align: center;
-            text-decoration: none;
-            min-width: 100px;
-            transition: all .3s ease-in;
-            outline: none;
-            font-size: 1rem;
-            -webkit-appearance: none;
-            -moz-appearance: none;        
-        }
     }
 }

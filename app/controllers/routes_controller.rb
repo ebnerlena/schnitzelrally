@@ -1,5 +1,5 @@
 class RoutesController < ApplicationController
-  before_action :set_route, only: %i[show edit update destroy]
+  before_action :set_route, only: %i[show edit map start update destroy]
 
   # GET /routes
   # GET /routes.json
@@ -13,6 +13,7 @@ class RoutesController < ApplicationController
     @which = 'Tasks'
     @player = @route.players.where(user_id: current_or_guest_user).first
     @tasks = @route.game_tasks.where(player_id: @player.id)
+    render '_tasks'
   end
 
   # GET /routes/new
@@ -33,6 +34,14 @@ class RoutesController < ApplicationController
 
   def map
     @which = 'Map'
+    @player = @route.players.where(user_id: current_or_guest_user).first
+    @tasks = @route.game_tasks.where(player_id: @player.id)
+    render '_map'
+  end
+
+  def start
+    @route.start
+    render 'show'
   end
 
   # GET /routes/1/edit

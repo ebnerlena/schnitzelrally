@@ -1,0 +1,47 @@
+.card-nav {
+    display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+    
+    .card-nav_element {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1.3rem;
+        margin-top: 0;
+        margin: 2%;
+        padding: ($default_padding/1.5) $default_padding;
+        background: $cardBackground;
+        color: $white;
+        border: none;
+        border-radius: 5px;
+        white-space: none;
+        cursor: pointer;
+        line-height: 1;
+        text-align: center;
+        text-decoration: none;
+        min-width: 100px;
+        transition: all .3s ease-in;
+        outline: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;  
+        
+        &:hover:not(.card-nav_element--active) {
+            transform: scale(1.02);
+            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+            background: $brown;
+            filter: saturate(70%)
+        }
+        
+        &--active {
+            background: $green;
+            color: $white;
+            cursor: default;
+        }
+
+        a {
+            text-decoration: none;
+            color: $white;
+        }
+    }
+}

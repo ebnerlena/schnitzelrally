@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     collection do
       get :join
       post :join_route
+      
+    end
+
+    member do 
+      get :map
+      get :start
     end
 
   end
