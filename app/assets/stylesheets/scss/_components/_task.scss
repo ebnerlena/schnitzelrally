@@ -1,0 +1,38 @@
+.card {
+    .card-tasks {
+        margin: 2% 0;
+        padding: $default_padding;
+        background: $cardBackground;
+        border-radius: $borderradius;
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+    
+        .card-tasks_list {
+            padding: 0;
+    
+            .task {
+                margin: 3% 0;
+                padding: $default_padding;
+                background: $white;
+                border-radius: $borderradius;
+        
+                .task-header {
+                    display: flex;
+                    justify-content: space-between;
+    
+                    p {
+                        margin: 0;
+                    }
+                }
+    
+                p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+

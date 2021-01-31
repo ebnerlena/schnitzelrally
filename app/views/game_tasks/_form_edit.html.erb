@@ -1,18 +1,15 @@
-<%= form_with model: [@route, @game_task] do |form| %>
-  <% if game_task.errors.any? %>
+<%= form_with model: [@route, @game_task], url: 'update', method: 'patch' do |form| %>
+  <% if @game_task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
+      <h2><%= pluralize(@game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
 
       <ul>
-        <% game_task.errors.full_messages.each do |message| %>
+        <% @game_task.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
-  <%= form.hidden_field :route_id %>
-  <%= form.hidden_field :player_id %>
 
   <div class="input">
     <%= form.label :name, :class => 'input-label' %>
@@ -40,11 +37,11 @@
   </div>
 
  <%= map(:center => {
-    :latlng => [@route.latitude, @route.longitude],
+    :latlng => [@game_task.latitude, @game_task.longitude],
     :zoom => 10
   }) %> 
 
   <div class="actions">
-    <%= form.submit 'Erstellen', :class => 'btn' %>
+    <%= form.submit 'Updaten', :class => 'btn' %>
   </div>
 <% end %>

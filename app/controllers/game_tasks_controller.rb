@@ -18,29 +18,46 @@ class GameTasksController < ApplicationController
     # @player = Player.where(user_id: current_user.id, route_id: params[:route_id]).first
     
     # @game_task.player = @player
-    @route = Route.last
-    # @player = Player.last # where(user_id: current_user.id, route_id: @route.id).first
+    # @player = current_player
+    @route = Route.find(params[:route_id])
+    @player = Player.where(user_id: current_or_guest_user.id, route_id: @route.id).first
     @game_task = GameTask.new()
     @game_task.route_id = @route.id
+    @game_task.player_id = @player.id
+    # @game_task.route_id = @route.id
     # @game_task.player = @player
   end
 
   # GET /game_tasks/1/edit
-  def edit; end
+  def edit
+    render "_form_edit"
+  end
+
+  def iwas
+    respond_to do |format|
+      if @game_task.update(game_task_params)
+        format.html { redirect_to routes_path(@game_task.route_id), notice: 'Game task was successfully updated.' }
+        format.json { render :show, status: :ok, location: @game_task }
+      else
+        format.html { render :edit }
+        format.json { render json: @game_task.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # POST /game_tasks
   # POST /game_tasks.json
   def create
 
     @game_task = GameTask.new(game_task_params)
-    @game_task.route_id = Route.last.id
+    # @game_task.route_id = Route.last.id
 
     results = Geocoder.search([@game_task.latitude, @game_task.longitude])
     @game_task.location = results.first.address
 
     respond_to do |format|
       if @game_task.save
-        format.html { redirect_to @game_task, notice: 'Game task was successfully created.' }
+        format.html { redirect_to route_path(@game_task.route_id), notice: 'Game task was successfully created.' }
         format.json { render :show, status: :created, location: @game_task }
       else
         format.html { render :new }
@@ -82,6 +99,6 @@ class GameTasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def game_task_params
-    params.require(:game_task).permit(:name, :description, :hint, :latitude, :longitude)
+    params.require(:game_task).permit(:id, :route_id, :player_id, :name, :description, :hint, :latitude, :longitude)
   end
 end

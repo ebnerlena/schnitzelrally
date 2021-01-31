@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 2021_01_30_181113) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "route_id", null: false
+    t.bigint "player_id"
+    t.index ["player_id"], name: "index_game_tasks_on_player_id"
     t.index ["route_id"], name: "index_game_tasks_on_route_id"
   end
 
@@ -72,6 +74,7 @@ ActiveRecord::Schema.define(version: 2021_01_30_181113) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "player_id"
+    t.string "game_state"
     t.index ["player_id"], name: "index_routes_on_player_id"
   end
 
@@ -90,6 +93,7 @@ ActiveRecord::Schema.define(version: 2021_01_30_181113) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "game_tasks", "players"
   add_foreign_key "game_tasks", "routes"
   add_foreign_key "players", "game_tasks", column: "game_tasks_id"
   add_foreign_key "routes", "players"

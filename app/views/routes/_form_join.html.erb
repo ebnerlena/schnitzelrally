@@ -1,13 +1,13 @@
-<%= form_with(model: @route, local: true) do |form| %>
+<%= form_with url: "join_route", method: "post" do |form| %>  # (model: @route, local: true)
 
   <div class="input">
-    <%= form.label :id, :class => 'input-label' %>
-    <%= form.text_field :id, :class => 'input-text' %>
+    <%= form.label :game_id, :class => 'input-label' %>
+    <%= form.text_field :game_id, :class => 'input-text' %>
   </div>
 
    <div class="input">
-    <%= form.label :players, :class => 'input-label' %>
-    <%= form.text_field :players, :class => 'input-text' %>
+    <%= form.label :playername, :class => 'input-label' %>
+    <%= form.text_field :playername, :class => 'input-text' %>
   </div>
 
   <div class="actions">

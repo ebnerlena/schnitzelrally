@@ -10,7 +10,9 @@ class RoutesController < ApplicationController
   # GET /routes/1
   # GET /routes/1.json
   def show
-    @player = Player.last
+    @which = 'Tasks'
+    @player = @route.players.where(user_id: current_or_guest_user).first
+    @tasks = @route.game_tasks.where(player_id: @player.id)
   end
 
   # GET /routes/new
@@ -23,7 +25,15 @@ class RoutesController < ApplicationController
     render '_form_join'
   end
 
-  def join_route;  end
+  def join_route
+    @route = Route.where(game_id: params[:game_id]).first
+    @route.join(current_or_guest_user, params[:playername])
+    redirect_to @route, notice: 'Route was successfully created.'
+  end
+
+  def map
+    @which = 'Map'
+  end
 
   # GET /routes/1/edit
   def edit; end
@@ -31,13 +41,15 @@ class RoutesController < ApplicationController
   # POST /routes
   # POST /routes.json
   def create
+    @player = Player.new(name: "Owner", user_id: current_or_guest_user.id)
+
     @route = Route.new(route_params)
     @route.save
     
-    @player = Player.new(name: "I am a new Player", user_id: current_user.id, route_id: @route.id)
+    @player.route_id=@route.id
     @player.save
+    
     @route.player_id = @player.id
-
     results = Geocoder.search([@route.latitude, @route.longitude])
     @route.location = results.first.address
     
@@ -91,7 +103,6 @@ class RoutesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def route_params
-    params.require(:route).permit(:id, :latitude, :longitude, :radius, :start_time,
-                                  :end_time)
+    params.require(:route).permit(:id, :location, :game_id, :latitude, :longitude, :radius)
   end
 end

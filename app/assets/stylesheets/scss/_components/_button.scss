@@ -25,6 +25,11 @@
     -webkit-appearance: none;
     -moz-appearance: none;
 
+    &.add {
+        font-size: 2rem;
+        min-width: 40px;
+    }
+
     &:hover:not(.btn_active),
     &:focus {
         transform: scale(1.05);

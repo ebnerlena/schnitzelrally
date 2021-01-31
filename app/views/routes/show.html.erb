@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Id:</strong>
-  <%= @route.id %>
+  <strong>Game Id:</strong>
+  <%= @route.game_id %>
 </p>
 
 <p>
-  <strong>Owner:</strong>
+<%#   <strong> Owner:</strong> %>  
   <%= Player.find(@route.player_id).name %>
 </p>
 

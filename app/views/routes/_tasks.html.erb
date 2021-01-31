@@ -1,5 +1,9 @@
 <div class="card">
-    <p><%= route.game_tasks.size %> Aufgaben gesamt</p>
+    <% if route.game_tasks.size==1 %>
+        <p><%= route.game_tasks.size %> Aufgabe gesamt</p>
+    <% else %>
+        <p><%= route.game_tasks.size %> Aufgaben gesamt</p>
+    <% end %>
     
     <% if route.game_tasks.empty? %>
         <div class="card-tasks">
@@ -7,16 +11,19 @@
         </div>
     <% else %>  
         <div class="card-tasks">
-            <h3>Deine erstellten Aufgaben</h3>  
+            <h3>Deine erstellten Aufgaben:</h3>  
             <ul class="card-tasks_list">
                 <% route.game_tasks.each do | task | %>
                     <div class="task">
-                        <div class="task-header"> <p class="task-name"><strong><%= task.name %></strong></p> <p> Edit </p> </div>
+                        <div class="task-header">
+                            <p class="task-name"><strong><%= task.name %></strong></p>
+                            <%= link_to 'Edit', edit_route_game_task_path(route, task) %>
+                        </div>
                         <p class="task-description"><%= task.description %></p>
                     </div>
                 <% end %>
             </ul>
         </div>    
     <% end %>   
-    <%= link_to '+', new_game_task_path,  {params: {"game_task"=>{ route_id: route.id }}, class: 'btn' } %>
+    <%= link_to '+', new_route_game_task_path(route),  {params: {"game_task"=>{ route_id: route.id }}, class: 'btn add' } %>
 </div>
