@@ -5,6 +5,9 @@ class RoutesController < ApplicationController
   # GET /routes.json
   def index
     @routes = Route.all
+    @route = Route.last
+    ActionCable.server.broadcast("Z2lkOi8vcHJvdG90eXBlMDEvUm91dGUvNw", body: "This Room is Best Room.")
+    RouteChannel.broadcast_to(@route, "hiiii")
   end
 
   # GET /routes/1
