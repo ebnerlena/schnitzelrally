@@ -1,5 +1,6 @@
 class GameTasksController < ApplicationController
   before_action :set_game_task, only: %i[show edit update destroy]
+  before_action :set_route
 
   # GET /game_tasks
   # GET /game_tasks.json
@@ -10,7 +11,7 @@ class GameTasksController < ApplicationController
   # GET /game_tasks/1
   # GET /game_tasks/1.json
   def show
-    @route = Route.last
+    # @route = Route.last
   end
 
   # GET /game_tasks/new
@@ -19,7 +20,7 @@ class GameTasksController < ApplicationController
     
     # @game_task.player = @player
     # @player = current_player
-    @route = Route.find(params[:route_id])
+    # @route = Route.find(params[:route_id])
     @player = Player.where(user_id: current_or_guest_user.id, route_id: @route.id).first
     @game_task = GameTask.new()
     @game_task.route_id = @route.id
@@ -30,7 +31,7 @@ class GameTasksController < ApplicationController
 
   # GET /game_tasks/1/edit
   def edit
-    render "_form_edit"
+    # render "_form_edit"
   end
 
   # POST /game_tasks
@@ -57,9 +58,16 @@ class GameTasksController < ApplicationController
   # PATCH/PUT /game_tasks/1
   # PATCH/PUT /game_tasks/1.json
   def update
+    # Rails.logger.warn("ich will ein update machen #{game_task_params}")
+    # @game_task.update(game_task_params)
+    # Rails.logger.warn("aber die errors waren #{@game_task.errors}")
+    # @game_task.errors.full_messages.each do |m|
+    #   Rails.logger.warn(m)
+    # end
+
     respond_to do |format|
       if @game_task.update(game_task_params)
-        format.html { redirect_to @game_task, notice: 'Game task was successfully updated.' }
+        format.html { redirect_to route_path(@route), notice: 'Game task was successfully updated.' }
         format.json { render :show, status: :ok, location: @game_task }
       else
         format.html { render :edit }
@@ -83,6 +91,10 @@ class GameTasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_game_task
     @game_task = GameTask.find(params[:id])
+  end
+
+  def set_route
+    @route = Route.find(params[:route_id])
   end
 
   # Only allow a list of trusted parameters through.

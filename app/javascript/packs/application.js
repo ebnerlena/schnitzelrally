@@ -112,8 +112,8 @@ function addMarker(e) {
 
 function addRadius(lat, long) {
     radius = L.circle([lat, long], {
-        color: '#7f6042',
-        fillColor: '#7f6042',
+        color: '#8ea260',
+        fillColor: '#8ea260',
         fillOpacity: 0.2,
         radius: range.value * 50
     }).addTo(map); 
