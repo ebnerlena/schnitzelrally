@@ -19,6 +19,7 @@ class RoutesController < ApplicationController
   # GET /routes/new
   def new
     @route = Route.new
+    @player = Player.new
   end
 
   def join
@@ -54,11 +55,27 @@ class RoutesController < ApplicationController
   def create
     @player = Player.new(name: "Owner", user_id: current_or_guest_user.id)
 
-    @route = Route.new(route_params)
-    @route.save
+    # not working
+    Rails.logger.warn("Player: #{params[:player_id]}")
+
+
+    @route = Route.new(valid_route_params)
+    ok = @route.save
+    if ! ok 
+      Rails.logger.warn("fehler bei route save!")
+      @route.errors.full_messages.each do |m|
+        Rails.logger.warn(m)
+      end
+    end
     
     @player.route_id=@route.id
-    @player.save
+    ok = @player.save
+    if ! ok 
+      Rails.logger.warn("fehler bei player save!")
+      @player.errors.full_messages.each do |m|
+        Rails.logger.warn(m)
+      end
+    end    
     
     @route.player_id = @player.id
     results = Geocoder.search([@route.latitude, @route.longitude])
@@ -114,6 +131,10 @@ class RoutesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def route_params
+    params.require(:route).permit(:id, :player_id, :location, :game_id, :latitude, :longitude, :radius)
+  end
+
+  def valid_route_params
     params.require(:route).permit(:id, :location, :game_id, :latitude, :longitude, :radius)
   end
 end

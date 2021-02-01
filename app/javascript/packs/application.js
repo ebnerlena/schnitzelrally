@@ -17,17 +17,13 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-var map, lngInput, latInput, range, radius;
+let map, lngInput, latInput, range, radius;
 
 var schnitzelIcon = L.icon({
     iconUrl: '/marker.png',
 
     iconSize:     [50, 50]
 });
-
-// window.onload = (e) => {
-//     render();
-// }
 
 render = () => {
 
@@ -43,6 +39,8 @@ render = () => {
         range.oninput = (e) => {
             range = document.querySelector(".input-range");
             p.innerHTML = range.value + " km";
+            radius.setRadius(range.value * 100);
+            radius.redraw();
         }
         map.locate({setView: true, maxZoom: 16});
 
@@ -52,7 +50,10 @@ render = () => {
         
         lngInput = document.querySelector('#route_longitude');
         latInput = document.querySelector('#route_latitude');
-        map.once("click", addMarker);
+        map.once("click", function(e) {
+            addMarker(e);
+            addRadius(e);
+        });
         map.on('locationerror', onLocationError);
     }
     else if (path.endsWith("map")) {
@@ -63,12 +64,9 @@ render = () => {
 
         setUpMap();
         addViewToMap();
-
         lngInput = document.querySelector('#game_task_longitude');
         latInput = document.querySelector('#game_task_latitude');
-
         map.once("click", addMarker);
-    
     }
 }
 
@@ -88,14 +86,16 @@ addViewToMap = () => {
     map.setView([lat, long], 13);
 }
 
-document.addEventListener('DOMContentLoaded', render);
-
 function changeLatLngInput(e) {
     lngInput.value = e.target._latlng.lng;
     latInput.value = e.target._latlng.lat;
-    radius._latlng.lat = e.target._latlng.lat;
-    radius._latlng.lng = e.target._latlng.lng;
-    console.log(radius);
+
+    let path = window.location.pathname;
+    
+    if (path == "/routes/new") {
+        radius.setLatLng([e.target._latlng.lat, e.target._latlng.lng]);
+        radius.redraw();
+    }
 }
 
 function addLatLngInput(e) {
@@ -106,15 +106,16 @@ function addLatLngInput(e) {
 function addMarker(e) {
     let marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: schnitzelIcon, draggable: true}).addTo(map);
     addLatLngInput(e);
-    addRadius(e.latlng.lat, e.latlng.lng);
     marker.on("moveend", changeLatLngInput);
 }
 
-function addRadius(lat, long) {
-    radius = L.circle([lat, long], {
+function addRadius(e) {
+    radius = L.circle([e.latlng.lat, e.latlng.lng], {
         color: '#8ea260',
         fillColor: '#8ea260',
         fillOpacity: 0.2,
-        radius: range.value * 50
+        radius: range.value * 100
     }).addTo(map); 
 }
+
+document.addEventListener("turbolinks:load", render);

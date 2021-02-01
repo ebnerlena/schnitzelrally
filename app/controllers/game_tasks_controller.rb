@@ -11,7 +11,6 @@ class GameTasksController < ApplicationController
   # GET /game_tasks/1
   # GET /game_tasks/1.json
   def show
-    # @route = Route.last
   end
 
   # GET /game_tasks/new
@@ -30,9 +29,7 @@ class GameTasksController < ApplicationController
   end
 
   # GET /game_tasks/1/edit
-  def edit
-    # render "_form_edit"
-  end
+  def edit;  end
 
   # POST /game_tasks
   # POST /game_tasks.json

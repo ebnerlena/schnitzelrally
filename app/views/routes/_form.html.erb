@@ -17,6 +17,11 @@
   </div>
 
   <div class="input">
+    <%= form.label :player_id, :class => 'input-label' %>
+    <%= form.text_field :player_id, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
     <%= form.label :latitude, :class => 'input-label' %>
     <%= form.text_field :latitude, :class => 'input-text' %>
   </div>
@@ -46,6 +51,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit 'Route  erstellen', :class => 'btn' %>
+    <%= form.submit 'Route erstellen', :class => 'btn' %>
   </div>
 <% end %>

@@ -5,12 +5,13 @@
     
     .card-nav_element {
         position: relative;
-        display: inline-block;
+        display: flex;
+        justify-content: center;
         vertical-align: middle;
         font-size: 1.3rem;
         margin-top: 0;
         margin: 2%;
-        padding: ($default_padding/1.5) $default_padding;
+        padding: 0;
         background: $backgroundColor2;
         color: $white;
         border: none;
@@ -37,11 +38,17 @@
             background: $primaryColor;
             color: $white;
             cursor: default;
+            padding: ($default_padding/1.5) $default_padding;
         }
 
         a {
             text-decoration: none;
             color: $white;
+            width: 100%;
+            height: 100%;
+            padding: ($default_padding/1.5) $default_padding;
+            display: block;
+            min-width: 100px;
         }
     }
 }
