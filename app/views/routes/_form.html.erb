@@ -31,10 +31,7 @@
     <%= form.text_field :location, :class => 'input-text' %>
   </div>
 
-  <%= map(:center => {
-  :latlng => [47.802087, 13.032622],
-  :zoom => 15
-  }) %>
+  <div id="map"> </div>
 
   <div class="input">
     <div class="input-label_container and some more ">
@@ -49,6 +46,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit 'Route erstellen', :class => 'btn' %>
+    <%= form.submit 'Route  erstellen', :class => 'btn' %>
   </div>
 <% end %>

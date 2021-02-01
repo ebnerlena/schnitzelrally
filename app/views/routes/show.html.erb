@@ -1,12 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @route.current_task.name %>
-</p>
-
 <div class="card">
+  <p>
+    <strong>Name:</strong>
+    <%= @route.current_task.name %>
+  </p>
   <p> <%= @route.current_task.hint %> </p>
+  <%= link_to 'Bin da', routes_path, {class: 'btn' } %>
 </div>
-
-<%= link_to 'Bin da', routes_path, {class: 'btn' } %>

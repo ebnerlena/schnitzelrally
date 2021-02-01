@@ -33,18 +33,6 @@ class GameTasksController < ApplicationController
     render "_form_edit"
   end
 
-  def iwas
-    respond_to do |format|
-      if @game_task.update(game_task_params)
-        format.html { redirect_to routes_path(@game_task.route_id), notice: 'Game task was successfully updated.' }
-        format.json { render :show, status: :ok, location: @game_task }
-      else
-        format.html { render :edit }
-        format.json { render json: @game_task.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # POST /game_tasks
   # POST /game_tasks.json
   def create

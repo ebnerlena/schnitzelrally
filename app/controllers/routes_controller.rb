@@ -41,6 +41,8 @@ class RoutesController < ApplicationController
 
   def start
     @route.start
+    @player = @route.players.where(user_id: current_or_guest_user).first
+    @tasks = @route.game_tasks.where(player_id: @player.id)
     render 'show'
   end
 

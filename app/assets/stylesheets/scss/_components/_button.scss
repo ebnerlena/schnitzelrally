@@ -9,7 +9,7 @@
     vertical-align: middle;
     margin: 2%;
     padding: $default_padding;
-    background: $brown;
+    background: $accentColor;
     border: none;
     border-radius: $borderradius;
     white-space: none;
@@ -25,28 +25,33 @@
     -webkit-appearance: none;
     -moz-appearance: none;
 
+    &--disabled {
+        background: $backgroundColor2;
+        color: $white;
+    }
+
     &.add {
         font-size: 2rem;
         min-width: 40px;
         text-align: center;
     }
 
-    &:hover:not(.btn_active),
+    &:hover:not(.btn--active), &:hover:not(.btn--disabled),
     &:focus {
         transform: scale(1.05);
         box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
 }
   
-.btn_active, .btn:active {
+.btn--active, .btn:active {
     color: transparent;
     transform: scale(0.98);
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-.btn_disabled, .btn:disabled {
+.btn--disabled, .btn:disabled {
     pointer-events: none;
-    background: $cardBackground;
+    background: $backgroundColor2;
 }
 
 .btn_icon {

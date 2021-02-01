@@ -1,8 +1,19 @@
 .card-tasks {
     margin: 2% 0;
     padding: $default_padding;
-    background: $cardBackground;
+    background: $backgroundColor2;
     border-radius: $borderradius;
+    width: 80vw;
+    height: 60vh;
+
+    @include tablet {
+        width: 60vw;
+    }
+
+    @include desktop {
+        width: 50vw;
+        @include maxwidthcontainer;
+    }
     
     .card-tasks_list {
         padding: 0;

@@ -11,7 +11,7 @@
         margin-top: 0;
         margin: 2%;
         padding: ($default_padding/1.5) $default_padding;
-        background: $cardBackground;
+        background: $backgroundColor2;
         color: $white;
         border: none;
         border-radius: 5px;
@@ -29,12 +29,12 @@
         &:hover:not(.card-nav_element--active) {
             transform: scale(1.02);
             box-shadow: 0 0 8px rgba(0,0,0,0.3);
-            background: $brown;
+            background: $accentColor;
             filter: saturate(70%)
         }
         
         &--active {
-            background: $green;
+            background: $primaryColor;
             color: $white;
             cursor: default;
         }

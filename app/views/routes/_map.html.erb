@@ -5,16 +5,11 @@
     </div>
 
     <div class="card-map">
-        <%= map(:center => {
-            :latlng => [@route.latitude, @route.longitude],
-            :zoom => 5
-        },
-        # :markers => [
-            #     {
-                #       :latlng => [@route.latitude, @route.longitude]
-        #     }
-        #   ]
-        ) %>
+        <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
     </div>
-    <%= link_to 'Start', start_route_path(@route),  {params: {"route"=>{ route_id: @route.id }}, class: 'btn' } %>
+    <% if @route.game_tasks.empty? #(@route.player_id != @player.id) && %> 
+        <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>
+    <% else %>
+        <%= link_to 'Start', start_route_path(@route), { class: 'btn' } %>
+    <% end %>
 </div>

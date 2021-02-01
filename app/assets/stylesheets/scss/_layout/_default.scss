@@ -1,5 +1,14 @@
 body {
-    padding: $default_padding;
+    padding:  $default_padding/2;
+    transition: padding 0.2s ease-in;
+
+    @include tablet {
+        padding: $default_padding;
+    }
+
+    @include desktop {
+        padding: $default_padding $default_padding*2;
+    }
 
     #map {
         width: 90vw;

@@ -1,7 +1,7 @@
 html {
     font-size: 16px;
     font-family: $roboto, 'sans-serif';
-    color: $grey;
+    color: $secondaryColor;
 
     h1 {
         font-family: $inconsolata, $roboto, 'sans-serif';
@@ -24,6 +24,11 @@ html {
     p {
         font-family: $roboto, 'sans-serif';
         font-size: $p_font_size;
+    }
+
+    a {
+        color: $accentColor;
+        text-decoration: none;
     }
 
 }

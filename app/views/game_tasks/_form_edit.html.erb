@@ -36,10 +36,7 @@
     <%= form.text_field :longitude, :class => 'input-text' %>
   </div>
 
- <%= map(:center => {
-    :latlng => [@game_task.latitude, @game_task.longitude],
-    :zoom => 10
-  }) %> 
+  <div id="map" data-lat="<%= @game_task.latitude %>" data-long="<%= @game_task.longitude %>"> </div>
 
   <div class="actions">
     <%= form.submit 'Updaten', :class => 'btn' %>
