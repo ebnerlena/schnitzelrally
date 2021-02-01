@@ -1,4 +1,5 @@
 class Route < ApplicationRecord
+  #belongs_to :player
   has_many :game_tasks
   has_many :players
   geocoded_by :location

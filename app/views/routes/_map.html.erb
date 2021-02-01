@@ -7,6 +7,10 @@
     <div class="card-map">
         <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
     </div>
+
+    <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
+    <% end %>
+
     <% if @route.game_tasks.empty? #(@route.player_id != @player.id) && %> 
         <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>
     <% else %>
