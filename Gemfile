@@ -12,6 +12,9 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 gem 'devise'
 gem 'devise-guests'
 
+# use redis adapter to run Action Cable in prodcutin
+gem 'redis', '~> 4.0'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 
