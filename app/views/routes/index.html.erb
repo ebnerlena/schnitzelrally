@@ -1,11 +1,16 @@
-<p id="notice"><%= notice %></p>
+<% content_for :nav do %>
+  <%= render 'layouts/nav_home' %>
+<% end %>
 
 <div class="card">
-
-    <h2>Griasti zur "SchnitzelRally"</h2>
-    <p>Starte eine neue Route oder tritt mit einer SpielID einer bestehenden Route bei. </p>
-
+  <div class="card-home">
+  <section class="intro">
+    <h2 class="intro_title">Griasti zur <span>SchnitzelRally</span></h2>
+    <p class="intro_text">Starte eine neue Route oder tritt mit einer SpielID einer bestehenden Route bei. </p>
+  </section>
+  <section class="buttons">
     <%= button_to 'New Route', new_route_path, { method: "get", class: 'btn' }  %>
-
     <%= button_to 'Join a Route', join_routes_path, { method: "get", class: 'btn' } %>
+  </section>
+  </div>
 </div>

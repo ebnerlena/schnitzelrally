@@ -39,7 +39,12 @@ class RoutesController < ApplicationController
   def map
     @which = 'Map'
     @player = @route.players.where(user_id: current_or_guest_user).first
-    @tasks = @route.game_tasks.where(player_id: @player.id)
+
+    @tasks = []
+    @route.game_tasks.where(player_id: @player.id).each do |task|
+      @tasks += ["latitude" => task.latitude, "longitude" => task.longitude]
+    end
+
     render '_map'
   end
 

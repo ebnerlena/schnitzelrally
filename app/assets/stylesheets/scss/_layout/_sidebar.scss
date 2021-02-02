@@ -1,0 +1,83 @@
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: 150px;
+    top: 0px;
+    right: 0;
+    background-color: $white;
+    padding: $default_padding;
+    padding-top: 100px;
+    z-index: 3;
+    margin: 0;
+    list-style: none;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    transition: .5s;
+    -webkit-transform: translate(-150px, 0);
+    transform: translate(-150px, 0px);
+
+    @include tablet {
+        width: 200px;
+    }
+
+    @include desktop {
+        width: 300px;
+    }
+
+    li {
+
+        padding-top: $default_padding;
+        padding-bottom: $default_padding;
+
+        &:last-child {
+            bottom: 150px;
+            position: absolute;
+        }
+    }
+
+    &.open {
+        display: flex;
+        right: 0;
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+.sidebar_trigger {
+    display: inline-block;
+    cursor: pointer;
+
+    div {
+        width: 25px;
+        height: 2px;
+        background-color: $white;
+        margin: 6px 0;
+        transition: 0.4s;  
+        border-radius: 1px;     
+    }
+
+    &.open {
+        div:first-child {
+            -webkit-transform: rotate(-45deg) translate(-5px, 7px) ;
+            transform: rotate(-45deg) translate(-5px, 7px) ;
+        }
+
+        div:nth-child(2) {
+            opacity: 0;
+        }
+
+        div:last-child {
+            -webkit-transform: rotate(45deg) translate(-4px, -6px) ;
+            transform: rotate(45deg) translate(-4px, -6px) ;
+        }
+    }   
+
+    &:hover {
+        transform: scale(1.02);
+    }
+
+    &__hidden {
+        visibility: hidden;
+    }
+}

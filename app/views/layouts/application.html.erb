@@ -17,14 +17,13 @@
 
   <body>
   <header>
-    <h1>SchnitzelRally</h1>
-    <nav> 
-        <%= render_login %> 
-        <%= render_logout %>
-        <%# start without authentication #%>
+    <nav class="nav"> 
+      <%= yield :nav %>
     </nav>
+   <%= render 'layouts/sidebar' %>
+
   </header>
-  <main>
+  <main class="content">
     <%= yield %>
   </main>
     <footer> 

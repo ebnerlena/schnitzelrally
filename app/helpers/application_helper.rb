@@ -1,17 +1,9 @@
 module ApplicationHelper
-  def render_login
-    if user_signed_in?
-      'Logged in with ' + current_user.email
-    else
-      'No Login'
-    end
-  end
 
-  def render_logout
-    if user_signed_in?
-      link_to 'Logout', destroy_user_session_path, method: :delete
-    else
-      ' '
+  def display_svg(filename)
+    File.open("app/assets/images/#{filename}.svg", 'rb') do |file|
+      raw file.read
     end
   end
+  
 end

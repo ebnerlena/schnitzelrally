@@ -1,0 +1,12 @@
+<ul class="sidebar">
+    <li> Avatar</li>
+    <li> <%= link_to "Home", routes_path %> </li>
+    <% if user_signed_in? %> 
+        <li> Routen </li>
+        <li> Aufgaben </li>
+        <li> Einstellungen </li>
+        <li> <%= link_to "Logout", logout_path %> </li>
+    <% else %>
+        <li> <%= link_to "Login", new_user_session_path %> </li>
+    <% end %>
+</ul>

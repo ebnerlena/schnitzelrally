@@ -1,5 +1,7 @@
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_create_route', locals: {title: "Route erstellen"} %>
+<% end %>
+
 <h2>Route erstellen</h2>
 
 <%= render 'form', route: @route %>
-
-<%= link_to 'Back', routes_path %>

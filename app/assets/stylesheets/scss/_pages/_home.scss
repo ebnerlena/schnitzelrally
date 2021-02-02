@@ -1,0 +1,31 @@
+.card-home {
+    height: 75vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .intro {
+
+        .intro_title {
+
+            span {
+                text-transform: uppercase;
+                font-weight: 800;
+                font-size: 1.8rem;
+            }
+        }
+
+        .intro_text {
+            margin-top: $default_margin*2;
+            line-height: 1.5;
+        }
+    }
+
+    .buttons {
+        .button_to {
+            margin-top: $default_margin;
+            margin-bottom: $default_margin;
+        }
+    }
+}

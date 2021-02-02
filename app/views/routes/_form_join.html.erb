@@ -1,4 +1,10 @@
-<%= form_with url: "join_route", method: "post" do |form| %>  # (model: @route, local: true)
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_create_route', locals: {title: "Route beitreten"} %>
+<% end %>
+
+<h2>Route beitreten</h2>
+
+<%= form_with url: "join_route", method: "post" do |form| %>
 
   <div class="input">
     <%= form.label :game_id, :class => 'input-label' %>

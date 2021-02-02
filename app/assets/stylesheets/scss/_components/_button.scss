@@ -3,6 +3,16 @@
     text-align: center;
 }
 
+.actions {
+    padding: ($default_padding)/2;
+
+    input {
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+        white-space: normal;
+    }
+}
+
 .btn {
     position: relative;
     display: inline-block;

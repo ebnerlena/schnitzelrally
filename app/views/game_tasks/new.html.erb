@@ -1,2 +1,6 @@
+<% content_for :nav do %>
+  <%= render 'layouts/nav_in_route' %>
+<% end %>
+
 <h1>New Game Task</h1>
 <%= render 'form', game_task: @game_task %>

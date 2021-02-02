@@ -20,8 +20,11 @@ render = () => {
         range.oninput = (e) => {
             range = document.querySelector(".input-range");
             p.innerHTML = range.value + " km";
-            radius.setRadius(range.value * 100);
-            radius.redraw();
+
+            if(radius != null) {
+                radius.setRadius(range.value * 1100);
+                radius.redraw();
+            }
         }
         map.locate({setView: true, maxZoom: 16});
 
@@ -44,7 +47,6 @@ render = () => {
         let tasks = document.querySelector("#tasks").dataset.tasks;
         tasks = JSON.parse(tasks);
         tasks.forEach(task => L.marker([task.latitude, task.longitude], {icon: schnitzelIcon}).addTo(map));
-
     } 
     else if (path.endsWith("game_tasks/new") || path.endsWith("edit")) {
 
@@ -100,7 +102,7 @@ function addRadius(e) {
         color: '#8ea260',
         fillColor: '#8ea260',
         fillOpacity: 0.2,
-        radius: range.value * 100
+        radius: range.value * 1100
     }).addTo(map); 
 }
 

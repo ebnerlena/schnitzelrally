@@ -1,0 +1,22 @@
+<ul class="nav_header">
+    <li class="nav_header_left">
+        <a href="/" class="logo_link" alt="Logo" >
+            <%= display_svg("logo") %>
+        </a>
+    </li>
+    <li class="nav_header_right">
+    <% if user_signed_in? %> 
+        <%= link_to "Logout", logout_path %> 
+    
+    <% else %>
+     <%= link_to "Login", new_user_session_path %> 
+    <% end %>
+    
+        <div class="sidebar_trigger sidebar_trigger__hidden">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </li>
+</ul>
+

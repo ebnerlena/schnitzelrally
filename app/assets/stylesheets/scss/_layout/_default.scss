@@ -1,18 +1,22 @@
-body {
+main {
     padding:  $default_padding/2;
     transition: padding 0.2s ease-in;
+    padding-top: 80px;
 
     @include tablet {
         padding: $default_padding;
+        padding-top: 80px;
     }
 
     @include desktop {
         padding: $default_padding $default_padding*2;
+        padding-top: 80px;
     }
 
     #map {
-        width: 90vw;
+        //width: 90vw;
         height: 40vh;
         max-width: 500px;
+        z-index: 1;
     }
 }

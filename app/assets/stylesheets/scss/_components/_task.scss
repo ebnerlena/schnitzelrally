@@ -7,11 +7,11 @@
     height: 60vh;
 
     @include tablet {
-        width: 60vw;
+        width: 70vw;
     }
 
     @include desktop {
-        width: 50vw;
+        width: 60vw;
         @include maxwidthcontainer;
     }
     

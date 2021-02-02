@@ -1,3 +1,7 @@
+<% content_for :nav do %>
+  <%= render 'layouts/nav_in_route' %>
+<% end %>
+
 <div class="card">
     <div class="card-nav"> 
         <h3 class="card-nav_element card-nav_element--active"><%= link_to_unless_current "Karte", map_route_path %></h3>
@@ -11,9 +15,9 @@
     <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
     <% end %>
 
-    <% if @route.game_tasks.empty? #(@route.player_id != @player.id) && %> 
-        <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>
-    <% else %>
+    <% if (@route.player_id == @player.id) && !(@route.game_tasks.empty?) %> 
         <%= link_to 'Start', start_route_path(@route), { class: 'btn' } %>
+    <% else %>
+        <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>
     <% end %>
 </div>

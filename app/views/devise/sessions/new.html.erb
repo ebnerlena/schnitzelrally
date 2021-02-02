@@ -1,3 +1,6 @@
+<% content_for :nav do %>
+  <%= render 'layouts/nav_login' %>
+<% end %>
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -12,7 +15,7 @@
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="input">
+    <div class="input input-remember">
       <%= f.check_box :remember_me, :class => 'input-checkbox' %>
       <%= f.label :remember_me, :class => 'input-label' %>
     </div>

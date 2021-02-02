@@ -6,20 +6,20 @@
   }
   
   @mixin mobile-landscape {
-    @media (max-height: 500px) {
+    @media (max-height: 700px) {
       @content;
     }
   }
 
   @mixin tablet {
-    @media (min-width: 540px) and (max-width: 1100px){
+    @media (min-width: 700px) and (max-width: 1100px){
       @content;
     }
   }
 
   
   @mixin mobile {
-    @media (max-width: 540px) {
+    @media (max-width: 700px) {
       @content;
     }
   }
@@ -30,5 +30,5 @@
   }
 
   @mixin maxwidthcontainer {
-    max-width: 20rem;
+    max-width: 50rem;
   }
