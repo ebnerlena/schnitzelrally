@@ -1,9 +1,10 @@
 let map, lngInput, latInput, range, radius;
 
-var schnitzelIcon = L.icon({
-    iconUrl: '/marker.png',
+var markerIcon = L.icon({
+    iconUrl: '/location-pin.svg',
 
-    iconSize:     [50, 50]
+    iconSize:     [50, 50],
+    iconAnchor:   [25, 50]    
 });
 
 render = () => {
@@ -46,7 +47,7 @@ render = () => {
 
         let tasks = document.querySelector("#tasks").dataset.tasks;
         tasks = JSON.parse(tasks);
-        tasks.forEach(task => L.marker([task.latitude, task.longitude], {icon: schnitzelIcon}).addTo(map));
+        tasks.forEach(task => L.marker([task.latitude, task.longitude], {icon: markerIcon}).addTo(map));
     } 
     else if (path.endsWith("game_tasks/new") || path.endsWith("edit")) {
 
@@ -92,15 +93,15 @@ function addLatLngInput(e) {
 }
 
 function addMarker(e) {
-    let marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: schnitzelIcon, draggable: true}).addTo(map);
+    let marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: markerIcon, draggable: true}).addTo(map);
     addLatLngInput(e);
     marker.on("moveend", changeLatLngInput);
 }
 
 function addRadius(e) {
     radius = L.circle([e.latlng.lat, e.latlng.lng], {
-        color: '#8ea260',
-        fillColor: '#8ea260',
+        color: '#707070',
+        fillColor: '#707070',
         fillOpacity: 0.2,
         radius: range.value * 1100
     }).addTo(map); 
