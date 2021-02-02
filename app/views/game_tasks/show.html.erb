@@ -1,36 +1,15 @@
-<p id="notice"><%= notice %></p>
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{@route.name}"} %>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @game_task.name %>
-</p>
+<div class="card">
+  <p>
+    Name: <%= @game_task.name %>
+  </p>
+  <p> <%= @game_task.hint %> </p>
+  
 
-<p>
-  <strong>Description:</strong>
-  <%= @game_task.description %>
-</p>
+  <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
 
-<p>
-  <strong>Hint:</strong>
-  <%= @game_task.hint %>
-</p>
-
-<p>
-  <strong>Latitude:</strong>
-  <%= @game_task.latitude %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @game_task.longitude %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @game_task.location %>
-</p>
-
-
-
-<%= link_to 'Edit', edit_game_task_path(@game_task) %> |
-<%= link_to 'Back', route_path(@route) %>
+  <%= link_to 'Bin da', routes_path, {class: 'btn' } %>
+</div>

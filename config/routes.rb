@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :game_tasks
      
     collection do
-      get :join
+      post :join
       post :join_route
       
     end

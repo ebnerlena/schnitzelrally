@@ -1,0 +1,2 @@
+class PhhotoUpload < GameTask
+end

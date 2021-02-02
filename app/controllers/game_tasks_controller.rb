@@ -15,17 +15,8 @@ class GameTasksController < ApplicationController
 
   # GET /game_tasks/new
   def new
-    # @player = Player.where(user_id: current_user.id, route_id: params[:route_id]).first
-    
-    # @game_task.player = @player
-    # @player = current_player
-    # @route = Route.find(params[:route_id])
-    @player = Player.where(user_id: current_or_guest_user.id, route_id: @route.id).first
-    @game_task = GameTask.new()
-    @game_task.route_id = @route.id
-    @game_task.player_id = @player.id
-    # @game_task.route_id = @route.id
-    # @game_task.player = @player
+    @user = current_or_guest_user
+    @game_task = @route.user.game_tasks.new()
   end
 
   # GET /game_tasks/1/edit
@@ -35,8 +26,8 @@ class GameTasksController < ApplicationController
   # POST /game_tasks.json
   def create
 
-    @game_task = GameTask.new(game_task_params)
-    # @game_task.route_id = Route.last.id
+    @game_task = @route.user.game_tasks.create(game_task_params)
+    @game_task.route_id = @route.id
 
     results = Geocoder.search([@game_task.latitude, @game_task.longitude])
     @game_task.location = results.first.address
@@ -55,13 +46,6 @@ class GameTasksController < ApplicationController
   # PATCH/PUT /game_tasks/1
   # PATCH/PUT /game_tasks/1.json
   def update
-    # Rails.logger.warn("ich will ein update machen #{game_task_params}")
-    # @game_task.update(game_task_params)
-    # Rails.logger.warn("aber die errors waren #{@game_task.errors}")
-    # @game_task.errors.full_messages.each do |m|
-    #   Rails.logger.warn(m)
-    # end
-
     respond_to do |format|
       if @game_task.update(game_task_params)
         format.html { redirect_to route_path(@route), notice: 'Game task was successfully updated.' }
@@ -96,6 +80,6 @@ class GameTasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def game_task_params
-    params.require(:game_task).permit(:id, :route_id, :player_id, :name, :description, :hint, :latitude, :longitude)
+    params.require(:game_task).permit(:id, :name, :description, :hint, :latitude, :longitude)
   end
 end

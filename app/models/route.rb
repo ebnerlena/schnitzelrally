@@ -1,7 +1,7 @@
 class Route < ApplicationRecord
-  #belongs_to :player
-  has_many :game_tasks
-  has_many :players
+  belongs_to :user
+  has_many :users
+  has_many :game_tasks, :dependent => :destroy
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
 
@@ -47,11 +47,10 @@ class Route < ApplicationRecord
     save!
     @tasks = game_tasks.clone
     @current_task = @tasks.first
-
   end
 
-  def join(user, name)
-    players.create(name: name , user: user)
+  def join(user)
+    user.ro
     save!
   end
 

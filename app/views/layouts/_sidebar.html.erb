@@ -1,7 +1,9 @@
 <ul class="sidebar">
     <li> Avatar</li>
+    
     <li> <%= link_to "Home", routes_path %> </li>
     <% if user_signed_in? %> 
+    <li> <%= current_user.name << current_user.id %> </li>
         <li> Routen </li>
         <li> Aufgaben </li>
         <li> Einstellungen </li>

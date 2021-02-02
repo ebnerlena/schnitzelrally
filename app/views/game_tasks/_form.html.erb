@@ -11,21 +11,10 @@
     </div>
   <% end %>
 
-  <%= form.hidden_field :route_id %>
-  <%= form.hidden_field :player_id %>
-
+  <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+  
   <div class="input">
-    <%= form.label :name, :class => 'input-label' %>
-    <%= form.text_field :name, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label :description, :class => 'input-label' %>
-    <%= form.text_field :description, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label :hint, :class => 'input-label' %>
+    <%= form.label 'Ortshinweis', :class => 'input-label' %>
     <%= form.text_field :hint, :class => 'input-text' %>
   </div>
 
@@ -39,7 +28,25 @@
     <%= form.text_field :longitude, :class => 'input-text' %>
   </div>
 
-  <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+  <div> Aufgabe hinzufügen <%= MultipleChoice.to_s %> </div> 
+  <div> Aufgabe hinzufügen <%= TrueFalse.to_s %> </div> 
+  <div> Aufgabe hinzufügen <%= TextInput.to_s %> </div> 
+  <div> Aufgabe hinzufügen <%= PhotoUpload.to_s %> </div> 
+
+  <div class="input">
+    <%= form.label :name, :class => 'input-label' %>
+    <%= form.text_field :name, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label 'Frage', :class => 'input-label' %>
+    <%= form.text_field :description, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
+    <%= form.label "Antwort(en)", :class => 'input-label' %>
+    <%= form.text_field :answer, :class => 'input-text' %>
+  </div>
 
   <div class="actions">
     <%= form.submit 'Erstellen', :class => 'btn' %>

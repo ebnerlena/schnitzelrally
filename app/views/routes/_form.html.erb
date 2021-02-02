@@ -12,13 +12,8 @@
   <% end %>
 
   <div class="input">
-    <%= form.label :game_id, :class => 'input-label' %>
-    <%= form.text_field :game_id, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label :player_id, :class => 'input-label' %>
-    <%= form.text_field :player_id, :class => 'input-text' %>
+    <%= form.label :name, :class => 'input-label' %>
+    <%= form.text_field :name, :class => 'input-text' %>
   </div>
 
   <div class="input">
@@ -29,11 +24,6 @@
   <div class="input">
     <%= form.label :longitude, :class => 'input-label' %>
     <%= form.text_field :longitude, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label :location, :class => 'input-label' %>
-    <%= form.text_field :location, :class => 'input-text' %>
   </div>
 
   <div id="map"> </div>

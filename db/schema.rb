@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_30_181113) do
+ActiveRecord::Schema.define(version: 2021_02_02_220357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,43 +43,39 @@ ActiveRecord::Schema.define(version: 2021_01_30_181113) do
     t.float "latitude"
     t.float "longitude"
     t.string "location"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "route_id", null: false
-    t.bigint "player_id"
-    t.index ["player_id"], name: "index_game_tasks_on_player_id"
+    t.string "type"
+    t.json "answers"
+    t.string "solution"
     t.index ["route_id"], name: "index_game_tasks_on_route_id"
-  end
-
-  create_table "players", force: :cascade do |t|
-    t.string "name"
-    t.bigint "user_id"
-    t.bigint "route_id"
-    t.bigint "game_tasks_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_tasks_id"], name: "index_players_on_game_tasks_id"
-    t.index ["route_id"], name: "index_players_on_route_id"
-    t.index ["user_id"], name: "index_players_on_user_id"
+    t.index ["user_id"], name: "index_game_tasks_on_user_id"
   end
 
   create_table "routes", force: :cascade do |t|
-    t.string "game_id"
+    t.string "name"
     t.float "latitude"
     t.float "longitude"
     t.string "location"
     t.integer "radius"
+    t.string "game_state"
     t.datetime "start_time"
     t.datetime "end_time"
+    t.bigint "user_id", null: false
+    t.bigint "users_id"
+    t.bigint "game_tasks_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "player_id"
-    t.string "game_state"
-    t.index ["player_id"], name: "index_routes_on_player_id"
+    t.index ["game_tasks_id"], name: "index_routes_on_game_tasks_id"
+    t.index ["name"], name: "index_routes_on_name", unique: true
+    t.index ["user_id"], name: "index_routes_on_user_id"
+    t.index ["users_id"], name: "index_routes_on_users_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username", default: ""
+    t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -88,13 +84,23 @@ ActiveRecord::Schema.define(version: 2021_01_30_181113) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "guest", default: false
+    t.bigint "routes_id"
+    t.bigint "route_id"
+    t.bigint "game_tasks_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["game_tasks_id"], name: "index_users_on_game_tasks_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["route_id"], name: "index_users_on_route_id"
+    t.index ["routes_id"], name: "index_users_on_routes_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "game_tasks", "players"
   add_foreign_key "game_tasks", "routes"
-  add_foreign_key "players", "game_tasks", column: "game_tasks_id"
-  add_foreign_key "routes", "players"
+  add_foreign_key "game_tasks", "users"
+  add_foreign_key "routes", "game_tasks", column: "game_tasks_id"
+  add_foreign_key "routes", "users"
+  add_foreign_key "routes", "users", column: "users_id"
+  add_foreign_key "users", "game_tasks", column: "game_tasks_id"
+  add_foreign_key "users", "routes"
+  add_foreign_key "users", "routes", column: "routes_id"
 end

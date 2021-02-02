@@ -1,4 +1,5 @@
 let map, lngInput, latInput, range, radius;
+var re = new RegExp("\\d+");
 
 var markerIcon = L.icon({
     iconUrl: '/location-pin.svg',
@@ -10,6 +11,7 @@ var markerIcon = L.icon({
 render = () => {
 
     let path = window.location.pathname;
+    let splittedPath = path.split("/");
     let lat, long, mapdiv;
     
     if (path == "/routes/new") {
@@ -56,6 +58,10 @@ render = () => {
         lngInput = document.querySelector('#game_task_longitude');
         latInput = document.querySelector('#game_task_latitude');
         map.once("click", addMarker);
+    }
+    else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/)) {
+        setUpMap();
+        addViewToMap();
     }
 }
 

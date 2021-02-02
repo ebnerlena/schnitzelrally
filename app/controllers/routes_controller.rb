@@ -4,8 +4,12 @@ class RoutesController < ApplicationController
   # GET /routes
   # GET /routes.json
   def index
-    @routes = Route.all
-    @route = Route.last
+    # @user = current_or_guest_user
+
+    # if !user_signed_in?
+    #   current_or_guest_user.destroy
+    #   @user = current_or_guest_user
+    # end
     ActionCable.server.broadcast("Z2lkOi8vcHJvdG90eXBlMDEvUm91dGUvNw", body: "This Room is Best Room.")
     RouteChannel.broadcast_to(@route, "hiiii")
   end
@@ -14,34 +18,56 @@ class RoutesController < ApplicationController
   # GET /routes/1.json
   def show
     @which = 'Tasks'
-    @player = @route.players.where(user_id: current_or_guest_user).first
-    @tasks = @route.game_tasks.where(player_id: @player.id)
+    @user = @route.user
+    @tasks = @route.game_tasks.where(user: @user)
     render '_tasks'
   end
 
   # GET /routes/new
   def new
     @route = Route.new
-    @player = Player.new
   end
 
   def join
-    @route = Route.last
-    render '_form_join'
+    Rails.logger.warn(" Player name #{params[:name]}")
+
+    if params[:name].nil?
+      @route = Route.last
+      render '_form_join'
+    else
+      @user = current_or_guest_user
+      @user.name = params[:name]
+
+      ok = @user.save
+      if ! ok
+        @user.errors.full_messages.each do |m|
+          Rails.logger.warn(m)
+        end
+        redirect_to routes_path, notice: 'Not a valid username'
+      else
+        @route = Route.last
+        render '_form_join'
+      end
+    end
   end
 
   def join_route
-    @route = Route.where(game_id: params[:game_id]).first
-    @route.join(current_or_guest_user, params[:playername])
-    redirect_to @route, notice: 'Route was successfully created.'
+    @route = Route.where(name: params[:name], game_state: "planning").first
+    
+    if @route != nil
+      #@route.users.push(current_or_guest_user)
+      redirect_to @route, notice: 'No matching Game found'
+    else
+      Rails.logger.warn("route is nil")
+    end
   end
 
   def map
     @which = 'Map'
-    @player = @route.players.where(user_id: current_or_guest_user).first
-
+    @user = @route.user
+    
     @tasks = []
-    @route.game_tasks.where(player_id: @player.id).each do |task|
+    @route.game_tasks.where(user: @user).each do |task|
       @tasks += ["latitude" => task.latitude, "longitude" => task.longitude]
     end
 
@@ -50,9 +76,9 @@ class RoutesController < ApplicationController
 
   def start
     @route.start
-    @player = @route.players.where(user_id: current_or_guest_user).first
-    @tasks = @route.game_tasks.where(player_id: @player.id)
-    render 'show'
+    @user = @route.user
+    @tasks = @route.game_tasks.where(user: @user)
+    redirect_to route_game_task_path(@route, @route.current_task)
   end
 
   # GET /routes/1/edit
@@ -61,31 +87,10 @@ class RoutesController < ApplicationController
   # POST /routes
   # POST /routes.json
   def create
-    @player = Player.new(name: "Owner", user_id: current_or_guest_user.id)
-
-    # not working
-    Rails.logger.warn("Player: #{params[:player_id]}")
-
-
-    @route = Route.new(valid_route_params)
-    ok = @route.save
-    if ! ok 
-      Rails.logger.warn("fehler bei route save!")
-      @route.errors.full_messages.each do |m|
-        Rails.logger.warn(m)
-      end
-    end
     
-    @player.route_id=@route.id
-    ok = @player.save
-    if ! ok 
-      Rails.logger.warn("fehler bei player save!")
-      @player.errors.full_messages.each do |m|
-        Rails.logger.warn(m)
-      end
-    end    
+    @user = current_or_guest_user
+    @route = @user.routes.create(route_params)
     
-    @route.player_id = @player.id
     results = Geocoder.search([@route.latitude, @route.longitude])
     @route.location = results.first.address
     
@@ -103,11 +108,9 @@ class RoutesController < ApplicationController
   # PATCH/PUT /routes/1
   # PATCH/PUT /routes/1.json
   def update
-    # gets used as join method now 
-
-    @player = Player.where(user_id: current_or_guest_user.id)
+    @user = current_or_guest_user
     @route = Route.find(params[:id])
-    @route.players.push(@player)
+    @route.users.push(@user)
 
     respond_to do |format|
       if @route.update(route_params)
@@ -139,10 +142,6 @@ class RoutesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def route_params
-    params.require(:route).permit(:id, :player_id, :location, :game_id, :latitude, :longitude, :radius)
-  end
-
-  def valid_route_params
-    params.require(:route).permit(:id, :location, :game_id, :latitude, :longitude, :radius)
+    params.require(:route).permit(:id, :name, :latitude, :longitude, :radius)
   end
 end

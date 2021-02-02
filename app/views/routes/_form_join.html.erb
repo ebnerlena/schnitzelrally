@@ -4,16 +4,13 @@
 
 <h2>Route beitreten</h2>
 
+<p id="notice"><%= notice %></p>
+
 <%= form_with url: "join_route", method: "post" do |form| %>
 
   <div class="input">
-    <%= form.label :game_id, :class => 'input-label' %>
-    <%= form.text_field :game_id, :class => 'input-text' %>
-  </div>
-
-   <div class="input">
-    <%= form.label :playername, :class => 'input-label' %>
-    <%= form.text_field :playername, :class => 'input-text' %>
+    <%= form.label :name, :class => 'input-label' %>
+    <%= form.text_field :name, :class => 'input-text' %>
   </div>
 
   <div class="actions">

@@ -6,7 +6,11 @@
     </li>
     <li class="nav_header_right">
     <% if user_signed_in? %> 
-        <%= link_to "Logout", logout_path %> 
+        <div class="sidebar_trigger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     
     <% else %>
      <%= link_to "Login", new_user_session_path %> 

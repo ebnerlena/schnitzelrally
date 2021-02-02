@@ -1,4 +1,8 @@
-<h1>Editing Game Task</h1>
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{@route.name}"} %>
+<% end %>
+
+<h1>Bearbeiten von: <%= @game_task.name %> </h1>
 
 <%= render 'form', game_task: @game_task %>
 

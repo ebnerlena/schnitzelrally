@@ -13,6 +13,11 @@
   </div>
 
   <div class="input">
+    <%= f.label :name, :class => 'input-label' %>
+    <%= f.text_field :name, :class => 'input-text' %>
+  </div>
+
+  <div class="input">
     <%= f.label :password, :class => 'input-label' %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>

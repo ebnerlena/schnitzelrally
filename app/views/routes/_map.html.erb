@@ -1,5 +1,5 @@
 <% content_for :nav do %>
-  <%= render 'layouts/nav_in_route' %>
+  <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{@route.name}"} %>
 <% end %>
 
 <div class="card">
@@ -15,7 +15,7 @@
     <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
     <% end %>
 
-    <% if (@route.player_id == @player.id) && !(@route.game_tasks.empty?) %> 
+    <% if (@route.user == current_or_guest_user) && !(@route.game_tasks.empty?) %> 
         <%= link_to 'Start', start_route_path(@route), { class: 'btn' } %>
     <% else %>
         <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>

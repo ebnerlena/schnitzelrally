@@ -1,0 +1,2 @@
+class TrueFalse < GameTask
+end
