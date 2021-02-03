@@ -51,10 +51,11 @@ class RoutesController < ApplicationController
     @route = Route.where(name: params[:name], game_state: "planning").first
     
     if @route != nil
-      #@route.users.push(current_or_guest_user)
-      redirect_to @route, notice: 'No matching Game found'
+      @route.players.push(current_or_guest_user.player)
+      redirect_to @route
     else
       Rails.logger.warn("route is nil")
+      # render 'join'
     end
   end
 

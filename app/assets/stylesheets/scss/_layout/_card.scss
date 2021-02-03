@@ -2,8 +2,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 90vh;
+    //height: 90vh;
     justify-content: space-around;
+
+    h2 {
+        width: 90vw;
+        letter-spacing: 2.5px;
+    }
+
+    p {
+        width: 80vw;
+        margin-bottom: 0;
+    }
 
     .card-map {
         height: 60vh;

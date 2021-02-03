@@ -6,12 +6,12 @@
     right: 0;
     background-color: $white;
     padding: $default_padding;
-    padding-top: 100px;
+    padding-top: 80px;
     z-index: 3;
     margin: 0;
     list-style: none;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     display: none;
     transition: .5s;
     -webkit-transform: translate(-150px, 0);
@@ -28,12 +28,26 @@
     li {
 
         padding-top: $default_padding;
-        padding-bottom: $default_padding;
 
         &:last-child {
             bottom: 150px;
             position: absolute;
         }
+
+        &.player_avatar {
+            align-self: center;
+            img {
+                width: 100px;
+                border-radius: 50%;
+            }
+        }
+        &.player_name {
+            font-weight: 800;
+            align-self: center;
+            padding-top: ($default_padding)/2;
+            padding-bottom: 3*$default_padding;
+        }
+
     }
 
     &.open {

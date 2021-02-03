@@ -3,20 +3,28 @@
     flex-direction: column;
     margin-top: $default_margin;
     margin-bottom: $default_margin;
+    width: 90vw;
 
     input, select {
         height: 22px;
         border-radius: $borderradius;
         -webkit-border-radius: 12px;
         -moz-border-radius: 12px;
-        border: 2px $secondaryColor solid;
+        border: 1px $secondaryColor solid;
         transition: all .3s ease;
         padding: ($default_padding/2) $default_padding;
+        margin-top: 10px;
         outline: none;
-        width: 84vw;
         max-width: 30em;
         color: $secondaryColor;
     }
+
+    &--borderless {
+        input {
+            border: none;
+        }
+    }
+
 
     #user_remember_me {
         width: auto;
@@ -33,9 +41,10 @@
 
     &-label {
         font-family: $inconsolata;
-        font-size: 25px;
+        font-size: 22px;
         font-weight: 600;
         padding-left: 3px;
+        letter-spacing: 1.5px;
     }
 
     &-text {

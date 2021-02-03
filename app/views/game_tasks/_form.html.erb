@@ -18,15 +18,8 @@
     <%= form.text_field :hint, :class => 'input-text' %>
   </div>
 
-  <div class="input">
-    <%= form.label :latitude, :class => 'input-label' %>
-    <%= form.text_field :latitude, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label :longitude, :class => 'input-label' %>
-    <%= form.text_field :longitude, :class => 'input-text' %>
-  </div>
+  <%= form.hidden_field :latitude %>
+  <%= form.hidden_field :longitude %>
 
   <div> Aufgabe hinzufügen <%= MultipleChoice.to_s %> </div> 
   <div> Aufgabe hinzufügen <%= TrueFalse.to_s %> </div> 

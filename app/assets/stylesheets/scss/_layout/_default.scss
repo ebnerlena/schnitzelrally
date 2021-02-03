@@ -1,7 +1,7 @@
 main {
     padding:  $default_padding/2;
     transition: padding 0.2s ease-in;
-    padding-top: 80px;
+    padding-top: 70px;
 
     @include tablet {
         padding: $default_padding;
@@ -14,9 +14,15 @@ main {
     }
 
     #map {
-        //width: 90vw;
         height: 40vh;
         max-width: 500px;
         z-index: 1;
+    }
+
+    .player_avatar {
+        img {
+            width: 120px;
+            border-radius: 50%;
+        }
     }
 }

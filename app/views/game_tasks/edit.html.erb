@@ -2,7 +2,7 @@
   <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{@route.name}"} %>
 <% end %>
 
-<h1>Bearbeiten von: <%= @game_task.name %> </h1>
+<h2>Bearbeiten von: <%= @game_task.name %> </h2>
 
 <%= render 'form', game_task: @game_task %>
 

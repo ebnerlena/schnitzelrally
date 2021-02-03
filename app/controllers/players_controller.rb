@@ -1,5 +1,6 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[show edit update destroy]
+  
     def index
       @player = current_or_guest_user.player || current_or_guest_user.player.new()
       
@@ -7,6 +8,9 @@ class PlayersController < ApplicationController
 
     def new
       @player = Player.new
+    end
+
+    def edit;
     end
    
     def create
@@ -16,7 +20,7 @@ class PlayersController < ApplicationController
 
       respond_to do |format|
         if @player.save
-          format.html { redirect_to routes_path, notice: 'Player was successfully created.' }
+          format.html { redirect_to routes_path }
           format.json { render :show, status: :created, location: @player }
         else
           format.html { render :new }
@@ -24,11 +28,23 @@ class PlayersController < ApplicationController
         end
       end
     end
-  
+    
+    def update
+      respond_to do |format|
+        if @player.update(player_params)
+          format.html { redirect_to routes_path }
+          format.json { render :show, status: :created, location: @player }
+        else
+          format.html { render :new }
+          format.json { render json: @player.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+     
     def destroy
       @player.destroy
       respond_to do |format|
-        format.html { redirect_to routes_url, notice: 'Player was successfully destroyed.' }
+        format.html { redirect_to routes_url }
         format.json { head :no_content }
       end
     end
@@ -42,7 +58,7 @@ class PlayersController < ApplicationController
   
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:id, :name)
+      params.require(:player).permit(:id, :name, :avatar)
     end
   end
   

@@ -16,23 +16,17 @@
     <%= form.text_field :name, :class => 'input-text' %>
   </div>
 
-  <div class="input">
-    <%= form.label :latitude, :class => 'input-label' %>
-    <%= form.text_field :latitude, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label :longitude, :class => 'input-label' %>
-    <%= form.text_field :longitude, :class => 'input-text' %>
-  </div>
-
   <div id="map"> </div>
+  
+  <%= form.hidden_field :latitude %>
+  <%= form.hidden_field :longitude %>
 
   <div class="input">
-    <div class="input-label_container and some more ">
+    <div class="input-label_container">
       <%= form.label :radius, :class => 'input-label' %>
       <p class="input-range_value"></p>
     </div>
+    
     <%= form.range_field :radius, in: 1..10, value: 1, :class => 'input-range' %>
     <div class="numbering">
       <p>1</p>
