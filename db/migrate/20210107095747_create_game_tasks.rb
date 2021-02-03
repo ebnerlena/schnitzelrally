@@ -4,10 +4,9 @@ class CreateGameTasks < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :description
       t.string :hint
-      t.float :latitude
-      t.float :longitude
+      t.float :latitude, null: false
+      t.float :longitude, null: false
       t.string :location
-      t.belongs_to :user, null: false, foreign_key: true
 
       t.timestamps
     end

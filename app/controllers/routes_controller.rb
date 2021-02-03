@@ -4,22 +4,18 @@ class RoutesController < ApplicationController
   # GET /routes
   # GET /routes.json
   def index
-    # @user = current_or_guest_user
-
-    # if !user_signed_in?
-    #   current_or_guest_user.destroy
-    #   @user = current_or_guest_user
-    # end
-    ActionCable.server.broadcast("Z2lkOi8vcHJvdG90eXBlMDEvUm91dGUvNw", body: "This Room is Best Room.")
-    RouteChannel.broadcast_to(@route, "hiiii")
+    @player = current_or_guest_user.player
+    
+    # ActionCable.server.broadcast("Z2lkOi8vcHJvdG90eXBlMDEvUm91dGUvNw", body: "This Room is Best Room.")
+    # RouteChannel.broadcast_to(@route, "hiiii")
   end
 
   # GET /routes/1
   # GET /routes/1.json
   def show
     @which = 'Tasks'
-    @user = @route.user
-    @tasks = @route.game_tasks.where(user: @user)
+    @player = current_or_guest_user.player
+    @tasks = @route.game_tasks.where(player: @player)
     render '_tasks'
   end
 
@@ -64,10 +60,10 @@ class RoutesController < ApplicationController
 
   def map
     @which = 'Map'
-    @user = @route.user
+    @player = current_or_guest_user.player
     
     @tasks = []
-    @route.game_tasks.where(user: @user).each do |task|
+    @route.game_tasks.where(player: @player).each do |task|
       @tasks += ["latitude" => task.latitude, "longitude" => task.longitude]
     end
 
@@ -76,8 +72,8 @@ class RoutesController < ApplicationController
 
   def start
     @route.start
-    @user = @route.user
-    @tasks = @route.game_tasks.where(user: @user)
+    @player = @route.player
+    @tasks = @route.game_tasks.where(player: @player)
     redirect_to route_game_task_path(@route, @route.current_task)
   end
 
@@ -88,8 +84,8 @@ class RoutesController < ApplicationController
   # POST /routes.json
   def create
     
-    @user = current_or_guest_user
-    @route = @user.routes.create(route_params)
+    @player = current_or_guest_user.player
+    @route = @player.routes.create(route_params)
     
     results = Geocoder.search([@route.latitude, @route.longitude])
     @route.location = results.first.address
@@ -110,7 +106,7 @@ class RoutesController < ApplicationController
   def update
     @user = current_or_guest_user
     @route = Route.find(params[:id])
-    @route.users.push(@user)
+    @route.users.push(@user.player)
 
     respond_to do |format|
       if @route.update(route_params)

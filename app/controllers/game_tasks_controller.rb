@@ -15,8 +15,8 @@ class GameTasksController < ApplicationController
 
   # GET /game_tasks/new
   def new
-    @user = current_or_guest_user
-    @game_task = @route.user.game_tasks.new()
+    @player = current_or_guest_user.player
+    @game_task = @route.player.game_tasks.new()
   end
 
   # GET /game_tasks/1/edit
@@ -25,7 +25,8 @@ class GameTasksController < ApplicationController
   # POST /game_tasks
   # POST /game_tasks.json
   def create
-    @game_task = @route.user.game_tasks.create(game_task_params)
+    @player = current_or_guest_user.player
+    @game_task = @player.game_tasks.create(game_task_params)
     @game_task.route_id = @route.id
 
     results = Geocoder.search([@game_task.latitude, @game_task.longitude])

@@ -1,0 +1,7 @@
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_create_route', locals: {title: "Player erstellen"} %>
+<% end %>
+
+<h2>Player erstellen</h2>
+
+<%= render 'form', player: @player %>

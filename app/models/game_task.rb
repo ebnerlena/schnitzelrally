@@ -1,5 +1,5 @@
 class GameTask < ApplicationRecord
-  belongs_to :user
+  belongs_to :player
   belongs_to :route
   has_many_attached :image, :dependent => :destroy
   geocoded_by :location

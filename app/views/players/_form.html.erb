@@ -1,0 +1,11 @@
+<%= form_with(model: @player, local: true) do |form| %>
+    <div class="input">
+        <%= form.label "Playername", :class => 'input-label' %>
+        <%= form.text_field :name, :class => 'input-text' %>
+    </div>
+
+    <div class="actions">
+    <%= form.submit 'Create Player', class: 'btn' %>
+    </div>
+
+<% end %>
