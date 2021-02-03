@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :routes do
+
     resources :game_tasks
 
     collection do
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get :map
       get :start
+      get :add_task
     end
   end
 

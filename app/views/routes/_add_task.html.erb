@@ -1,0 +1,13 @@
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_with_back', locals: {title: "Neue Aufgabe", link: "/routes/#{@route.id}"} %>
+<% end %>
+<div class="card">
+  <h2>Format wählen</h2>
+    <div class="task_format">
+        <% GameTask.available_types.each.with_index do |type, index| %>
+        <%= link_to url_for([@route, :game_tasks, { type: type[:class] }]), class: 'btn', data: { method: :post } do %>
+            <%= type[:name] %>
+        <% end %>
+        <% end %>
+    </div>
+</div>

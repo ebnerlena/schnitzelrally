@@ -1,7 +1,6 @@
 <% content_for :nav do %>
-  <%= render partial: 'layouts/nav_create_route', locals: {title: "Route: #{@route.name}"} %>
+  <%= render partial: 'layouts/nav_with_back', locals: {title: "Neue Aufgabe", link: "/routes/#{@route.id}/add_task"} %>
 <% end %>
 <div class="card">
-<h2>Neue Aufgabe</h2>
-  <%= render 'form', game_task: @game_task %>
+  <%= render "#{@game_task.type}", locals:{ game_task: @game_task } %>
 </div>

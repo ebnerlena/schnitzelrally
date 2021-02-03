@@ -1,5 +1,5 @@
 class RoutesController < ApplicationController
-  before_action :set_route, only: %i[show edit map start update destroy]
+  before_action :set_route, only: %i[show edit map start add_task update destroy]
 
   # GET /routes
   # GET /routes.json
@@ -57,6 +57,11 @@ class RoutesController < ApplicationController
       Rails.logger.warn('route is nil')
       # render 'join'
     end
+  end
+
+  def add_task
+    @which = 'Add Task'
+    render '_add_task'
   end
 
   def map

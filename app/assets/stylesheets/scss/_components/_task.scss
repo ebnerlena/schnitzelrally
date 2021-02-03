@@ -4,7 +4,8 @@
     background: $backgroundColor2;
     border-radius: $borderradius;
     width: 80vw;
-    height: 55vh;
+    min-height: 55vh;
+    height: fit-content;
 
     @include tablet {
         width: 70vw;
@@ -13,6 +14,10 @@
     @include desktop {
         width: 60vw;
         @include maxwidthcontainer;
+    }
+
+    h3 {
+        margin-top: 0;
     }
     
     .card-tasks_list {

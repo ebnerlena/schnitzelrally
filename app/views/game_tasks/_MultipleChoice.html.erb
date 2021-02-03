@@ -1,3 +1,5 @@
+<h1> Multiple Choice </h1>
+
 <%= form_with(model: [@route, @game_task], local: true) do |form| %>
   <% if @game_task.errors.any? %>
     <div id="error_explanation">
@@ -32,8 +34,14 @@
   </div>
 
   <div class="input">
-    <%= form.label "Antwort(en)", :class => 'input-label' %>
-    <%= form.text_field :answer, :class => 'input-text' %>
+    <%= form.label "Optionen", :class => 'input-label' %>
+    <p> Bitte im Format: Option1, Option2, Option3, Option4</p>
+    <%= form.text_field :answers, :class => 'input-text' %>
+  </div>
+  <div class="input">
+    <%= form.label "Richtig ist...", :class => 'input-label' %>
+    <p> 1 für Option1, 2 für Option2 ...</p>
+    <%= form.text_field :solution, :class => 'input-text' %>
   </div>
 
   <div class="actions">

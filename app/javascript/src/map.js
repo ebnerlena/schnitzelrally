@@ -46,11 +46,16 @@ render = () => {
     else if (path.endsWith("map")) {
         setUpMap();
         addViewToMap();
-
-        let tasks = document.querySelector("#tasks").dataset.tasks;
-        tasks = JSON.parse(tasks);
-        tasks.forEach(task => L.marker([task.latitude, task.longitude], {icon: markerIcon}).addTo(map));
+        addTasks();
     } 
+    else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/) && splittedPath[5] =="edit") {
+        setUpMap();
+        addViewToMap();
+        lngInput = document.querySelector('#game_task_longitude');
+        latInput = document.querySelector('#game_task_latitude');
+        map.once("click", addMarker);
+        addTasks();
+    }
     else if (path.endsWith("game_tasks/new") || path.endsWith("edit")) {
 
         setUpMap();
@@ -111,6 +116,16 @@ function addRadius(e) {
         fillOpacity: 0.2,
         radius: range.value * 1100
     }).addTo(map); 
+}
+
+function addTasks() {
+    let tasks = document.querySelector("#tasks")
+    
+    if (tasks != null) {
+        tasks = tasks.dataset.tasks;
+        tasks = JSON.parse(tasks);
+        tasks.forEach(task => L.marker([task.latitude, task.longitude], {icon: markerIcon}).addTo(map));
+    }
 }
 
 document.addEventListener("turbolinks:load", render);

@@ -27,7 +27,10 @@
                     <div class="task">
                         <div class="task-header">
                             <p class="task-name"><strong><%= task.name %></strong></p>
-                            <%= link_to 'Edit', edit_route_game_task_path(@route, task) %>
+                            <div class="task_links">
+                                <%= link_to 'Edit', edit_route_game_task_path(@route, task) %>
+                                <%= link_to 'Destroy', [@route,task.becomes(GameTask)], method: :delete, data: { confirm: 'Are you sure?' } %>
+                            </div>
                         </div>
                         <p class="task-description"><%= task.description %></p>
                     </div>
@@ -35,5 +38,5 @@
             </ul>
         </div>    
     <% end %>   
-    <%= link_to '+', new_route_game_task_path(@route),  {params: {"game_task"=>{ route_id: @route.id }}, class: 'btn add' } %>
+    <%= link_to '+', add_task_route_path(@route),  {params: {"game_task"=>{ route_id: @route.id }}, class: 'btn add' } %>
 </div>

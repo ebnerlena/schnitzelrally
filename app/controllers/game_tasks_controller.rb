@@ -2,48 +2,62 @@ class GameTasksController < ApplicationController
   before_action :set_game_task, only: %i[show edit update destroy]
   before_action :set_route
 
-  # GET /game_tasks
-  # GET /game_tasks.json
   def index
     @game_tasks = GameTask.all
   end
 
-  # GET /game_tasks/1
-  # GET /game_tasks/1.json
   def show; end
 
-  # GET /game_tasks/new
   def new
     @player = current_or_guest_user.player
     @game_task = @route.player.game_tasks.new
+    Rails.logger.warn("type = #{params[:type]} +")
+    @game_task.type = params[:type]
   end
 
-  # GET /game_tasks/1/edit
-  def edit; end
+  def edit
+    Rails.logger.warn("i am in edit")
+    @type = @game_task
+    @game_task = @game_task.becomes(GameTask)
+   
+    @tasks = ['latitude' => @game_task.latitude, 'longitude' => @game_task.longitude]
+  end
 
-  # POST /game_tasks
-  # POST /game_tasks.json
   def create
-    @player = current_or_guest_user.player
-    @game_task = @player.game_tasks.create(game_task_params)
+    @game_task =  current_or_guest_user.player.game_tasks.new 
+    @game_task.latitude = 12.0
+    @game_task.longitude = 13.0
+    
+    Rails.logger.warn("type = #{params[:type]} +")
+
     @game_task.route_id = @route.id
-
-    results = Geocoder.search([@game_task.latitude, @game_task.longitude])
-    @game_task.location = results.first.address
-
-    respond_to do |format|
-      if @game_task.save
-        format.html { redirect_to route_path(@game_task.route_id), notice: 'Game task was successfully created.' }
-        format.json { render :show, status: :created, location: @game_task }
-      else
-        format.html { render :new }
-        format.json { render json: @game_task.errors, status: :unprocessable_entity }
+    @game_task.type = params[:type]
+    
+    if @game_task.save
+      Rails.logger.warn("create was ok")
+      redirect_to edit_route_game_task_path(@route, @game_task)
+    else
+      Rails.logger.warn("not ok")
+      @game_task.errors.full_messages.each do |message|
+        Rails.logger.warn(message)
       end
     end
+
+    # results = Geocoder.search([@game_task.latitude, @game_task.longitude])
+    # @game_task.location = results.first.address
+
+    # respond_to do |format|
+    #   if @game_task.save
+    #     format.html { redirect_to route_path(@game_task.route_id), notice: 'Game task was successfully created.' }
+    #     format.json { render :show, status: :created, location: @game_task }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @game_task.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
-  # PATCH/PUT /game_tasks/1
-  # PATCH/PUT /game_tasks/1.json
+
   def update
     respond_to do |format|
       if @game_task.update(game_task_params)
@@ -56,12 +70,10 @@ class GameTasksController < ApplicationController
     end
   end
 
-  # DELETE /game_tasks/1
-  # DELETE /game_tasks/1.json
   def destroy
     @game_task.destroy
     respond_to do |format|
-      format.html { redirect_to game_tasks_url, notice: 'Game task was successfully destroyed.' }
+      format.html { redirect_to route_path(@route), notice: 'Game task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -79,6 +91,6 @@ class GameTasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def game_task_params
-    params.require(:game_task).permit(:id, :name, :description, :hint, :latitude, :longitude)
+    params.require(:game_task).permit(:id, :name, :type, :solution, :answers, :description, :hint, :latitude, :longitude)
   end
 end

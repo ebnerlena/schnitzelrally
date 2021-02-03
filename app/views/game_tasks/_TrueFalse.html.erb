@@ -1,3 +1,5 @@
+<h1> True or False </h1>
+
 <%= form_with(model: [@route, @game_task], local: true) do |form| %>
   <% if @game_task.errors.any? %>
     <div id="error_explanation">
@@ -32,8 +34,9 @@
   </div>
 
   <div class="input">
-    <%= form.label "Antwort(en)", :class => 'input-label' %>
-    <%= form.text_field :answer, :class => 'input-text' %>
+    <%= form.label "Wahr?", :class => 'input-label' %>
+    <p> TRUE für ja - FALSE für nein</p>
+    <%= form.text_field :solution, :class => 'input-text' %>
   </div>
 
   <div class="actions">

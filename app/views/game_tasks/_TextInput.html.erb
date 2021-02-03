@@ -1,3 +1,4 @@
+<h1> Text Input </h1>
 <%= form_with(model: [@route, @game_task], local: true) do |form| %>
   <% if @game_task.errors.any? %>
     <div id="error_explanation">
@@ -12,6 +13,12 @@
   <% end %>
   <%= form.label "Markiere den Ort", :class => 'input-label' %>
   <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+    <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
+    <% end %>
+    <%if !@game_task.latitude.nil? %>
+        
+        
+    <% end %>
   
   <div class="input">
     <%= form.label 'Ortshinweis', :class => 'input-label' %>
@@ -22,7 +29,7 @@
   <%= form.hidden_field :longitude %>
 
   <div class="input">
-    <%= form.label "Aufgaben Name", :class => 'input-label' %>
+    <%= form.label "Name", :class => 'input-label' %>
     <%= form.text_field :name, :class => 'input-text' %>
   </div>
 
@@ -32,8 +39,8 @@
   </div>
 
   <div class="input">
-    <%= form.label "Antwort(en)", :class => 'input-label' %>
-    <%= form.text_field :answer, :class => 'input-text' %>
+    <%= form.label "Lösung", :class => 'input-label' %>
+    <%= form.text_field :solution, :class => 'input-text' %>
   </div>
 
   <div class="actions">

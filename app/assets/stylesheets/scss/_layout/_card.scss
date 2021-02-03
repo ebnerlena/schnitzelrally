@@ -28,4 +28,36 @@
             @include maxwidthcontainer;
         }
     }
+
+    .task_format {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly; 
+        align-content: center;
+        min-height: 70vh;
+
+        @include tablet {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        
+        @include desktop {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            white-space: nowrap;
+            padding: 1.5*$default_padding $default_padding;
+            margin: 0.5*$default_margin $default_margin;
+
+            @include tablet {
+                width: 30vw;
+            }
+    
+            @include desktop {
+                width: 30vw;
+            }
+        }
+    }
 }

@@ -1,3 +1,5 @@
+<h1> Photo Upload </h1>
+
 <%= form_with(model: [@route, @game_task], local: true) do |form| %>
   <% if @game_task.errors.any? %>
     <div id="error_explanation">
@@ -27,14 +29,14 @@
   </div>
 
   <div class="input">
-    <%= form.label 'Frage', :class => 'input-label' %>
+    <%= form.label 'Aufgabenstellung', :class => 'input-label' %>
     <%= form.text_field :description, :class => 'input-text' %>
   </div>
 
-  <div class="input">
-    <%= form.label "Antwort(en)", :class => 'input-label' %>
-    <%= form.text_field :answer, :class => 'input-text' %>
-  </div>
+  <div class="input input--borderless">
+        <%= form.label "Foto hochladen", :class => 'input-label' %>
+        <%= form.file_field :avatar %>
+    </div>
 
   <div class="actions">
     <%= form.submit 'Erstellen', :class => 'btn' %>
