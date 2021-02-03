@@ -15,7 +15,7 @@
         <p><%= @route.game_tasks.size %> Aufgaben gesamt</p>
     <% end %>
     
-    <% if @route.game_tasks.empty? %>
+    <% if @route.game_tasks.where(user_id: current_or_guest_user.id).empty? %>
         <div class="card-tasks">
             <p> Du hast noch keine Aufgaben erstellt... go wild und erstelle eine </p>
         </div>
@@ -23,7 +23,7 @@
         <div class="card-tasks">
             <h3>Deine erstellten Aufgaben:</h3>  
             <ul class="card-tasks_list">
-                <% @route.game_tasks.each do | task | %>
+                <% @route.game_tasks.where(user_id: current_or_guest_user.id).each do | task | %>
                     <div class="task">
                         <div class="task-header">
                             <p class="task-name"><strong><%= task.name %></strong></p>

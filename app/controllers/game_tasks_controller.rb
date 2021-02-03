@@ -25,7 +25,6 @@ class GameTasksController < ApplicationController
   # POST /game_tasks
   # POST /game_tasks.json
   def create
-
     @game_task = @route.user.game_tasks.create(game_task_params)
     @game_task.route_id = @route.id
 
