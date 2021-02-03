@@ -1,2 +1,0 @@
-class PhhotoUpload < GameTask
-end
