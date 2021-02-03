@@ -5,6 +5,11 @@
     display: flex;
     z-index: 5;
     position: fixed;
+    padding: 0 $default_padding;
+
+    @include mobile {
+        padding-left: ($default_padding)/2;
+    }
 
     .nav_header {
         list-style: none;
@@ -20,7 +25,6 @@
             svg {
                 width: 50px;
                 height: 40px;
-                padding-left: $default_padding;
 
                 @include tablet {
                     width: 55px;
@@ -42,7 +46,6 @@
             justify-content: center;
 
             svg {
-                
                 width: 35px;
                 height: 25px;
     

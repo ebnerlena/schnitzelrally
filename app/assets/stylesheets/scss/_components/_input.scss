@@ -13,8 +13,13 @@
         transition: all .3s ease;
         padding: ($default_padding/2) $default_padding;
         outline: none;
+        width: 84vw;
         max-width: 30em;
         color: $secondaryColor;
+    }
+
+    #user_remember_me {
+        width: auto;
     }
 
     &-remember {
