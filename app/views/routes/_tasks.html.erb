@@ -10,9 +10,9 @@
   </div>
 
     <% if @route.game_tasks.size==1 %>
-        <p><%= @route.game_tasks.size %> Aufgabe gesamt</p>
+        <p class="left"><%= @route.game_tasks.size %> Aufgabe gesamt</p>
     <% else %>
-        <p><%= @route.game_tasks.size %> Aufgaben gesamt</p>
+        <p class="left"><%= @route.game_tasks.size %> Aufgaben gesamt</p>
     <% end %>
     
     <% if @route.game_tasks.where(player: current_or_guest_user.player).empty? %>

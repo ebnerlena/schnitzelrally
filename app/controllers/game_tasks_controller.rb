@@ -10,17 +10,16 @@ class GameTasksController < ApplicationController
 
   # GET /game_tasks/1
   # GET /game_tasks/1.json
-  def show
-  end
+  def show; end
 
   # GET /game_tasks/new
   def new
     @player = current_or_guest_user.player
-    @game_task = @route.player.game_tasks.new()
+    @game_task = @route.player.game_tasks.new
   end
 
   # GET /game_tasks/1/edit
-  def edit;  end
+  def edit; end
 
   # POST /game_tasks
   # POST /game_tasks.json

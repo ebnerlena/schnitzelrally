@@ -64,10 +64,10 @@ group :development do
   gem 'rubycritic', require: false
   gem 'web-console', '>= 3.3.0' # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'guard-livereload', '~> 2.5', require: false
+  gem 'rack-livereload'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'guard-livereload', '~> 2.5', require: false
-  gem "rack-livereload"
 end
 
 group :test do

@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+  <%= form.label "Markiere den Ort", :class => 'input-label' %>
   <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
   
   <div class="input">
@@ -27,7 +27,7 @@
   <div> Aufgabe hinzufügen <%= PhotoUpload.to_s %> </div> 
 
   <div class="input">
-    <%= form.label :name, :class => 'input-label' %>
+    <%= form.label "Aufgaben Name", :class => 'input-label' %>
     <%= form.text_field :name, :class => 'input-text' %>
   </div>
 

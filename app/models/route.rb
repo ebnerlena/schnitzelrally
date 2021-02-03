@@ -1,19 +1,19 @@
 class Route < ApplicationRecord
   belongs_to :player
   has_many :players
-  has_many :game_tasks, :dependent => :destroy
+  has_many :game_tasks, dependent: :destroy
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
 
   scope :available, -> { where(game_state: 'planning') }
 
-  attr_reader :current_task
+  validates :name, length: { minimum: 5 }, uniqueness: true
 
+  attr_reader :current_task
 
   include AASM
 
   aasm column: :game_state do
-
     state :planning, initial: true
     state :running
     state :finished
@@ -36,7 +36,6 @@ class Route < ApplicationRecord
 
   #   #game_id = random string
   # end
-
 
   def log_status_change
     puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"

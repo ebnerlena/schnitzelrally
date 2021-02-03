@@ -5,7 +5,7 @@ class RoutesController < ApplicationController
   # GET /routes.json
   def index
     @player = current_or_guest_user.player
-    
+
     # ActionCable.server.broadcast("Z2lkOi8vcHJvdG90eXBlMDEvUm91dGUvNw", body: "This Room is Best Room.")
     # RouteChannel.broadcast_to(@route, "hiiii")
   end
@@ -35,7 +35,7 @@ class RoutesController < ApplicationController
       @user.name = params[:name]
 
       ok = @user.save
-      if ! ok
+      if !ok
         @user.errors.full_messages.each do |m|
           Rails.logger.warn(m)
         end
@@ -48,13 +48,13 @@ class RoutesController < ApplicationController
   end
 
   def join_route
-    @route = Route.where(name: params[:name], game_state: "planning").first
-    
-    if @route != nil
+    @route = Route.where(name: params[:name], game_state: 'planning').first
+
+    if !@route.nil?
       @route.players.push(current_or_guest_user.player)
       redirect_to @route
     else
-      Rails.logger.warn("route is nil")
+      Rails.logger.warn('route is nil')
       # render 'join'
     end
   end
@@ -62,10 +62,10 @@ class RoutesController < ApplicationController
   def map
     @which = 'Map'
     @player = current_or_guest_user.player
-    
+
     @tasks = []
     @route.game_tasks.where(player: @player).each do |task|
-      @tasks += ["latitude" => task.latitude, "longitude" => task.longitude]
+      @tasks += ['latitude' => task.latitude, 'longitude' => task.longitude]
     end
 
     render '_map'
@@ -84,13 +84,12 @@ class RoutesController < ApplicationController
   # POST /routes
   # POST /routes.json
   def create
-    
     @player = current_or_guest_user.player
     @route = @player.routes.create(route_params)
-    
+
     results = Geocoder.search([@route.latitude, @route.longitude])
     @route.location = results.first.address
-    
+
     respond_to do |format|
       if @route.save
         format.html { redirect_to @route, notice: 'Route was successfully created.' }

@@ -1,7 +1,7 @@
 class GameTask < ApplicationRecord
   belongs_to :player
   belongs_to :route
-  has_many_attached :image, :dependent => :destroy
+  has_many_attached :image, dependent: :destroy
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
 
@@ -12,5 +12,4 @@ class GameTask < ApplicationRecord
   def to_s
     "#{type}: #{name}"
   end
-
 end
