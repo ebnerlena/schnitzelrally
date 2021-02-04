@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_04_165406) do
+ActiveRecord::Schema.define(version: 2021_02_04_192507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,13 +59,9 @@ ActiveRecord::Schema.define(version: 2021_02_04_165406) do
     t.string "name", null: false
     t.bigint "user_id"
     t.bigint "game_tasks_id"
-    t.bigint "routes_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "route_id"
     t.index ["game_tasks_id"], name: "index_players_on_game_tasks_id"
-    t.index ["route_id"], name: "index_players_on_route_id"
-    t.index ["routes_id"], name: "index_players_on_routes_id"
     t.index ["user_id"], name: "index_players_on_user_id"
   end
 
@@ -80,12 +76,10 @@ ActiveRecord::Schema.define(version: 2021_02_04_165406) do
     t.bigint "game_tasks_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "players_id"
     t.bigint "player_id"
     t.index ["game_tasks_id"], name: "index_routes_on_game_tasks_id"
     t.index ["name"], name: "index_routes_on_name", unique: true
     t.index ["player_id"], name: "index_routes_on_player_id"
-    t.index ["players_id"], name: "index_routes_on_players_id"
   end
 
   create_table "routes_players_associations", force: :cascade do |t|
@@ -114,12 +108,9 @@ ActiveRecord::Schema.define(version: 2021_02_04_165406) do
   add_foreign_key "game_tasks", "players"
   add_foreign_key "game_tasks", "routes"
   add_foreign_key "players", "game_tasks", column: "game_tasks_id"
-  add_foreign_key "players", "routes"
-  add_foreign_key "players", "routes", column: "routes_id"
   add_foreign_key "players", "users"
   add_foreign_key "routes", "game_tasks", column: "game_tasks_id"
   add_foreign_key "routes", "players"
-  add_foreign_key "routes", "players", column: "players_id"
   add_foreign_key "routes_players_associations", "players"
   add_foreign_key "routes_players_associations", "routes"
 end

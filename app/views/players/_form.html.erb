@@ -7,17 +7,17 @@
     <% end %>
 
     <div class="input input--borderless">
-        <%= form.label "Profilbild", :class => 'input-label' %>
+        <%= form.label "Player Avatar", :class => 'input-label' %>
         <%= form.file_field :avatar %>
     </div>
 
     <div class="input">
-        <%= form.label "Playername", :class => 'input-label' %>
+        <%= form.label "Player Name", :class => 'input-label' %>
         <%= form.text_field :name, :class => 'input-text' %>
     </div>
 
     <div class="actions">
-    <%= form.submit "Player updaten", class: 'btn' %>
+    <%= form.submit "Submit Player", class: 'btn' %>
     </div>
 
 <% end %>

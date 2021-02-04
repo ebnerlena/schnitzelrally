@@ -94,17 +94,14 @@ class RoutesController < ApplicationController
     @player = current_or_guest_user.player
     @route = Route.new(route_params)
     @route.player_id = @player.id
-    @route.save!
-
-    # @player.routes.push(@route)
-    # @player.save!
-    RoutesPlayersAssociation.create(player: @player, route: @route)
+    #@route.save!
 
     results = Geocoder.search([@route.latitude, @route.longitude])
     #@route.location = results.first.address
 
     respond_to do |format|
       if @route.save
+        RoutesPlayersAssociation.create(player: @player, route: @route)
         format.html { redirect_to @route, notice: 'Route was successfully created.' }
         format.json { render :show, status: :created, location: @route }
       else

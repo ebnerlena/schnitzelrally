@@ -1,20 +1,21 @@
 <% content_for :nav do %>
-  <%= render partial: 'layouts/nav_with_back', locals: {title: "Route beitreten", link: "/"} %>
+  <%= render partial: 'layouts/nav_with_back', locals: {title: "Join Route", link: "/"} %>
 <% end %>
 <div class="card">
-  <h2>Route beitreten</h2>
+  <h2>Join a route</h2>
+  <p class="left"> Enter valid route name (min 3 char) </p>
 
   <p id="notice"><%= notice %></p>
 
   <%= form_with url: "join_route", method: "post" do |form| %>
 
     <div class="input">
-      <%= form.label "Routenname", :class => 'input-label' %>
+      <%= form.label "Route Name", :class => 'input-label' %>
       <%= form.text_field :name, :class => 'input-text' %>
     </div>
 
     <div class="actions">
-      <%= form.submit 'Route beitreten', class: 'btn' %>
+      <%= form.submit 'Join Route', class: 'btn' %>
     </div>
   <% end %>
 </div>

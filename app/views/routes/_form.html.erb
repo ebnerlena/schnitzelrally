@@ -1,7 +1,7 @@
 <%= form_with(model: route, method: "post", local: true) do |form| %>
   <% if route.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(route.errors.count, "error") %> prohibited this route from being saved:</h2>
+      <h3><%= pluralize(route.errors.count, "error") %> prohibited this route from being saved:</h3>
 
       <ul>
         <% route.errors.full_messages.each do |message| %>
@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="input">
-    <%= form.label "Routenname", :class => 'input-label' %>
+    <%= form.label "Route Name", :class => 'input-label' %>
     <%= form.text_field :name, :class => 'input-text' %>
   </div>
 
-  <%= form.label "Markiere den Ort", :class => 'input-label' %>
+  <%= form.label "Choose the location on the map", :class => 'input-label' %>
   <div id="map"> </div>
   
   <%= form.hidden_field :latitude %>
@@ -36,6 +36,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit 'Route erstellen', :class => 'btn' %>
+    <%= form.submit 'Create Route', :class => 'btn' %>
   </div>
 <% end %>

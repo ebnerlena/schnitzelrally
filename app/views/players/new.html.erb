@@ -1,9 +1,9 @@
 <% content_for :nav do %>
-  <%= render partial: 'layouts/nav_with_back', locals: {title: "Player erstellen", link: "/"} %>
+  <%= render partial: 'layouts/nav_with_back', locals: {title: "Create Player", link: "/"} %>
 <% end %>
 
 <div class="card">
-  <h2>Player erstellen</h2>
+  <h2>Create Player</h2>
 
-  <%= render 'form', locals:{ player: @player, title: "Player erstellen"} %>
+  <%= render 'form', locals:{ player: @player } %>
 </div>

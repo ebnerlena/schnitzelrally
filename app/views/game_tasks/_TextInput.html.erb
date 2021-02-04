@@ -12,7 +12,7 @@
       </ul>
     </div>
   <% end %>
-  <%= form.label "Markiere den Ort", :class => 'input-label' %>
+  <%= form.label "Choose the location on the map", :class => 'input-label' %>
   <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
     <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
     <% end %>
@@ -22,7 +22,7 @@
     <% end %>
   
   <div class="input">
-    <%= form.label 'Ortshinweis', :class => 'input-label' %>
+    <%= form.label 'Location hint', :class => 'input-label' %>
     <%= form.text_field :hint, :class => 'input-text' %>
   </div>
 
@@ -30,22 +30,22 @@
   <%= form.hidden_field :longitude %>
 
   <div class="input">
-    <%= form.label "Name", :class => 'input-label' %>
+    <%= form.label "Task Name", :class => 'input-label' %>
     <%= form.text_field :name, :class => 'input-text' %>
   </div>
 
   <div class="input">
-    <%= form.label 'Frage', :class => 'input-label' %>
+    <%= form.label 'Question', :class => 'input-label' %>
     <%= form.text_field :description, :class => 'input-text' %>
   </div>
 
   <div class="input">
-    <%= form.label "Lösung", :class => 'input-label' %>
+    <%= form.label "Expected Answer", :class => 'input-label' %>
     <%= form.text_field :solution, :class => 'input-text' %>
   </div>
 
   <div class="actions">
-    <%= form.submit 'Erstellen', :class => 'btn' %>
+    <%= form.submit 'Create', :class => 'btn' %>
   </div>
 <% end %>
 </div>

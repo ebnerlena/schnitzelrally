@@ -7,7 +7,8 @@ class Route < ApplicationRecord
 
   scope :available, -> { where(game_state: 'planning') }
 
-  validates :name, length: { minimum: 5 }, uniqueness: true
+  validates :name, length: { minimum: 3 }, uniqueness: true
+  validates :latitude, :longitude, presence: true
 
   attr_reader :current_task
 
@@ -27,7 +28,6 @@ class Route < ApplicationRecord
     event :end do
       transitions from: :running, to: :finished
     end
-    # state :saved
   end
 
   def log_status_change
@@ -41,6 +41,15 @@ class Route < ApplicationRecord
     @current_task = @tasks.first
 
     # randomize game_task list?
+  end
+
+  def players
+    @players = []
+    associations = RoutesPlayersAssociation.where(route: self)
+    associations.each do | p |
+      @players.push(Player.find(p.player_id))
+    end
+    @players
   end
 
   def next_task(task)

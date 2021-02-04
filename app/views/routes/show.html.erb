@@ -7,10 +7,12 @@
   <% if @route.game_state == "planning" %>
     <%= render partial: 'tasks', locals: {route: @route} %>
   <% else %>
-    <h2>Ende der Route</h2>
-    <p>Du hast die Route <%= @route.name %> erfolgreich absolviert!</p>
+    <h2>End of route</h2>
+    <p>Congrats! You have successfully completed route <%= @route.name %>!</p>
 
-    <%= link_to 'zurück zum Hauptmenü', routes_path, {class: 'btn' } %>
+    <%= link_to 'Results', route_path(@route), {class: 'btn btn--disabled' } %>
+
+    <%= link_to 'Back to Menu', routes_path, {class: 'btn' } %>
   <%end%>
 
 </div>

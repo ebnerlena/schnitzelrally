@@ -8,9 +8,9 @@
 
     <% if user_signed_in? %> 
         <ul class="sidebar_link-group">
-            <li> <%= display_svg("routes") %> Routen </li>
-            <li> <%= display_svg("tasks") %>Aufgaben </li>
-            <li> <%= display_svg("settings") %>Einstellungen </li>
+            <li> <%= display_svg("routes") %> Routes</li>
+            <li> <%= display_svg("tasks") %>Tasks</li>
+            <li> <%= display_svg("settings") %>Settings</li>
             <li> <%= display_svg("logout") %> <%= link_to "Logout", logout_path %> </li>
         </ul>
     <% else %>

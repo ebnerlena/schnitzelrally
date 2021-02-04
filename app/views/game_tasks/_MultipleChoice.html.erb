@@ -1,4 +1,4 @@
-<h2> Multiple Choice </h2>
+<h2> Multiple Choice</h2>
 
 <div class="card">
   <%= form_with(model: [@route, @game_task], local: true) do |form| %>
@@ -13,11 +13,11 @@
         </ul>
       </div>
     <% end %>
-    <%= form.label "Markiere den Ort", :class => 'input-label' %>
+    <%= form.label "Choose the location on the map", :class => 'input-label' %>
     <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
     
     <div class="input">
-      <%= form.label 'Ortshinweis', :class => 'input-label' %>
+      <%= form.label 'Location hint', :class => 'input-label' %>
       <%= form.text_field :hint, :class => 'input-text' %>
     </div>
 
@@ -25,28 +25,28 @@
     <%= form.hidden_field :longitude %>
 
     <div class="input">
-      <%= form.label "Name", :class => 'input-label' %>
+      <%= form.label "Task Name", :class => 'input-label' %>
       <%= form.text_field :name, :class => 'input-text' %>
     </div>
 
     <div class="input">
-      <%= form.label 'Frage', :class => 'input-label' %>
+      <%= form.label 'Question', :class => 'input-label' %>
       <%= form.text_field :description, :class => 'input-text' %>
     </div>
 
     <div class="input">
-      <%= form.label "Optionen", :class => 'input-label' %>
-      <p> Bitte im Format: Option1, Option2, Option3, Option4</p>
+      <%= form.label "Option", :class => 'input-label' %>
+      <p class="note"> Please enter in format: option1, option2, option3, option4</p>
       <%= form.text_field :answers, :class => 'input-text' %>
     </div>
     <div class="input">
-      <%= form.label "Richtig ist...", :class => 'input-label' %>
-      <p> 1 für Option1, 2 für Option2 ...</p>
+      <%= form.label "True is...", :class => 'input-label' %>
+      <p class="note"> 1 for option1, 2 for option2 ...</p>
       <%= form.text_field :solution, :class => 'input-text' %>
     </div>
 
     <div class="actions">
-      <%= form.submit 'Erstellen', :class => 'btn' %>
+      <%= form.submit 'Create', :class => 'btn' %>
     </div>
   <% end %>
 </div>

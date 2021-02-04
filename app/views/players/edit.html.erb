@@ -1,9 +1,9 @@
 <% content_for :nav do %>
-  <%= render partial: 'layouts/nav_with_back', locals: {title: "Player", link: "/"} %>
+  <%= render partial: 'layouts/nav_with_back', locals: {title: "Edit Player", link: "/"} %>
 <% end %>
 
 <div class="card">
-  <h2>Player bearbeiten</h2>
+  <h2>Player Settings</h2>
 
-  <%= render 'form', locals: { player: @player, title: "Player bearbeiten" } %>
+  <%= render 'form', locals: { player: @player } %>
 </div>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :routes do
 
     resources :game_tasks do
-      get :answer, on: :member
+      post :answer, on: :member
     end
 
     collection do

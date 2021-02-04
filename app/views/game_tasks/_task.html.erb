@@ -1,10 +1,10 @@
-<h2> <%= @game_task.name %> </h2>
-<p> <%= @game_task.description %> </p>
+<h2> Task instructions for <%= @game_task.name %>:</h2>
+<p class="left"> <%= @game_task.description %> </p>
 
-<%= form_with(url: answer_route_game_task_path(@route, @game_task), method: "get", multipart: true, local: true) do |form| %>
+<%= form_with(url: answer_route_game_task_path(@route, @game_task), method: "post", multipart: true, local: true) do |form| %>
     <% if @game_task.multiple_choice? %>
         <div class="input">
-            <p>"Select your answer"</p>
+            <p>Select your answer</p>
 
             <%= @answers.each do |key, value| %>
                 <%= form.label value, :class => 'input-label' %>
@@ -18,7 +18,7 @@
         </div>
     <% elsif @game_task.true_false? %>
         <div class="input">
-            <p>"TRUE or FALSE?"</p>
+            <p>TRUE or FALSE?</p>
             
             <%= form.label "TRUE", :class => 'input-label' %>
             <%= form.radio_button :answers, "TRUE", :class => 'input-text' %>
@@ -34,6 +34,6 @@
     <% end %>
 
   <div class="actions">
-    <%= form.submit 'Submit', :class => 'btn' %>
+    <%= form.submit 'Submit answer', :class => 'btn' %>
   </div>
 <% end %>

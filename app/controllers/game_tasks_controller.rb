@@ -8,31 +8,22 @@ class GameTasksController < ApplicationController
 
   def show
     if @game_task.state == "planning"
-      Rails.logger.warn("Im #{@game_task.state} - now start")
       @game_task.start
     elsif @game_task.state == "hint"
-      Rails.logger.warn("Im #{@game_task.state} - now arrive")
       @game_task.arrived
 
       if @game_task.multiple_choice?
         @answers = @game_task.answers["answers"]
-
-        @answers.each do |m|
-          Rails.logger.warn("Answer: #{m}")
-        end
       end
+
     else
-      Rails.logger.warn("mot planning not hint sondern #{@game_task.state}")
       @game_task.completed
     end
   end
 
   def answer
-
     if @game_task.photo_upload?
-      Rails.logger.warn("before has images? #{@game_task.images.attached?}")
       @game_task.images.attach(params[:images])
-      Rails.logger.warn("after has images? #{@game_task.images.attached?}")
     else
       answer = {current_or_guest_user.player.id => params[:answers]} 
       if @game_task.answers.nil?
@@ -58,7 +49,6 @@ class GameTasksController < ApplicationController
   def new
     @player = current_or_guest_user.player
     @game_task = @route.player.game_tasks.new
-    Rails.logger.warn("type = #{params[:type]} +")
     @game_task.type = params[:type]
   end
 
@@ -75,7 +65,6 @@ class GameTasksController < ApplicationController
     @game_task.latitude = 0.0
     @game_task.longitude = 0.0
     
-    Rails.logger.warn("type = #{params[:type]} +")
 
     @game_task.route_id = @route.id
     @game_task.type = params[:type]

@@ -35,7 +35,9 @@
         margin-bottom: 0;
 
         &.left {
-            width: 80vw;
+            @include mobile {
+                width: 90vw;
+            }
         }
     }
 

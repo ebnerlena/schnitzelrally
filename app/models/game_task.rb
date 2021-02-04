@@ -5,9 +5,11 @@ class GameTask < ApplicationRecord
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
 
-  # validates :name, length: { minimum: 5 }
+  # not using cause of empty creating of gametask when choosing format
+  # validates :name, length: { minimum: 3 }
   # validates :description, length: { minimum: 5 }
   # validates :hint, length: { minimum: 5 }
+ 
 
   include AASM
 
@@ -40,7 +42,6 @@ class GameTask < ApplicationRecord
   def start
     update(state: 'hint')
     save!
-
   end
 
   def arrived

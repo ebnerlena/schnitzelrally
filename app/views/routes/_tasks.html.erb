@@ -1,22 +1,22 @@
 
   <div class="card-nav"> 
-    <h3 class="card-nav_element"><%= link_to_unless_current "Karte", map_route_path(@route),  { action: "map", method: "get", params: {"route"=>{ route_id: @route_id }} } %></h3>
-    <h3 class="card-nav_element card-nav_element--active"><%= link_to_unless_current "Aufgaben", route_path %></h3>
+    <h3 class="card-nav_element"><%= link_to_unless_current "Map", map_route_path(@route),  { action: "map", method: "get", params: {"route"=>{ route_id: @route_id }} } %></h3>
+    <h3 class="card-nav_element card-nav_element--active"><%= link_to_unless_current "Tasks", route_path %></h3>
   </div>
 
     <% if @route.game_tasks.size==1 %>
-        <p class="left"><%= @route.game_tasks.size %> Aufgabe gesamt</p>
+        <p class="left"><%= @route.game_tasks.size %> task in total</p>
     <% else %>
-        <p class="left"><%= @route.game_tasks.size %> Aufgaben gesamt</p>
+        <p class="left"><%= @route.game_tasks.size %> tasks in total</p>
     <% end %> 
     
     <% if @route.game_tasks.where(player: current_or_guest_user.player).empty? %>
         <div class="card-tasks">
-            <p> Du hast noch keine Aufgaben erstellt... go wild und erstelle eine </p>
+            <p> You haven't created any tasks yet... go wild and create one </p>
         </div>
     <% else %>  
         <div class="card-tasks">
-            <h3>Deine erstellten Aufgaben:</h3>  
+            <h3>Your created tasks:</h3>  
             <ul class="card-tasks_list">
                 <% @route.game_tasks.where(player: current_or_guest_user.player).each do | task | %>
                     <div class="task">

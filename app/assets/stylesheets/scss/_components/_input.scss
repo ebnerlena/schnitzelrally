@@ -52,13 +52,17 @@
     }
 
     &-label {
-        font-family: $inconsolata;
+        font-family: $roboto;
         font-size: 22px;
         font-weight: 600;
         padding-left: 3px;
         letter-spacing: 1.5px;
         margin-top: 10px;
         margin-bottom: 10px;
+
+        @include mobile {
+            font-size: 17px;
+        }
     }
 
     &-text {
@@ -85,7 +89,10 @@
             margin: 0;
             font-weight: 600;
         }
-        
+    }
+
+    .note {
+        margin: 0;
     }
 }
 
