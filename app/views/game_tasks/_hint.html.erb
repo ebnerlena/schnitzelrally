@@ -1,0 +1,6 @@
+  <h2> <%= @game_task.name %> </h2>
+  <p> <%= @game_task.hint %> </p>
+  
+  <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+
+  <%= link_to "I'm here", route_game_task_path(@route, @game_task), {class: 'btn' } %>

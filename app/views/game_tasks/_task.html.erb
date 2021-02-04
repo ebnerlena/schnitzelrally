@@ -1,0 +1,39 @@
+<h2> <%= @game_task.name %> </h2>
+<p> <%= @game_task.description %> </p>
+
+<%= form_with(url: answer_route_game_task_path(@route, @game_task), method: "get", multipart: true, local: true) do |form| %>
+    <% if @game_task.multiple_choice? %>
+        <div class="input">
+            <p>"Select your answer"</p>
+
+            <%= @answers.each do |key, value| %>
+                <%= form.label value, :class => 'input-label' %>
+                <%= form.radio_button :answers, value, :class => 'input-text' %>
+            <% end %>
+        </div>
+    <% elsif @game_task.photo_upload? %>
+        <div class="input input--borderless">
+            <%= form.label "Choose your picture", :class => 'input-label' %>
+            <%= form.file_field :images %>
+        </div>
+    <% elsif @game_task.true_false? %>
+        <div class="input">
+            <p>"TRUE or FALSE?"</p>
+            
+            <%= form.label "TRUE", :class => 'input-label' %>
+            <%= form.radio_button :answers, "TRUE", :class => 'input-text' %>
+
+            <%= form.label "FALSE", :class => 'input-label' %>
+            <%= form.radio_button :answers, "FALSE", :class => 'input-text' %>
+        </div>
+    <% else %>
+        <div class="input">
+            <%= form.label "Your answer", :class => 'input-label' %>
+            <%= form.text_field :answers, :class => 'input-text' %>
+        </div>
+    <% end %>
+
+  <div class="actions">
+    <%= form.submit 'Submit', :class => 'btn' %>
+  </div>
+<% end %>

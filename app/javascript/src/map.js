@@ -56,7 +56,7 @@ render = () => {
         map.once("click", addMarker);
         addTasks();
     }
-    else if (path.endsWith("game_tasks/new") || path.endsWith("edit")) {
+    else if (path.endsWith("game_tasks/new")) {
 
         setUpMap();
         addViewToMap();

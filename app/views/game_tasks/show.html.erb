@@ -3,13 +3,11 @@
 <% end %>
 
 <div class="card">
-  <p>
-    Name: <%= @game_task.name %>
-  </p>
-  <p> <%= @game_task.hint %> </p>
-  
-
-  <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
-
-  <%= link_to 'Bin da', routes_path, {class: 'btn' } %>
+  <% if @game_task.state == "hint" %>
+    <%= render partial: 'hint', locals: { route: @route, game_task: @game_task } %>
+  <% elsif @game_task.state == "task" %>
+    <%= render partial: 'task', locals: { route: @route, game_task: @game_task } %>
+  <% else %>
+    <%= render partial: 'result', locals: { route: @route, game_task: @game_task } %>
+  <% end %>
 </div>

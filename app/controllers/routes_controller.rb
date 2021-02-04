@@ -16,7 +16,7 @@ class RoutesController < ApplicationController
     @which = 'Tasks'
     @player = current_or_guest_user.player
     @tasks = @route.game_tasks.where(player: @player)
-    render '_tasks'
+    # render '_tasks'
   end
 
   # GET /routes/new
@@ -49,9 +49,11 @@ class RoutesController < ApplicationController
 
   def join_route
     @route = Route.where(name: params[:name], game_state: 'planning').first
+    @player = current_or_guest_user.player
 
     if !@route.nil?
-      @route.players.push(current_or_guest_user.player)
+      RoutesPlayersAssociation.create(player: @player, route: @route)
+
       redirect_to @route
     else
       Rails.logger.warn('route is nil')
@@ -90,7 +92,13 @@ class RoutesController < ApplicationController
   # POST /routes.json
   def create
     @player = current_or_guest_user.player
-    @route = @player.routes.create(route_params)
+    @route = Route.new(route_params)
+    @route.player_id = @player.id
+    @route.save!
+
+    # @player.routes.push(@route)
+    # @player.save!
+    RoutesPlayersAssociation.create(player: @player, route: @route)
 
     results = Geocoder.search([@route.latitude, @route.longitude])
     #@route.location = results.first.address

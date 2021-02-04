@@ -1,9 +1,4 @@
-<% content_for :nav do %>
-  <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{@route.name}"} %>
-<% end %>
 
-
-<div class="card">
   <div class="card-nav"> 
     <h3 class="card-nav_element"><%= link_to_unless_current "Karte", map_route_path(@route),  { action: "map", method: "get", params: {"route"=>{ route_id: @route_id }} } %></h3>
     <h3 class="card-nav_element card-nav_element--active"><%= link_to_unless_current "Aufgaben", route_path %></h3>
@@ -13,7 +8,7 @@
         <p class="left"><%= @route.game_tasks.size %> Aufgabe gesamt</p>
     <% else %>
         <p class="left"><%= @route.game_tasks.size %> Aufgaben gesamt</p>
-    <% end %>
+    <% end %> 
     
     <% if @route.game_tasks.where(player: current_or_guest_user.player).empty? %>
         <div class="card-tasks">
@@ -28,8 +23,10 @@
                         <div class="task-header">
                             <p class="task-name"><strong><%= task.name %></strong></p>
                             <div class="task_links">
+                                <% if !task.multiple_choice? %>
                                 <%= link_to 'Edit', edit_route_game_task_path(@route, task) %>
                                 <span class="divider"> | </span>
+                                <% end %>
                                 <%= link_to 'Destroy', [@route,task.becomes(GameTask)], method: :delete, data: { confirm: 'Are you sure?' } %>
                             </div>
                         </div>
@@ -40,4 +37,3 @@
         </div>    
     <% end %>   
     <%= link_to '+', add_task_route_path(@route),  {params: {"game_task"=>{ route_id: @route.id }}, class: 'btn add' } %>
-</div>

@@ -1,13 +1,60 @@
 class GameTasksController < ApplicationController
-  before_action :set_game_task, only: %i[show edit update destroy]
+  before_action :set_game_task, only: %i[show edit answer update destroy]
   before_action :set_route
 
   def index
     @game_tasks = GameTask.all
   end
 
-  def show; end
+  def show
+    if @game_task.state == "planning"
+      Rails.logger.warn("Im #{@game_task.state} - now start")
+      @game_task.start
+    elsif @game_task.state == "hint"
+      Rails.logger.warn("Im #{@game_task.state} - now arrive")
+      @game_task.arrived
 
+      if @game_task.multiple_choice?
+        @answers = @game_task.answers["answers"]
+
+        @answers.each do |m|
+          Rails.logger.warn("Answer: #{m}")
+        end
+      end
+    else
+      Rails.logger.warn("mot planning not hint sondern #{@game_task.state}")
+      @game_task.completed
+    end
+  end
+
+  def answer
+
+    if @game_task.photo_upload?
+      Rails.logger.warn("before has images? #{@game_task.images.attached?}")
+      @game_task.images.attach(params[:images])
+      Rails.logger.warn("after has images? #{@game_task.images.attached?}")
+    else
+      answer = {current_or_guest_user.player.id => params[:answers]} 
+      if @game_task.answers.nil?
+        @game_task.answers = answer
+      else
+        @game_task.answers = @game_task.answers.merge(answer)
+      end
+    end
+
+    @game_task.save!
+    @game_task.completed
+    
+    @game_task = @route.next_task(@game_task)
+
+    if @game_task.nil?
+      @route.end
+      redirect_to route_path(@route)
+    else
+      redirect_to route_game_task_path(@route, @game_task)
+    end
+  end
+  
   def new
     @player = current_or_guest_user.player
     @game_task = @route.player.game_tasks.new
@@ -16,7 +63,6 @@ class GameTasksController < ApplicationController
   end
 
   def edit
-    Rails.logger.warn("i am in edit")
     @type = @game_task
     @game_task = @game_task.becomes(GameTask)
    
@@ -26,8 +72,8 @@ class GameTasksController < ApplicationController
   def create
     @player = current_or_guest_user.player
     @game_task = @player.game_tasks.new 
-    @game_task.latitude = 12.0
-    @game_task.longitude = 13.0
+    @game_task.latitude = 0.0
+    @game_task.longitude = 0.0
     
     Rails.logger.warn("type = #{params[:type]} +")
 
@@ -92,6 +138,6 @@ class GameTasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def game_task_params
-    params.require(:game_task).permit(:id, :name, :type, :solution, :answers, :description, :hint, :latitude, :longitude)
+    params.require(:game_task).permit(:id, :name, :type, :solution, :answers, :description, :hint, :latitude, :longitude, images:[])
   end
 end

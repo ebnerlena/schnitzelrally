@@ -4,7 +4,6 @@ class CreateRoutes < ActiveRecord::Migration[6.0]
       t.string :name
       t.float :latitude, null: false
       t.float :longitude, null: false
-      t.string :location
       t.integer :radius
       t.string :game_state
       t.timestamp :start_time

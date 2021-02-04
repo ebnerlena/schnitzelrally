@@ -3,10 +3,14 @@
 <% end %>
 
 <div class="card">
-  <p>
-    <strong>Name:</strong>
-    <%= @route.current_task.name %>
-  </p>
-  <p> <%= @route.current_task.hint %> </p>
-  <%= link_to 'Bin da', routes_path, {class: 'btn' } %>
+
+  <% if @route.game_state == "planning" %>
+    <%= render partial: 'tasks', locals: {route: @route} %>
+  <% else %>
+    <h2>Ende der Route</h2>
+    <p>Du hast die Route <%= @route.name %> erfolgreich absolviert!</p>
+
+    <%= link_to 'zurück zum Hauptmenü', routes_path, {class: 'btn' } %>
+  <%end%>
+
 </div>

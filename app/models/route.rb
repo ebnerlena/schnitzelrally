@@ -1,6 +1,6 @@
 class Route < ApplicationRecord
   belongs_to :player
-  has_many :players
+  has_many :players, through: :routes_players_association
   has_many :game_tasks, dependent: :destroy
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
@@ -30,31 +30,25 @@ class Route < ApplicationRecord
     # state :saved
   end
 
-  # def initialize
-  #   @current_task_index = 0
-  #   @tasks = []
-
-  #   #game_id = random string
-  # end
-
   def log_status_change
     puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
   def start
-    update(game_state: 'running')
+    update(game_state: 'running', start_time: Time.zone.now)
     save!
     @tasks = game_tasks.clone
     @current_task = @tasks.first
+
+    # randomize game_task list?
   end
 
-  def join(user)
-    user.ro
+  def next_task(task)
+    @current_task = game_tasks.where(state: "planning").first
+  end
+
+  def end
+    update(game_state: 'finished', end_time: Time.zone.now)
     save!
-  end
-
-  def next_task
-    @tasks.drop(1)
-    @current_task = @tasks.first
   end
 end
