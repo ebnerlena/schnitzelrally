@@ -2,9 +2,8 @@
 
 one:
   id: 
-  tasks: one
-  user: one
-  users: one
+  # game_tasks: one
+  player: one
   latitude: 1.5
   longitude: 1.5
   radius: 1
@@ -13,9 +12,8 @@ one:
 
 two:
   id: 
-  tasks: two
-  user: two
-  users: two
+  # game_tasks: two
+  player: two
   latitude: 1.5
   longitude: 1.5
   radius: 1

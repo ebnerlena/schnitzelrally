@@ -1,6 +1,6 @@
 .card-tasks {
     margin: 2% 0;
-    padding: $default_padding;
+    padding: $default_padding/2;
     background: $backgroundColor2;
     border-radius: $borderradius;
     width: 80vw;
@@ -9,11 +9,13 @@
 
     @include tablet {
         width: 100%;
+        padding: $default_padding;
     }
 
     @include desktop {
         width: 100%;
         @include maxwidthcontainer;
+        padding: $default_padding;
     }
 
     h3 {

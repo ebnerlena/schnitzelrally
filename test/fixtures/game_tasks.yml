@@ -1,19 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: GameTask1
   description: MyString
   hint: MyString
   latitude: 1.5
   longitude: 1.5
-  user: one
-  users: one
+  route: one
+  player: one
+  
 
 two:
-  name: MyString
+  name: GameTask2
   description: MyString
   hint: MyString
   latitude: 1.5
   longitude: 1.5
-  user: two
-  users: two
+  route: one
+  player: two
+  

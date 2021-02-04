@@ -3,6 +3,14 @@ html {
     font-family: $roboto, 'sans-serif';
     color: $secondaryColor;
 
+    @include tablet {
+        font-size: 17px;
+    }
+
+    @include desktop {
+        font-size: 20px;
+    }
+
     h1 {
         font-family: $inconsolata, $roboto, 'sans-serif';
         font-size: $h1_font_size;

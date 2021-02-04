@@ -93,7 +93,7 @@ class RoutesController < ApplicationController
     @route = @player.routes.create(route_params)
 
     results = Geocoder.search([@route.latitude, @route.longitude])
-    @route.location = results.first.address
+    #@route.location = results.first.address
 
     respond_to do |format|
       if @route.save

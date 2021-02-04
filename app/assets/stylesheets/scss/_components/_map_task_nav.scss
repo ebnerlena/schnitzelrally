@@ -43,13 +43,14 @@
 
         a {
             text-decoration: none;
-            color: $white;
+            color: $white; 
             width: 100%;
             height: 100%;
             padding: ($default_padding/1.5) $default_padding;
             display: block;
             min-width: 100px;
             max-height: 20px;
+            font-size: 1.3rem;
         }
     }
 }
