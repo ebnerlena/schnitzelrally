@@ -7,5 +7,4 @@ class UserTest < ActiveSupport::TestCase
     args[:password] = '123456'
     assert User.create(args)
   end
-
 end

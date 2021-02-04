@@ -9,7 +9,7 @@ class Player < ApplicationRecord
   def routes
     @routes = []
     associations = RoutesPlayersAssociation.where(player: self)
-    associations.each do | r |
+    associations.each do |r|
       @routes.push(Route.find(r.route_id))
     end
     @routes

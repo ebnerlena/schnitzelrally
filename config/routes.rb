@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :routes do
-
     resources :game_tasks do
       post :answer, on: :member
     end

@@ -9,7 +9,6 @@ class GameTask < ApplicationRecord
   # validates :name, length: { minimum: 3 }
   # validates :description, length: { minimum: 5 }
   # validates :hint, length: { minimum: 5 }
- 
 
   include AASM
 
@@ -55,19 +54,19 @@ class GameTask < ApplicationRecord
   end
 
   def multiple_choice?
-    type == "MultipleChoice"
+    type == 'MultipleChoice'
   end
 
   def photo_upload?
-    type == "PhotoUpload"
+    type == 'PhotoUpload'
   end
 
   def true_false?
-    type == "TrueFalse"
+    type == 'TrueFalse'
   end
 
   def text_input?
-    type == "TextInput"
+    type == 'TextInput'
   end
 
   def self.available_types
@@ -82,5 +81,4 @@ class GameTask < ApplicationRecord
   def log_status_change
     puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
-
 end

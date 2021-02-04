@@ -94,10 +94,10 @@ class RoutesController < ApplicationController
     @player = current_or_guest_user.player
     @route = Route.new(route_params)
     @route.player_id = @player.id
-    #@route.save!
+    # @route.save!
 
     results = Geocoder.search([@route.latitude, @route.longitude])
-    #@route.location = results.first.address
+    # @route.location = results.first.address
 
     respond_to do |format|
       if @route.save

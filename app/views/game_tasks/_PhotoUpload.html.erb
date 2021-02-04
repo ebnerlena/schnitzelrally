@@ -4,7 +4,7 @@
   <%= form_with(model: [@route, @game_task], local: true) do |form| %>
     <% if @game_task.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(@game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
+        <h3><%= pluralize(@game_task.errors.count, "error") %> prohibited this game_task from being saved:</h3>
 
         <ul>
           <% @game_task.errors.full_messages.each do |message| %>

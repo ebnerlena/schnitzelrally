@@ -46,14 +46,14 @@ class Route < ApplicationRecord
   def players
     @players = []
     associations = RoutesPlayersAssociation.where(route: self)
-    associations.each do | p |
+    associations.each do |p|
       @players.push(Player.find(p.player_id))
     end
     @players
   end
 
-  def next_task(task)
-    @current_task = game_tasks.where(state: "planning").first
+  def next_task(_task)
+    @current_task = game_tasks.where(state: 'planning').first
   end
 
   def end

@@ -7,14 +7,12 @@ class GameTasksController < ApplicationController
   end
 
   def show
-    if @game_task.state == "planning"
+    if @game_task.state == 'planning'
       @game_task.start
-    elsif @game_task.state == "hint"
+    elsif @game_task.state == 'hint'
       @game_task.arrived
 
-      if @game_task.multiple_choice?
-        @answers = @game_task.answers["answers"]
-      end
+      @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
 
     else
       @game_task.completed
@@ -25,17 +23,17 @@ class GameTasksController < ApplicationController
     if @game_task.photo_upload?
       @game_task.images.attach(params[:images])
     else
-      answer = {current_or_guest_user.player.id => params[:answers]} 
-      if @game_task.answers.nil?
-        @game_task.answers = answer
-      else
-        @game_task.answers = @game_task.answers.merge(answer)
-      end
+      answer = { current_or_guest_user.player.id => params[:answers] }
+      @game_task.answers = if @game_task.answers.nil?
+                             answer
+                           else
+                             @game_task.answers.merge(answer)
+                           end
     end
 
     @game_task.save!
     @game_task.completed
-    
+
     @game_task = @route.next_task(@game_task)
 
     if @game_task.nil?
@@ -45,7 +43,7 @@ class GameTasksController < ApplicationController
       redirect_to route_game_task_path(@route, @game_task)
     end
   end
-  
+
   def new
     @player = current_or_guest_user.player
     @game_task = @route.player.game_tasks.new
@@ -55,25 +53,24 @@ class GameTasksController < ApplicationController
   def edit
     @type = @game_task
     @game_task = @game_task.becomes(GameTask)
-   
+
     @tasks = ['latitude' => @game_task.latitude, 'longitude' => @game_task.longitude]
   end
 
   def create
     @player = current_or_guest_user.player
-    @game_task = @player.game_tasks.new 
+    @game_task = @player.game_tasks.new
     @game_task.latitude = 0.0
     @game_task.longitude = 0.0
-    
 
     @game_task.route_id = @route.id
     @game_task.type = params[:type]
-    
+
     if @game_task.save
-      Rails.logger.warn("create was ok")
+      Rails.logger.warn('create was ok')
       redirect_to edit_route_game_task_path(@route, @game_task)
     else
-      Rails.logger.warn("not ok")
+      Rails.logger.warn('not ok')
       @game_task.errors.full_messages.each do |message|
         Rails.logger.warn(message)
       end
@@ -92,7 +89,6 @@ class GameTasksController < ApplicationController
     #   end
     # end
   end
-
 
   def update
     respond_to do |format|
@@ -127,6 +123,7 @@ class GameTasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def game_task_params
-    params.require(:game_task).permit(:id, :name, :type, :solution, :answers, :description, :hint, :latitude, :longitude, images:[])
+    params.require(:game_task).permit(:id, :name, :type, :solution, :answers, :description, :hint, :latitude,
+                                      :longitude, images: [])
   end
 end
