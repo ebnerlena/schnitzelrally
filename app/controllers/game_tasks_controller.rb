@@ -24,7 +24,8 @@ class GameTasksController < ApplicationController
   end
 
   def create
-    @game_task =  current_or_guest_user.player.game_tasks.new 
+    @player = current_or_guest_user.player
+    @game_task = @player.game_tasks.new 
     @game_task.latitude = 12.0
     @game_task.longitude = 13.0
     

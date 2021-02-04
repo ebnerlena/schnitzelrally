@@ -15,8 +15,25 @@ main {
 
     #map {
         height: 40vh;
-        max-width: 500px;
+        max-width: 1000px;
+        width: 1000px;
+        margin-top: 10px;
         z-index: 1;
+
+        width: 90vw;
+
+        @include tablet {
+            width: 50vw;
+            margin: 10px auto;
+        }
+
+        @include desktop {
+            width: 50vw;
+            height: 50vh;
+            margin: 10px auto;
+
+            @include maxwidthcontainer;
+        }
     }
 
     .player_avatar {

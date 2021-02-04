@@ -5,7 +5,7 @@
     display: flex;
     z-index: 5;
     position: fixed;
-    padding: 0 2*$default_padding;
+    padding: 0 20px;
 
     @include mobile {
         padding-left: ($default_padding)/2;
@@ -50,11 +50,12 @@
                 height: 20px;
     
                 @include tablet {
-                    height: 25px;
+                    height: 23px;
                 }
 
                 @include desktop {
-                    height: 30px;
+                    height: 28px;
+                    margin-right: 8px;
                 }
             }
         }
@@ -62,7 +63,6 @@
         .nav_header_left {
             display: flex;
             flex-direction: row;
-            //padding-left: 10px;
 
             .nav_header_title {
                 font-size: 1.3rem;
@@ -83,8 +83,18 @@
             align-items: center;
             padding-right: 3*$default_padding;
 
+            a {
+                color: $white;
+                font-size: 1.2rem;
+            }
+
+            svg {
+                margin-left: 5px;
+                height: 20px;
+            }
+
             @include mobile {
-                padding-right: $default_padding;
+                padding-right: 1.5*$default_padding;
             }
         }
     }

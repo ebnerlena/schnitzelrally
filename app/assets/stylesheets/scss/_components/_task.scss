@@ -8,11 +8,11 @@
     height: fit-content;
 
     @include tablet {
-        width: 70vw;
+        width: 100%;
     }
 
     @include desktop {
-        width: 60vw;
+        width: 100%;
         @include maxwidthcontainer;
     }
 
@@ -28,6 +28,7 @@
             padding: $default_padding;
             background: $white;
             border-radius: $borderradius;
+            min-height: 6.5vh;
     
             .task-header {
                 display: flex;
@@ -40,6 +41,11 @@
 
             p {
                 margin-bottom: 0;
+            }
+
+            .divider {
+                font-size: 20px;
+                font-weight: bold;
             }
         }
     }

@@ -5,6 +5,15 @@
     margin-bottom: $default_margin;
     width: 90vw;
 
+    @include tablet {
+        width: 50vw;
+        margin: auto;
+    }
+
+    @include desktop {
+        width: 30vw;
+    }
+
     input, select {
         height: 22px;
         border-radius: $borderradius;
@@ -13,7 +22,6 @@
         border: 1px $secondaryColor solid;
         transition: all .3s ease;
         padding: ($default_padding/2) $default_padding;
-        margin-top: 10px;
         outline: none;
         max-width: 30em;
         color: $secondaryColor;
@@ -25,7 +33,6 @@
         }
     }
 
-
     #user_remember_me {
         width: auto;
     }
@@ -34,8 +41,13 @@
         flex-direction: inherit;
         align-items: center;
 
-        input {
+        .input-checkbox {
+            margin: 0;
             margin-right: ($default_padding)/2;
+        }
+        
+        .input-label {
+            font-size: 18px;
         }
     }
 
@@ -45,6 +57,8 @@
         font-weight: 600;
         padding-left: 3px;
         letter-spacing: 1.5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     &-text {

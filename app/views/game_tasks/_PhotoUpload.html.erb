@@ -1,44 +1,46 @@
-<h1> Photo Upload </h1>
+<h2> Photo Upload </h2>
 
-<%= form_with(model: [@route, @game_task], local: true) do |form| %>
-  <% if @game_task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
+<div class="card">
+  <%= form_with(model: [@route, @game_task], local: true) do |form| %>
+    <% if @game_task.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@game_task.errors.count, "error") %> prohibited this game_task from being saved:</h2>
 
-      <ul>
-        <% @game_task.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% @game_task.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= form.label "Markiere den Ort", :class => 'input-label' %>
+    <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+    
+    <div class="input">
+      <%= form.label 'Ortshinweis', :class => 'input-label' %>
+      <%= form.text_field :hint, :class => 'input-text' %>
+    </div>
+
+    <%= form.hidden_field :latitude %>
+    <%= form.hidden_field :longitude %>
+
+    <div class="input">
+      <%= form.label "Aufgaben Name", :class => 'input-label' %>
+      <%= form.text_field :name, :class => 'input-text' %>
+    </div>
+
+    <div class="input">
+      <%= form.label 'Aufgabenstellung', :class => 'input-label' %>
+      <%= form.text_field :description, :class => 'input-text' %>
+    </div>
+
+    <div class="input input--borderless">
+          <%= form.label "Foto hochladen", :class => 'input-label' %>
+          <%= form.file_field :avatar %>
+      </div>
+
+    <div class="actions">
+      <%= form.submit 'Erstellen', :class => 'btn' %>
     </div>
   <% end %>
-  <%= form.label "Markiere den Ort", :class => 'input-label' %>
-  <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
-  
-  <div class="input">
-    <%= form.label 'Ortshinweis', :class => 'input-label' %>
-    <%= form.text_field :hint, :class => 'input-text' %>
-  </div>
-
-  <%= form.hidden_field :latitude %>
-  <%= form.hidden_field :longitude %>
-
-  <div class="input">
-    <%= form.label "Aufgaben Name", :class => 'input-label' %>
-    <%= form.text_field :name, :class => 'input-text' %>
-  </div>
-
-  <div class="input">
-    <%= form.label 'Aufgabenstellung', :class => 'input-label' %>
-    <%= form.text_field :description, :class => 'input-text' %>
-  </div>
-
-  <div class="input input--borderless">
-        <%= form.label "Foto hochladen", :class => 'input-label' %>
-        <%= form.file_field :avatar %>
-    </div>
-
-  <div class="actions">
-    <%= form.submit 'Erstellen', :class => 'btn' %>
-  </div>
-<% end %>
+</div>

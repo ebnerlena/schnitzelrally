@@ -18,7 +18,7 @@
     transform: translate(-150px, 0px);
 
     @include tablet {
-        width: 200px;
+        width: 250px;
     }
 
     @include desktop {
@@ -28,6 +28,18 @@
     li {
 
         padding-top: $default_padding;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+        a {
+            color: $secondaryColor;
+        }
+
+        svg {
+            width: 20px;
+            margin-right: 15px;
+        }
 
         &:last-child {
             bottom: 150px;
@@ -37,7 +49,7 @@
         &.player_avatar {
             align-self: center;
             img {
-                width: 100px;
+                width: 90px;
                 border-radius: 50%;
             }
         }
@@ -55,6 +67,15 @@
         right: 0;
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
+    }
+
+    &_link-group {
+        list-style: none;
+        padding: 0;
+
+        li {
+            
+        }
     }
 }
 

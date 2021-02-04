@@ -29,6 +29,7 @@
                             <p class="task-name"><strong><%= task.name %></strong></p>
                             <div class="task_links">
                                 <%= link_to 'Edit', edit_route_game_task_path(@route, task) %>
+                                <span class="divider"> | </span>
                                 <%= link_to 'Destroy', [@route,task.becomes(GameTask)], method: :delete, data: { confirm: 'Are you sure?' } %>
                             </div>
                         </div>
