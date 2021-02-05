@@ -1,33 +1,16 @@
 .card-home {
     height: 80vh;
-    width: 95vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     
-    @include tablet {
-        width: 75vw;
-    }
-
-    @include desktop {
-        width: 65vw;
-    }
-
     .intro {
-        width: 80vw;
+        width: 100%;
         margin: auto;
         padding-bottom: $default_padding;
 
-        @include tablet {
-            width: 70vw;
-        }
-
-        @include desktop {
-            width: 50vw;
-        }
-
         .intro_title {
-
             span {
                 text-transform: uppercase;
                 font-weight: 800;
@@ -66,7 +49,6 @@
         .player_name {
             font-weight: 800;
             font-size: 1.3rem;
-            margin-right: 20px;
         }
 
         a {

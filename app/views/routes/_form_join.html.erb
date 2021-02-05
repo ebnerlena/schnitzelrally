@@ -3,19 +3,19 @@
 <% end %>
 <div class="card">
   <h2>Join a route</h2>
-  <p class="left"> Enter valid route name (min 3 char) </p>
+  <p class="hint"> Enter valid route name (min 3 char) </p>
 
-  <p id="notice"><%= notice %></p>
+  <p class="hint" id="notice"><%= notice %></p>
 
   <%= form_with url: "join_route", method: "post" do |form| %>
 
     <div class="input">
       <%= form.label "Route Name", :class => 'input-label' %>
-      <%= form.text_field :name, :class => 'input-text' %>
+      <%= form.text_field :name, { :class => 'input-text', :id => 'route_name' } %>
     </div>
 
     <div class="actions">
-      <%= form.submit 'Join Route', class: 'btn' %>
+      <%= form.submit 'Join Route', { class: 'btn' } %>
     </div>
   <% end %>
 </div>

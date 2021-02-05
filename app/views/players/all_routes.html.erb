@@ -1,0 +1,34 @@
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_in_route', locals: {title: "Player: #{@player.name}"} %>
+<% end %>
+
+<div class="card">
+  <h2>Your created routes</h2>
+
+    <% if @player.routes.size==1 %>
+        <p class="left"><%= @player.routes.size %> task in total</p>
+    <% else %>
+        <p class="left"><%= @player.routes.size %> tasks in total</p>
+    <% end %> 
+    
+    <% if @player.routes.empty? %>
+        <div class="card-tasks">
+            <p>You haven't created any routes yet...</p>
+        </div>
+    <% else %>  
+        <div class="card-tasks">
+            <h3>Your created routes:</h3>  
+            <ul class="card-tasks_list">
+                <% @player.routes.each do | route | %>
+                    <div class="task">
+                        <div class="task-header">
+                            <p class="task-name"><strong><%= route.name %></strong></p>
+                        </div>
+                        <p class="task-description">Participants: <%= route.players.size %></p>
+                        <p class="task-description">Created on: <%= route.start_time.to_formatted_s(:long) %></p>
+                    </div>
+                <% end %>
+            </ul>
+        </div>    
+    <% end %>   
+</div>

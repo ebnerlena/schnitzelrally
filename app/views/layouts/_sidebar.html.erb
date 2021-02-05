@@ -1,6 +1,6 @@
 <ul class="sidebar">
     <%if !current_or_guest_user.player.nil?%>
-        <li class="player_avatar"> <%=  avatar %> </li>
+        <li class="player_avatar"> <%= link_to avatar, edit_player_path(current_or_guest_user.player) %> </li>
         <li class="player_name"><%= current_or_guest_user.player.name %> </li>
     <% end %>
 
@@ -8,9 +8,9 @@
 
     <% if user_signed_in? %> 
         <ul class="sidebar_link-group">
-            <li> <%= display_svg("routes") %> Routes</li>
-            <li> <%= display_svg("tasks") %>Tasks</li>
-            <li> <%= display_svg("settings") %>Settings</li>
+            <li> <%= display_svg("routes") %> <%= link_to "Routes", all_routes_player_path(current_or_guest_user.player.id) %> </li>
+            <li> <%= display_svg("tasks") %> <%= link_to "Tasks", all_tasks_player_path(current_or_guest_user.player.id) %> </li>
+            <li> <%= display_svg("settings") %> <%= link_to "Settings", edit_player_path(current_or_guest_user.player) %> </li>
             <li> <%= display_svg("logout") %> <%= link_to "Logout", logout_path %> </li>
         </ul>
     <% else %>

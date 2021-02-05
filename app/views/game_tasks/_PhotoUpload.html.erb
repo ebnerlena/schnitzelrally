@@ -1,6 +1,6 @@
-<h2> Photo Upload </h2>
-
 <div class="card">
+  <h2> Photo Upload </h2>
+
   <%= form_with(model: [@route, @game_task], local: true) do |form| %>
     <% if @game_task.errors.any? %>
       <div id="error_explanation">
@@ -15,6 +15,8 @@
     <% end %>
     <%= form.label "Choose the location on the map", :class => 'input-label' %>
     <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+    <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
+    <% end %>
     
     <div class="input">
       <%= form.label 'Location hint', :class => 'input-label' %>
@@ -35,7 +37,7 @@
     </div>
 
     <div class="actions">
-      <%= form.submit 'Create', :class => 'btn' %>
+      <%= form.submit 'Create', :class => 'btn btn--disabled' %>
     </div>
   <% end %>
 </div>

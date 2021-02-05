@@ -10,12 +10,30 @@ class RouteChannel < ApplicationCable::Channel
 
   def route
     # game id
-    # Route.find(params[:route_id])
-    Route.last
+    route = Route.find(params[:route_id])
   end
 
   def receive(data)
-    ActionCable.server.broadcast("route_#{params[:room]}", data)
-    # new Notification(data["title"], body: data["body"])
+    if data['command'] == 'start'
+
+      Rails.logger.warn("start command in channel #{data['route_id']}")
+      route = Route.where(id: data['route_id']).first
+      task = route.start
+      
+      RouteChannel.broadcast_to route, route_state: route.game_state, route_id: route.id,task: task.id, task_state: task.state
+      #route.start
+
+      Rails.logger.warn("after broadcasting")
+
+    elsif data['command'] == 'arrived'
+
+      Rails.logger.warn("arrived command in channel #{data['route_id']}")
+      task = GameTask.find(data['task_id'])
+      route = Route.where(id: data['route_id']).first
+      task.arrived
+      RouteChannel.broadcast_to route, route_state: route.game_state, route_id: route.id, task: task.id, task_state: task.state
+    end
+
   end
+
 end

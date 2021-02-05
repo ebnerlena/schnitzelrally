@@ -1,0 +1,33 @@
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_in_route', locals: {title: "Player: #{@player.name}"} %>
+<% end %>
+
+<div class="card">
+  <h2>Your created tasks</h2>
+
+    <% if @player.game_tasks.size==1 %>
+        <p class="left"><%= @player.game_tasks.size %> task in total</p>
+    <% else %>
+        <p class="left"><%= @player.game_tasks.size %> tasks in total</p>
+    <% end %> 
+    
+    <% if @player.game_tasks.empty? %>
+        <div class="card-tasks">
+            <p>You haven't created any tasks yet...</p>
+        </div>
+    <% else %>  
+        <div class="card-tasks">
+            <h3>Your created tasks:</h3>  
+            <ul class="card-tasks_list">
+                <% @player.game_tasks.each do | task | %>
+                    <div class="task">
+                        <div class="task-header">
+                            <p class="task-name"><strong><%= task.name %></strong></p>
+                        </div>
+                        <p class="task-description"><%= task.description %></p>
+                    </div>
+                <% end %>
+            </ul>
+        </div>    
+    <% end %>   
+</div>

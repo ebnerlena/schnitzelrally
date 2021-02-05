@@ -49,25 +49,31 @@ render = () => {
         addTasks();
     } 
     else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/) && splittedPath[5] =="edit") {
-        setUpMap();
-        addViewToMap();
-        lngInput = document.querySelector('#game_task_longitude');
-        latInput = document.querySelector('#game_task_latitude');
-        map.once("click", addMarker);
+        setUpMapForGameTask();
         addTasks();
     }
     else if (path.endsWith("game_tasks/new")) {
-
-        setUpMap();
-        addViewToMap();
-        lngInput = document.querySelector('#game_task_longitude');
-        latInput = document.querySelector('#game_task_latitude');
-        map.once("click", addMarker);
+        setUpMapForGameTask();
     }
     else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/)) {
         setUpMap();
         addViewToMap();
     }
+}
+
+setUpMapForGameTask = () => {
+    setUpMap();
+    addViewToMap();
+    lngInput = document.querySelector('#game_task_longitude');
+    latInput = document.querySelector('#game_task_latitude');
+
+    let button = document.querySelector('.btn--disabled');
+    
+    if (lngInput.value > 0 && latInput.value > 0) {
+        button.classList.remove('btn--disabled');    
+    }
+
+    map.once("click", addMarker);
 }
 
 setUpMap = () => {
@@ -104,6 +110,10 @@ function addLatLngInput(e) {
 }
 
 function addMarker(e) {
+    let button = document.querySelector('.btn--disabled');
+
+    button.classList.remove('btn--disabled');
+
     let marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: markerIcon, draggable: true}).addTo(map);
     addLatLngInput(e);
     marker.on("moveend", changeLatLngInput);

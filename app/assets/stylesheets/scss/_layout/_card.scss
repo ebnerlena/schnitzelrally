@@ -2,43 +2,45 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    //height: 90vh;
     justify-content: space-around;
     @include maxwidthcontainer;
 
     @include tablet {
         width: 80vw;
         margin: auto;
-        align-items: start;
     }
 
     @include desktop {
-        //width: 50vw;
         margin: auto;
-        align-items: start;
     }
 
     h2 {
-        width: 90vw;
+        width: 100%;
         letter-spacing: 2.5px;
+        margin-bottom: $default_margin;
+    }
 
-        @include tablet {
-            width: 80vw;
-        }
-    
-        @include desktop {
-            width: 50vw;
+    .left{
+        margin-bottom: 0;
+        align-self: flex-start;
+
+        @include mobile {
+            margin-left: $default_margin/2;
         }
     }
 
-    p {
+    .hint {
         margin-bottom: 0;
+        align-self: flex-start;
+    }
 
-        &.left {
-            @include mobile {
-                width: 90vw;
-            }
-        }
+    .congrats {
+        align-self: flex-start;
+        margin-bottom: 2*$default_margin;
+    }
+
+    form {
+        width: 100%;
     }
 
     .card-map {

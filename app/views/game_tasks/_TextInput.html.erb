@@ -1,51 +1,48 @@
-<h2> Text Input </h2>
 <div class="card">
-<%= form_with(model: [@route, @game_task], local: true) do |form| %>
-  <% if @game_task.errors.any? %>
-    <div id="error_explanation">
-      <h3><%= pluralize(@game_task.errors.count, "error") %> prohibited this game_task from being saved:</h3>
+  <h2> Text Input </h2>
+  
+  <%= form_with(model: [@route, @game_task], local: true) do |form| %>
+    <% if @game_task.errors.any? %>
+      <div id="error_explanation">
+        <h3><%= pluralize(@game_task.errors.count, "error") %> prohibited this game_task from being saved:</h3>
 
-      <ul>
-        <% @game_task.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= form.label "Choose the location on the map", :class => 'input-label' %>
-  <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+        <ul>
+          <% @game_task.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= form.label "Choose the location on the map", :class => 'input-label' %>
+    <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
     <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
     <% end %>
-    <%if !@game_task.latitude.nil? %>
-        
-        
-    <% end %>
-  
-  <div class="input">
-    <%= form.label 'Location hint', :class => 'input-label' %>
-    <%= form.text_field :hint, :class => 'input-text' %>
-  </div>
+    
+    <div class="input">
+      <%= form.label 'Location hint', :class => 'input-label' %>
+      <%= form.text_field :hint, :class => 'input-text' %>
+    </div>
 
-  <%= form.hidden_field :latitude %>
-  <%= form.hidden_field :longitude %>
+    <%= form.hidden_field :latitude %>
+    <%= form.hidden_field :longitude %>
 
-  <div class="input">
-    <%= form.label "Task Name", :class => 'input-label' %>
-    <%= form.text_field :name, :class => 'input-text' %>
-  </div>
+    <div class="input">
+      <%= form.label "Task Name", :class => 'input-label' %>
+      <%= form.text_field :name, :class => 'input-text' %>
+    </div>
 
-  <div class="input">
-    <%= form.label 'Question', :class => 'input-label' %>
-    <%= form.text_field :description, :class => 'input-text' %>
-  </div>
+    <div class="input">
+      <%= form.label 'Question', :class => 'input-label' %>
+      <%= form.text_field :description, :class => 'input-text' %>
+    </div>
 
-  <div class="input">
-    <%= form.label "Expected Answer", :class => 'input-label' %>
-    <%= form.text_field :solution, :class => 'input-text' %>
-  </div>
+    <div class="input">
+      <%= form.label "Expected Answer", :class => 'input-label' %>
+      <%= form.text_field :solution, :class => 'input-text' %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit 'Create', :class => 'btn' %>
-  </div>
-<% end %>
+    <div class="actions">
+      <%= form.submit 'Create', :class => 'btn btn--disabled' %>
+    </div>
+  <% end %>
 </div>

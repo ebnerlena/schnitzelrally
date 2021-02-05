@@ -17,10 +17,8 @@
       <%= button_to 'Create Route', new_route_path, { method: "get", class: 'btn btn--disabled btn--disabled' }  %>    
     <% else %>
       <div class="player">
-        <div class="player_avatar"> <%=  avatar %> </div>
-        <p> <span class="player_name"><%= current_or_guest_user.player.name %></span> 
-          <%= link_to "Edit", edit_player_path(current_or_guest_user.player) %> 
-        </p>
+        <div class="player_avatar"> <%= link_to avatar, edit_player_path(current_or_guest_user.player) %> </div>
+        <p><span class="player_name"><%= current_or_guest_user.player.name %></span></p>
       </div>
 
       <%= button_to 'Join Route', join_routes_path, { method: "post", class: 'btn' }  %>

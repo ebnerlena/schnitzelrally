@@ -21,3 +21,5 @@
         <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>
     <% end %>
 </div>
+<button id="start_btn" data-player_id="<%= current_or_guest_user.player.id %>">Start this Game</button>
+<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.name %>" data-route_name="<%= @route.name %>" data-route_id="<%= @route.id %>" ></div>

@@ -25,8 +25,6 @@ class RoutesController < ApplicationController
   end
 
   def join
-    Rails.logger.warn(" Player name #{params[:name]}")
-
     if params[:name].nil?
       @route = Route.last
       render '_form_join'

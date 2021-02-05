@@ -26,7 +26,6 @@
     }
 
     li {
-
         padding-top: $default_padding;
         display: flex;
         flex-direction: row;
@@ -34,6 +33,14 @@
         
         a {
             color: $secondaryColor;
+        }
+
+        @include tablet {
+            font-size: 1.1rem;
+        }
+    
+        @include desktop {
+            font-size: 1.2rem;
         }
 
         svg {
@@ -48,6 +55,7 @@
 
         &.player_avatar {
             align-self: center;
+
             img {
                 width: 90px;
                 border-radius: 50%;
@@ -72,10 +80,6 @@
     &_link-group {
         list-style: none;
         padding: 0;
-
-        li {
-            
-        }
     }
 }
 

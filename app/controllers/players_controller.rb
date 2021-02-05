@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-  before_action :set_player, only: %i[show edit update destroy]
+  before_action :set_player, only: %i[show edit update destroy all_tasks all_routes]
 
   def index
     @player = current_or_guest_user.player || current_or_guest_user.player.new
@@ -45,6 +45,18 @@ class PlayersController < ApplicationController
       format.html { redirect_to routes_url }
       format.json { head :no_content }
     end
+  end
+
+  def all_tasks
+    @game_tasks = @player.game_tasks
+
+    render 'all_tasks'
+  end
+
+  def all_routes
+    @routes = @player.routes
+
+    render 'all_routes'
   end
 
   private

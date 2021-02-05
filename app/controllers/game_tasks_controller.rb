@@ -10,13 +10,19 @@ class GameTasksController < ApplicationController
     if @game_task.state == 'planning'
       @game_task.start
     elsif @game_task.state == 'hint'
-      @game_task.arrived
-
+      #@game_task.arrived
       @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
-
-    else
-      @game_task.completed
+    elsif @game_task.state == 'task'
+      @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
+      Rails.logger.warn("in task show - ")
+      if @game_task.completed?
+        @game_task.completed
+        Rails.logger.warn("in task show - completed ")
+      else
+        @game_task.player_has_answered(current_or_guest_user.player)
+      end
     end
+      
   end
 
   def answer
@@ -32,9 +38,14 @@ class GameTasksController < ApplicationController
     end
 
     @game_task.save!
-    @game_task.completed
 
-    @game_task = @route.next_task(@game_task)
+    if @game_task.completed?
+      @game_task.completed
+      
+      @game_task = @route.next_task
+    else
+      @game_task.answering
+    end
 
     if @game_task.nil?
       @route.end

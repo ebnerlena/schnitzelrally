@@ -37,3 +37,5 @@
         </div>    
     <% end %>   
     <%= link_to '+', add_task_route_path(@route),  {params: {"game_task"=>{ route_id: @route.id }}, class: 'btn add' } %>
+
+    <div id="dataDiv" data-player_id="<%= current_or_guest_user.player.name %>" data-route_name="<%= @route.name %>" data-route_id="<%= @route.id %>" ></div>

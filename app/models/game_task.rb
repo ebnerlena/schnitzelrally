@@ -16,6 +16,7 @@ class GameTask < ApplicationRecord
     state :planning, initial: true
     state :hint
     state :task
+    state :waiting_for_answers
     state :answered
 
     after_all_transitions :log_status_change
@@ -28,8 +29,12 @@ class GameTask < ApplicationRecord
       transitions from: :hint, to: :task
     end
 
+    event :answering do
+      transitions from: :task, to: :waiting_for_answers
+    end
+
     event :completed do
-      transitions from: :task, to: :answered
+      transitions from: :waiting_for_answers, to: :answered
     end
     # state :saved
   end
@@ -48,9 +53,40 @@ class GameTask < ApplicationRecord
     save!
   end
 
+  def answering
+    update(state: 'waiting_for_answers')
+    save!
+  end
+
+  def completed?
+    players = route.players
+
+    if !answers.nil?
+    
+      if photo_upload?
+        # imags.size = 0?
+        players.size == images.size
+      elsif multiple_choice?
+        players.size == (answers.size - 1)
+      else
+        players.size == answers.size
+      end
+    end
+  end
+
   def completed
     update(state: 'answered')
     save!
+  end
+
+  def player_has_answered(player)
+    if !answers.nil?
+      if answers.include?(player.id.to_s)
+        answering
+      else
+        arrived
+      end
+    end
   end
 
   def multiple_choice?
