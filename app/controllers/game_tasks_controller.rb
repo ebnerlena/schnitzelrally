@@ -10,47 +10,49 @@ class GameTasksController < ApplicationController
     if @game_task.state == 'planning'
       @game_task.start
     elsif @game_task.state == 'hint'
-      #@game_task.arrived
-      @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
+      # @game_task.arrived
+      # @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
     elsif @game_task.state == 'task'
       @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
-      Rails.logger.warn("in task show - ")
-      if @game_task.completed?
+
+      if @game_task.all_answered?
         @game_task.completed
-        Rails.logger.warn("in task show - completed ")
+        RouteChannel.broadcast_to @route, route_state: @route.game_state, route_id: @route.id, task_id: @game_task.id,
+                                          type: 'next_task'
       else
         @game_task.player_has_answered(current_or_guest_user.player)
       end
     end
-      
   end
 
   def answer
     if @game_task.photo_upload?
       @game_task.images.attach(params[:images])
-    else
-      answer = { current_or_guest_user.player.id => params[:answers] }
-      @game_task.answers = if @game_task.answers.nil?
-                             answer
-                           else
-                             @game_task.answers.merge(answer)
-                           end
+      @game_task.answers
     end
-
+    answer = { current_or_guest_user.player.id => params[:answers] }
+    @game_task.answers = if @game_task.answers.nil?
+                           answer
+                         else
+                           @game_task.answers.merge(answer)
+                         end
     @game_task.save!
 
-    if @game_task.completed?
+    if @game_task.all_answered?
       @game_task.completed
-      
+
       @game_task = @route.next_task
+
+      if @game_task.nil?
+        @route.end
+        RouteChannel.broadcast_to @route, route_state: @route.game_state, route_id: @route.id, type: 'route_end'
+        redirect_to route_path(@route)
+      else
+        redirect_to route_game_task_path(@route, @game_task)
+      end
+
     else
       @game_task.answering
-    end
-
-    if @game_task.nil?
-      @route.end
-      redirect_to route_path(@route)
-    else
       redirect_to route_game_task_path(@route, @game_task)
     end
   end
@@ -86,25 +88,14 @@ class GameTasksController < ApplicationController
         Rails.logger.warn(message)
       end
     end
-
-    # results = Geocoder.search([@game_task.latitude, @game_task.longitude])
-    # @game_task.location = results.first.address
-
-    # respond_to do |format|
-    #   if @game_task.save
-    #     format.html { redirect_to route_path(@game_task.route_id), notice: 'Game task was successfully created.' }
-    #     format.json { render :show, status: :created, location: @game_task }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @game_task.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   def update
+    RouteChannel.broadcast_to @route, route_id: @route.id, tasks_nr: @route.game_tasks.size, type: 'tasks_update'
+
     respond_to do |format|
       if @game_task.update(game_task_params)
-        format.html { redirect_to route_path(@route), notice: 'Game task was successfully updated.' }
+        format.html { redirect_to route_path(@route) }
         format.json { render :show, status: :ok, location: @game_task }
       else
         format.html { render :edit }

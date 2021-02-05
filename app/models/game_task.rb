@@ -58,19 +58,14 @@ class GameTask < ApplicationRecord
     save!
   end
 
-  def completed?
+  def all_answered?
     players = route.players
-
-    if !answers.nil?
-    
-      if photo_upload?
-        # imags.size = 0?
-        players.size == images.size
-      elsif multiple_choice?
-        players.size == (answers.size - 1)
-      else
-        players.size == answers.size
-      end
+    unless answers.nil?
+      players.size == if multiple_choice?
+                        (answers.size - 1)
+                      else
+                        answers.size
+                      end
     end
   end
 
@@ -80,7 +75,7 @@ class GameTask < ApplicationRecord
   end
 
   def player_has_answered(player)
-    if !answers.nil?
+    unless answers.nil?
       if answers.include?(player.id.to_s)
         answering
       else

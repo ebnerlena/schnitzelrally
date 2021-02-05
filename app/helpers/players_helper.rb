@@ -6,7 +6,7 @@ module PlayersHelper
       if player.avatar.attached?
         image_tag(player.avatar)
       else
-        image_tag('logo.png')
+        image_tag('female1.jpg')
       end
     end
   end

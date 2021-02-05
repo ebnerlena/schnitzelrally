@@ -5,7 +5,7 @@
     border-radius: $borderradius;
     width: 95%;
     height: 55vh;
-    overflow-x: scroll;
+    overflow-x: hidden;
 
     @include tablet {
         width: 100%;

@@ -34,14 +34,12 @@ class Route < ApplicationRecord
     puts "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 
-
   def start
     update(game_state: 'running', start_time: Time.zone.now)
     save!
     @tasks = game_tasks.clone
-    @current_task = @tasks.where(state: "planning").first
+    @current_task = @tasks.where(state: 'planning').first
   end
-  
 
   def players
     @players = []

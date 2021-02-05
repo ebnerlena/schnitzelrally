@@ -25,7 +25,10 @@
                             <p class="task-name"><strong><%= route.name %></strong></p>
                         </div>
                         <p class="task-description">Participants: <%= route.players.size %></p>
-                        <p class="task-description">Created on: <%= route.start_time.to_formatted_s(:long) %></p>
+
+                        <% if !route.start_time.nil? %>
+                            <p class="task-description">Created on: <%= route.start_time.to_formatted_s(:long) %></p>
+                        <% end %>
                     </div>
                 <% end %>
             </ul>

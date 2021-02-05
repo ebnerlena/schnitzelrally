@@ -5,9 +5,9 @@
   </div>
 
     <% if @route.game_tasks.size==1 %>
-        <p class="left"><%= @route.game_tasks.size %> task in total</p>
+        <p class="left"><span id="tasks_nr"><%= @route.game_tasks.size %></span> task in total</p>
     <% else %>
-        <p class="left"><%= @route.game_tasks.size %> tasks in total</p>
+        <p class="left"><span id="tasks_nr"><%= @route.game_tasks.size %></span> tasks in total</p>
     <% end %> 
     
     <% if @route.game_tasks.where(player: current_or_guest_user.player).empty? %>
@@ -38,4 +38,4 @@
     <% end %>   
     <%= link_to '+', add_task_route_path(@route),  {params: {"game_task"=>{ route_id: @route.id }}, class: 'btn add' } %>
 
-    <div id="dataDiv" data-player_id="<%= current_or_guest_user.player.name %>" data-route_name="<%= @route.name %>" data-route_id="<%= @route.id %>" ></div>
+    <div id="dataDiv" data-player_id="<%= current_or_guest_user.player.name %>" data-route_id="<%= @route.id %>" ></div>
