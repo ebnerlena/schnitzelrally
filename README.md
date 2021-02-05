@@ -9,9 +9,19 @@ Tasks can be multiple-choice questions, a task formulated in text for the whole 
 Similar to geocaching but wilder!
 
 ## User Testing Notes
+input field mas length und word break
+game_tasks über path visting - should redirect to home
+hint - auf map finden :)
+User foreign key error...
+start geht nur bei allen wenn auf map oder tasks (nicht wenn man noch aufgabe erstellt)
 
 
 ## Improvements
 - Usability and Style (more elegant)
-- other paths den HAPPY Paths
-- 
+- other paths den HAPPY Paths (handle form errors, fix request)
+- validations
+- fix game flow - improve state machines (websockets and map)
+- tests
+- Result Page
+- Imprint and About Page maybe
+-
