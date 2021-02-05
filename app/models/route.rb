@@ -1,6 +1,6 @@
 class Route < ApplicationRecord
   belongs_to :player
-  has_many :players, through: :routes_players_association
+  has_many :players, through: :routes_players_association, :dependent  => :destroy
   has_many :game_tasks, dependent: :destroy
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
