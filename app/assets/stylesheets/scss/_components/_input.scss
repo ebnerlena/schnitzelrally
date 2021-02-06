@@ -21,6 +21,7 @@
         border: 1px $secondaryColor solid;
         transition: all .3s ease;
         padding: ($default_padding/2) $default_padding;
+        margin: 0;
         outline: none;
         max-width: 30em;
         color: $secondaryColor;

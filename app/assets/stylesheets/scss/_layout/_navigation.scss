@@ -1,7 +1,7 @@
 .nav {
     background-color: $primaryColor;
     color: $white;
-    height: 60px;
+    height: 70px;
     display: flex;
     z-index: 5;
     position: fixed;
@@ -9,6 +9,7 @@
 
     @include mobile {
         padding-left: ($default_padding)/2;
+        height: 65px;
     }
 
     .nav_header {

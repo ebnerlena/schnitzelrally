@@ -1,3 +1,15 @@
 form {
-    
+    .actions {
+        display: flex;
+        justify-content: start;
+
+        @include mobile {
+            justify-content: center;
+        }
+
+        .btn {
+            align-self: start;
+            margin: 0;
+        }
+    }
 }

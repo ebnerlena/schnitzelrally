@@ -6,9 +6,17 @@
     justify-content: space-between;
     
     .intro {
-        width: 100%;
+        width: 80%;
         margin: auto;
         padding-bottom: $default_padding;
+
+        @include tablet {
+            width: 100%;
+        }
+
+        @include desktop {
+            width: 100%;
+        }
 
         .intro_title {
             span {
@@ -43,6 +51,8 @@
         .player_avatar {
             img {
                 width: 80px;
+                height: 80px;
+                object-fit: scale-down;
             }
         }
 
