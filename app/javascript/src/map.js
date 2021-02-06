@@ -14,7 +14,7 @@ render = () => {
     let splittedPath = path.split("/");
     let lat, long, mapdiv;
     
-    if (path == "/routes/new") {
+    if (path == "/routes/new" || path == "/routes") {
         setUpMap();
         const p = document.querySelector(".input-range_value");
         range = document.querySelector(".input-range");
@@ -139,3 +139,4 @@ function addTasks() {
 }
 
 document.addEventListener("turbolinks:load", render);
+document.addEventListener("load", render);
