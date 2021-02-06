@@ -19,7 +19,7 @@ start geht nur bei allen wenn auf map oder tasks (nicht wenn man noch aufgabe er
 ## Improvements
 - Usability and Style (more elegant)
 - other paths den HAPPY Paths (handle form errors, fix request)
-- validations
+- validations0
 - fix game flow - improve state machines (websockets and map)
 - tests
 - Result Page
