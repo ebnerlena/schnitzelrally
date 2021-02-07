@@ -8,7 +8,7 @@ function lookForButtons() {
     pathName = window.location.pathname;
     splittedPath = pathName.split("/");
 
-    if (pathName.endsWith("map") || (splittedPath.lenght >= 2 && ((splittedPath[1]=="routes") && splittedPath[2].match(/[0-9]+/)))) {
+    if (pathName.endsWith("map") ||(splittedPath[1]=="routes") && splittedPath[2].match(/[0-9]+/)) {
 
         dataDiv = document.querySelector('#dataDiv');
         if ( dataDiv ) {

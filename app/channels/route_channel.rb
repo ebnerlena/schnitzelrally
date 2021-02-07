@@ -16,7 +16,9 @@ class RouteChannel < ApplicationCable::Channel
   def receive(data)
     if data['command'] == 'start'
       route = Route.where(id: data['route_id']).first
+      Rails.logger.warn("route #{route.name}")
       task = route.start
+      Rails.logger.warn("task #{task.id}")
       RouteChannel.broadcast_to route, route_state: route.game_state, route_id: route.id, task: task.id,
                                        task_state: task.state
 
