@@ -1,7 +1,7 @@
 
-  <div class="card-nav"> 
-    <h3 class="card-nav_element"><%= link_to_unless_current "Map", map_route_path(@route),  { action: "map", method: "get", params: {"route"=>{ route_id: @route_id }} } %></h3>
-    <h3 class="card-nav_element card-nav_element--active"><%= link_to_unless_current "Tasks", route_path %></h3>
+  <div class="card__nav"> 
+    <h3 class="nav__link"><%= link_to_unless_current "Map", map_route_path(@route),  { action: "map", method: "get", params: {"route"=>{ route_id: @route_id }} } %></h3>
+    <h3 class="nav__link nav__link--active"><%= link_to_unless_current "Tasks", route_path %></h3>
   </div>
 
     <% if @route.game_tasks.size==1 %>
@@ -11,26 +11,26 @@
     <% end %> 
     
     <% if @route.game_tasks.where(player: current_or_guest_user.player).empty? %>
-        <div class="card-tasks">
-            <p> You haven't created any tasks yet... go wild and create one </p>
+        <div class="card__tasks">
+            <p class="tasks__empty"> You haven't created any tasks yet... <span> click + , go wild and create one </span> </p>
         </div>
     <% else %>  
-        <div class="card-tasks">
+        <div class="card__tasks">
             <h3>Your created tasks:</h3>  
-            <ul class="card-tasks_list">
+            <ul class="tasks__list">
                 <% @route.game_tasks.where(player: current_or_guest_user.player).each do | task | %>
                     <div class="task">
-                        <div class="task-header">
-                            <p class="task-name"><strong><%= task.name %></strong></p>
-                            <div class="task_links">
+                        <div class="task__header">
+                            <p class="task__name"><strong><%= task.name %></strong></p>
+                            <div class="task__links">
                                 <% if !task.multiple_choice? %>
                                 <%= link_to 'Edit', edit_route_game_task_path(@route, task) %>
-                                <span class="divider"> | </span>
+                                <span class="links__divider"> | </span>
                                 <% end %>
                                 <%= link_to 'Destroy', [@route,task.becomes(GameTask)], method: :delete, data: { confirm: 'Are you sure?' } %>
                             </div>
                         </div>
-                        <p class="task-description"><%= task.description %></p>
+                        <p class="task__description"><%= task.description %></p>
                     </div>
                 <% end %>
             </ul>

@@ -30,7 +30,7 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
-        format.html { redirect_to root_path }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render :show, status: :created, location: @player }
       else
         format.html { render :new }

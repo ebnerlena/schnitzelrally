@@ -1,10 +1,10 @@
-.card-tasks {
+.card__tasks {
     margin: 2% 0;
     padding: $default_padding/2;
     background: $backgroundColor2;
     border-radius: $borderradius;
     width: 95%;
-    height: 55vh;
+    height: 53vh;
     overflow-x: hidden;
 
     @include tablet {
@@ -21,8 +21,13 @@
     h3 {
         margin-top: 0;
     }
+
+    .tasks__empty {
+        margin: 0;
+        padding: $default_padding;
+    }
     
-    .card-tasks_list {
+    .tasks__list {
         padding: 0;
 
         .task {
@@ -32,7 +37,7 @@
             border-radius: $borderradius;
             min-height: 6.5vh;
     
-            .task-header {
+            .task__header {
                 display: flex;
                 justify-content: space-between;
 
@@ -45,7 +50,7 @@
                 margin-bottom: 0;
             }
 
-            .divider {
+            .links__divider {
                 font-size: 20px;
                 font-weight: bold;
             }

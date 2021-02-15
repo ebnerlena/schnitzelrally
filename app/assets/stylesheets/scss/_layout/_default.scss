@@ -30,14 +30,4 @@ main {
             @include maxwidthcontainer;
         }
     }
-
-    .player_avatar {
-        display: flex;
-        justify-content: center;
-
-        img {
-            width: 120px;
-            border-radius: 50%;
-        }
-    }
 }

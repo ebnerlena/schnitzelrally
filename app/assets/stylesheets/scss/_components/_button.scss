@@ -39,6 +39,28 @@
         background: $backgroundColor2;
         color: $white;
     }
+        
+    &--pressed {
+        background: $primaryColor;
+        pointer-events: none; 
+    }
+
+    &--revert {
+        background: none;
+        color: $accentColor;
+        font-size: 0.9rem;
+
+        &:hover {
+            color: $primaryColor;
+            transform: scale(1.02);
+            box-shadow: 0 0 8px transparent !important;
+        }
+    }
+
+    &__hint {
+        font-size: 0.9rem;
+        margin: 0;
+    }
 
     &.add {
         font-size: 2rem;
@@ -47,7 +69,9 @@
         align-self: center;
     }
 
-    &:hover:not(.btn--active), &:hover:not(.btn--disabled),
+
+
+    &:hover:not(.btn--active), &:hover:not(.btn--disabled), &:hover:not(.btn--revert),
     &:focus {
         transform: scale(1.05);
         box-shadow: 0 0 8px rgba(0,0,0,0.3);
@@ -64,6 +88,7 @@
     pointer-events: none;
     background: $backgroundColor2;
 }
+
 
 .btn_icon {
     min-width: 0;

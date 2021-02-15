@@ -12,7 +12,7 @@
 
   <div class="input">
     <%= form.label "Route Name", :class => 'input-label' %>
-    <%= form.text_field :name, :class => 'input-text' %>
+    <%= form.text_field :name, { :class => 'input-text', :maxlength => 10 } %>
   </div>
 
   <p class="map__instruction"> Click on the map to choose the route location </p>

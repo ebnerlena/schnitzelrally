@@ -3,12 +3,12 @@
 <% end %>
 
 <div class="card">
-    <div class="card-nav"> 
-        <h3 class="card-nav_element card-nav_element--active"><%= link_to_unless_current "Map", map_route_path %></h3>
-        <h3 class="card-nav_element"><%= link_to_unless_current "Tasks", route_path %></h3>
+    <div class="card__nav"> 
+        <h3 class="nav__link nav__link--active"><%= link_to_unless_current "Map", map_route_path %></h3>
+        <h3 class="nav__link"><%= link_to_unless_current "Tasks", route_path %></h3>
     </div>
 
-    <div class="card-map">
+    <div class="card__map">
         <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
     </div>
 
@@ -20,10 +20,20 @@
         <% end %>
     <% end %>
 
-     <% if (@route.player == current_or_guest_user.player) && !(@route.game_tasks.empty?) %> 
-        <%= link_to 'Start', start_route_path(@route), { class: 'btn' } %>
+     <% if (@route.player == current_or_guest_user.player)%> 
+        <% if !(@route.game_tasks.empty?) %>
+            <%= link_to 'Start', start_route_path(@route), { class: 'btn' } %>
+        <% else %>
+           <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>
+           <p class="btn__hint"> Not all players are ready yet </p>
+        <% end %>
     <% else %>
-        <%= link_to 'Ready', start_route_path(@route), { class: 'btn' } %>
+        <% if (current_or_guest_user.player.ready?) %>
+            <%= button_to 'Ready!', player_path(current_or_guest_user.player), { action: "update", method: "patch", params: {"player"=> { state: "ready" }}, class: 'btn btn--pressed' } %>
+            <%= button_to 'No I am not ready yet', player_path(current_or_guest_user.player), { action: "update", method: "patch", params: {"player"=> { state: "planning" }}, class: 'btn btn--revert' } %>
+        <% else %>
+            <%= button_to 'Ready?', player_path(current_or_guest_user.player), { action: "update", method: "patch", params: {"player"=> { state: "ready" }}, class: 'btn' } %>
+        <% end %>
     <% end %>
 
 </div>
