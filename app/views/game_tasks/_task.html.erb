@@ -42,4 +42,4 @@
     <%= form.submit 'Submit answer', { :class => 'btn', :id => 'add_btn' } %>
   </div>
 <% end %>
-<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.name %>" data-route_id="<%= @route.id %>" ></div>
+<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= @route.id %>" ></div>

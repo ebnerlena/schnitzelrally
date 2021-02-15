@@ -1,13 +1,7 @@
 class RouteStartJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-
-    # html = ApplicationController.render(
-    #   partial: 'chatmessages/message',
-    #   locals: { message: message }
-    # )
-
-    # ActionCable.server.broadcast "server_channel_#route.game_id}", html: html
+  def perform(route, task)
+    ActionCable.server.broadcast "route_#{route.id}", route_id: route.id, task_id: task.id, type: 'route_start'
   end
 end

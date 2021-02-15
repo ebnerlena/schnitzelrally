@@ -8,11 +8,13 @@
     <%= render partial: 'tasks', locals: {route: @route} %>
   <% else %>
     <h2>End of route</h2>
-    <p class="congrats">Congrats! You have successfully completed route <%= @route.name %>!</p>
+    <p class="congrats"> Congrats! You have successfully completed route:  <span> <%= @route.name %></span> !</p>
 
-    <%= link_to 'Results', route_path(@route), {class: 'btn btn--disabled' } %>
+    <div class="buttons-group">
+      <%= link_to 'Results', route_path(@route), {class: 'btn btn--disabled' } %>
 
-    <%= link_to 'Back to Menu', routes_path, {class: 'btn' } %>
+      <%= link_to 'Back to Menu', root_path, {class: 'btn' } %>
+    </div>
   <%end%>
 
 </div>

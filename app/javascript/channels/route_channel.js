@@ -1,69 +1,58 @@
 import consumer from "./consumer"
 
-let dataDiv, splittedPath, playerId, routeId, routeChannel, pathName;
+let url, dataDiv, splittedPath, playerId, routeId, routeChannel, pathName;
 
-document.addEventListener("turbolinks:load", lookForButtons);
+document.addEventListener("turbolinks:load", routeStreaming);
 
-function lookForButtons() {
+function routeStreaming() {
+
     pathName = window.location.pathname;
     splittedPath = pathName.split("/");
+    if (splittedPath.length > 2) {
+        if ((splittedPath[1]=="routes") && splittedPath[2].match(/[0-9]+/)) {
 
-    if (pathName.endsWith("map") ||(splittedPath[1]=="routes") && splittedPath[2].match(/[0-9]+/)) {
-
-        dataDiv = document.querySelector('#dataDiv');
-        if ( dataDiv ) {
-            playerId = dataDiv.dataset['player_id'];
-            routeId = dataDiv.dataset['route_id'];
-        }
-
-        let startBtn = document.querySelector('#start_btn');
-        let arrivedBtn = document.querySelector('#arrived_btn');      
-
-        routeChannel = consumer.subscriptions.create(
-            { channel: "RouteChannel", route_id: routeId }, {
-                connected() {
-                    console.log("connected successfully");
-                },
-            
-                disconnected() {
-                    console.log("disconnected");
-                },
-            
-                received(data) {
-                    let url = window.location.origin + "/routes/"+routeId+"/game_tasks/"+data.task;
-
-                    if (data.task_state == "planning" || data.task_state == "hint" || data.task_state == "task") {
-                        window.location.href = url;
-                    }
-
-                    if (data.type == "tasks_update") {
-                        console.log("task update "+ data.tasks_nr)
-                        let tasksNr = document.querySelector('#tasks_nr');
-                        tasksNr.innerHTML = data.tasks_nr;
-                    }
-                    if (data.type == "route_end") {
-                        url = window.location.origin + "/routes/"+routeId
-                        window.location.href = url;
-                    }  
-                    if (data.type == "next_task") {
-                        url = window.location.origin + "/routes/"+routeId+"/game_tasks/"+data.task
-                        window.location.href = url;
-                    }  
-                }
+            dataDiv = document.querySelector('#dataDiv');
+            if ( dataDiv ) {
+                playerId = dataDiv.dataset['player_id'];
+                routeId = dataDiv.dataset['route_id'];
             }
-        ) 
-
-        if( startBtn ) {
-            startBtn.addEventListener('click',function(){
-            routeChannel.send({ command: 'start', route_id: routeId, player_name: playerId });
-            });
-        }
-
-        if( arrivedBtn ) {
-            let task_id = dataDiv.dataset['task_id'];
-            arrivedBtn.addEventListener('click',function(){
-            routeChannel.send({ command: 'arrived', route_id: routeId, player_name: playerId, task_id: task_id });
-            });
+    
+            routeChannel = consumer.subscriptions.create(
+                { channel: "RouteChannel", route_id: routeId }, {
+                    connected() {
+                        console.log("connected successfully at "+routeId);
+                    },
+                
+                    disconnected() {
+                        console.log("disconnected");
+                    },
+                
+                    received(data) {
+                        if (data.type == "route_start") {
+                            //first when the start is pressed - sending to server to update player state before redirecting to page
+                            routeChannel.send({ command: 'start', route_id: routeId, player_id: playerId, task_id: data.task_id });
+                        }
+                        if (data.type == "start") {
+                            // is needed here cause else the player can't be updated cause the page is already loading
+                            url = window.location.origin + "/routes/"+routeId+"/game_tasks/"+data.task_id;
+                            window.location.href = url;
+                        }
+                        else if (data.type == "route_next_task") {
+                            routeChannel.send({ command: 'next_task', route_id: routeId, player_id: playerId, task_id: data.task_id });
+                            url = window.location.origin + "/routes/"+routeId+"/game_tasks/"+data.task_id;
+                            window.location.href = url;
+                        }
+                        else if (data.type == "tasks_update") {
+                            let tasksNr = document.querySelector('#tasks_nr');
+                            tasksNr.innerHTML = data.tasks_nr;
+                        }
+                        else if (data.type == "route_end") {
+                            url = window.location.origin + "/routes/"+routeId
+                            window.location.href = url;
+                        }
+                    }
+                }
+            ) 
         }
     }
 }

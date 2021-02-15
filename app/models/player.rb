@@ -14,6 +14,7 @@ class Player < ApplicationRecord
     state :ready
     state :searching
     state :answering
+    state :answered
     state :completed
 
     after_all_transitions :log_status_change
@@ -34,6 +35,10 @@ class Player < ApplicationRecord
       transitions from: :answering, to: :searching
     end
 
+    event :answer do
+      transitions from: :answering, to: :answered
+    end
+
     event :finished do
       transitions from: :answering, to: :completed
     end
@@ -47,4 +52,35 @@ class Player < ApplicationRecord
     end
     @routes
   end
+
+  def route_start
+    update(state: 'searching')
+    save!
+  end
+
+  def planning
+    update(state: 'planning')
+    save!
+  end
+
+  def found
+    update(state: 'answering')
+    save!
+  end
+
+  def next_task
+    update(state: 'searching')
+    save!
+  end
+
+  def answer
+    update(state: 'answered')
+    save!
+  end
+
+  def finished
+    update(state: 'completed')
+    save!
+  end
+
 end

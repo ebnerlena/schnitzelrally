@@ -40,6 +40,7 @@ class Route < ApplicationRecord
     save!
     @tasks = game_tasks.clone
     @current_task = @tasks.where(state: 'planning').first
+    @current_task.start
   end
 
   def players
@@ -52,11 +53,23 @@ class Route < ApplicationRecord
   end
 
   def next_task
+    players.each { |p| p.next_task }
     @current_task = game_tasks.where(state: 'planning').first
   end
 
   def end
+    players.each { |p| p.finished }
     update(game_state: 'finished', end_time: Time.zone.now)
     save!
+  end
+
+  def all_players_ready?
+    ready_cnt= 0
+    players.each do | p| 
+      if p.ready?
+        ready_cnt = ready_cnt+1
+      end
+    end
+    ready_cnt == players.size-1
   end
 end

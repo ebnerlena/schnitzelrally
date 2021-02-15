@@ -7,21 +7,7 @@ class GameTasksController < ApplicationController
   end
 
   def show
-    if @game_task.planning?
-      @game_task.hint?
-      # @game_task.arrived
-      # @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
-    elsif @game_task.task?
-      @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
-
-      if @game_task.all_answered?
-        @game_task.completed
-        RouteChannel.broadcast_to @route, route_state: @route.game_state, route_id: @route.id, task_id: @game_task.id,
-                                          type: 'next_task'
-      else
-        @game_task.player_has_answered(current_or_guest_user.player)
-      end
-    end
+    @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
   end
 
   def answer
@@ -37,6 +23,8 @@ class GameTasksController < ApplicationController
                          end
     @game_task.save!
 
+    current_or_guest_user.player.answer
+
     if @game_task.all_answered?
       @game_task.completed
 
@@ -44,9 +32,11 @@ class GameTasksController < ApplicationController
 
       if @game_task.nil?
         @route.end
-        RouteChannel.broadcast_to @route, route_state: @route.game_state, route_id: @route.id, type: 'route_end'
+        RouteEndJob.perform_later(@route)
         redirect_to route_path(@route)
       else
+        @game_task.start
+        RouteNextTaskJob.perform_later(@route, @game_task)
         redirect_to route_game_task_path(@route, @game_task)
       end
 
@@ -90,10 +80,9 @@ class GameTasksController < ApplicationController
   end
 
   def update
-    RouteChannel.broadcast_to @route, route_id: @route.id, tasks_nr: @route.game_tasks.size, type: 'tasks_update'
-
     respond_to do |format|
       if @game_task.update(game_task_params)
+        RouteTasksUpdateJob.perform_later(@route)
         format.html { redirect_to route_path(@route) }
         format.json { render :show, status: :ok, location: @game_task }
       else

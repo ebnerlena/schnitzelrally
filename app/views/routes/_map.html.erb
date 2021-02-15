@@ -13,15 +13,10 @@
     </div>
 
     <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
-        <% if (@route.player == current_or_guest_user.player) && !(@route.game_tasks.empty?) %> 
-            <button id="start_btn" class="btn" data-player_id="<%= current_or_guest_user.player.id %>">Start</button>
-        <% else %>
-            <button id="start_btn" class="btn btn--disabled" data-player_id="<%= current_or_guest_user.player.id %>">Start</button>
-        <% end %>
     <% end %>
 
      <% if (@route.player == current_or_guest_user.player)%> 
-        <% if !(@route.game_tasks.empty?) %>
+        <% if !(@route.game_tasks.empty?) && @route.all_players_ready? %>
             <%= link_to 'Start', start_route_path(@route), { class: 'btn' } %>
         <% else %>
            <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled' } %>
@@ -38,4 +33,4 @@
 
 </div>
 
-<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.name %>" data-route_id="<%= @route.id %>" ></div>
+<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= @route.id %>" ></div>

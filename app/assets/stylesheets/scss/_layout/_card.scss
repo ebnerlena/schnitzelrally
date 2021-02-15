@@ -50,6 +50,23 @@
     .congrats {
         align-self: flex-start;
         margin-bottom: 2*$default_margin;
+
+        span {
+            font-weight: 800;
+            font-style: italic;
+            font-size: 1.3rem;
+        }
+    }
+
+    .buttons-group {
+        display: flex;
+        height: 30vh;
+        justify-content: space-evenly;
+        flex-direction: column;
+        .btn {
+            margin-top: $default_margin;
+            margin-bottom: $default_margin;
+        }
     }
 
     form {
