@@ -9,7 +9,7 @@ Tasks can be multiple-choice questions, a task formulated in text for the whole 
 Similar to geocaching but wilder!
 
 ## User Testing Notes
-input field mas length und word break
+input field max length und word break
 game_tasks über path visting - should redirect to home
 hint - auf map finden :)
 User foreign key error...
@@ -24,4 +24,15 @@ start geht nur bei allen wenn auf map oder tasks (nicht wenn man noch aufgabe er
 - tests
 - Result Page
 - Imprint and About Page maybe
--
+
+## Features
+-  Auswertung der Route am Ende
+-  Multiple Choice und True/False Aufgabenformat Eingabe "professioneller" intuitiver machen
+-  Routen Name teilen oder irgendwie sichtbar machen für andere
+- Start kann erst gedrückt werden wenn alle Teilnehmer sich für bereit gemeldet haben
+
+## Done
+- fix game flow - improve state machines (websockets and map)
+- Usability and Style (more elegant)
+- input fields max length
+- Start kann erst gedrückt werden wenn alle Teilnehmer sich für bereit gemeldet haben

@@ -5,7 +5,6 @@ class RoutesController < ApplicationController
     @player = current_or_guest_user.player
   end
 
-
   def show
     @which = 'Tasks'
     @player = current_or_guest_user.player
@@ -80,7 +79,6 @@ class RoutesController < ApplicationController
 
   def edit; end
 
-
   def create
     @player = current_or_guest_user.player
     @route = Route.new(route_params)
@@ -102,7 +100,6 @@ class RoutesController < ApplicationController
     end
   end
 
-
   def update
     @user = current_or_guest_user
     @route = Route.find(params[:id])
@@ -118,7 +115,6 @@ class RoutesController < ApplicationController
       end
     end
   end
-
 
   def destroy
     @route.destroy

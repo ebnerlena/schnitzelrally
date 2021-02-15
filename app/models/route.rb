@@ -1,6 +1,6 @@
 class Route < ApplicationRecord
   belongs_to :player
-  has_many :routes_players_association, :dependent  => :destroy
+  has_many :routes_players_association, dependent: :destroy
   has_many :players, through: :routes_players_association
   has_many :game_tasks, dependent: :destroy
   geocoded_by :location
@@ -64,12 +64,10 @@ class Route < ApplicationRecord
   end
 
   def all_players_ready?
-    ready_cnt= 0
-    players.each do | p| 
-      if p.ready?
-        ready_cnt = ready_cnt+1
-      end
+    ready_cnt = 0
+    players.each do |p|
+      ready_cnt += 1 if p.ready?
     end
-    ready_cnt == players.size-1
+    ready_cnt == players.size - 1
   end
 end

@@ -17,7 +17,8 @@ class RouteChannel < ApplicationCable::Channel
     if data['command'] == 'start'
       player = Player.find(data['player_id'])
       player.route_start
-      ActionCable.server.broadcast "route_#{route.id}", route_id: data['route_id'], task_id: data['task_id'], type: 'start'
+      ActionCable.server.broadcast "route_#{route.id}", route_id: data['route_id'], task_id: data['task_id'],
+                                                        type: 'start'
     elsif data['command'] == 'next_task'
       player = Player.find(data['player_id'])
       player.route_start

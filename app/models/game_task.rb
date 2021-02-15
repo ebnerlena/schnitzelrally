@@ -36,7 +36,6 @@ class GameTask < ApplicationRecord
     event :completed do
       transitions from: :waiting_for_answers, to: :answered
     end
-    # state :saved
   end
 
   def to_s

@@ -1,7 +1,7 @@
 class Player < ApplicationRecord
   belongs_to :user
-  has_many :routes_players_association, :dependent  => :destroy
-  has_many :routes, through: :routes_players_association, :dependent  => :destroy
+  has_many :routes_players_association, dependent: :destroy
+  has_many :routes, through: :routes_players_association, dependent: :destroy
   has_many :game_tasks, dependent: :destroy
   has_one_attached :avatar, dependent: :destroy
 
@@ -82,5 +82,4 @@ class Player < ApplicationRecord
     update(state: 'completed')
     save!
   end
-
 end

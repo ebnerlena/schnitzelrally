@@ -77,19 +77,30 @@ setUpMapForGameTask = () => {
 }
 
 setUpMap = () => {
-    map = L.map('map');
 
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-    }).addTo(map);
+    let mapContainer = document.querySelector("#map");
+
+    if (mapContainer) {
+        map = L.map('map');
+
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+        }).addTo(map);
+    }
+    
 }
 
 addViewToMap = () => {
     mapdiv = document.querySelector('#map');
-    lat = mapdiv.dataset.lat;
-    long = mapdiv.dataset.long;
 
-    map.setView([lat, long], 13);
+    if (mapdiv) {
+        lat = mapdiv.dataset.lat;
+        long = mapdiv.dataset.long;
+
+        map.setView([lat, long], 13);
+    }
+    
+    
 }
 
 function changeLatLngInput(e) {

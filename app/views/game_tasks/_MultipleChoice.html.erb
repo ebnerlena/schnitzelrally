@@ -37,13 +37,13 @@
     </div>
 
     <div class="input">
-      <%= form.label "Option", :class => 'input-label' %>
-      <p class="note"> Please enter in format: option1, option2, option3, option4</p>
+      <%= form.label "Available Options", :class => 'input-label' %>
+      <p class="input__hint"> Please enter in format: option1, option2, option3, option4</p>
       <%= form.text_field :answers, :class => 'input-text', :maxlength => 50 %>
     </div>
     <div class="input">
-      <%= form.label "True is...", :class => 'input-label' %>
-      <p class="hint"> 1 for option1, 2 for option2 ...</p>
+      <%= form.label "True is ? ", :class => 'input-label' %>
+      <p class="input__hint"> 1 for option1, 2 for option2 ...</p>
       <%= form.text_field :solution, :class => 'input-text', :maxlength => 1 %>
     </div>
 

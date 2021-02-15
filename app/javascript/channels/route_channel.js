@@ -44,7 +44,10 @@ function routeStreaming() {
                         }
                         else if (data.type == "tasks_update") {
                             let tasksNr = document.querySelector('#tasks_nr');
-                            tasksNr.innerHTML = data.tasks_nr;
+
+                            if (tasksNr) {
+                                tasksNr.innerHTML = data.tasks_nr;
+                            }
                         }
                         else if (data.type == "route_end") {
                             url = window.location.origin + "/routes/"+routeId
