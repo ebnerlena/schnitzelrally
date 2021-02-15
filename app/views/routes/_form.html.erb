@@ -1,8 +1,7 @@
 <%= form_with(model: route, method: "post", local: true) do |form| %>
   <% if route.errors.any? %>
-    <div id="error_explanation">
-      <h3><%= pluralize(route.errors.count, "error") %> prohibited this route from being saved:</h3>
-
+    <div class="error__explanation">
+      <h3> Route cannot be saved because..</h3>
       <ul>
         <% route.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -16,16 +15,16 @@
     <%= form.text_field :name, :class => 'input-text' %>
   </div>
 
-  <%= form.label "Choose the location on the map", :class => 'input-label' %>
+  <p class="map__instruction"> Click on the map to choose the route location </p>
   <div id="map"> </div>
   
   <%= form.hidden_field :latitude %>
   <%= form.hidden_field :longitude %>
 
   <div class="input">
-    <div class="input-label_container">
+    <div class="input-label__container">
       <%= form.label :radius, :class => 'input-label' %>
-      <p class="input-range_value"></p>
+      <p class="input-range__value"></p>
     </div>
     
     <%= form.range_field :radius, in: 1..10, value: 1, :class => 'input-range' %>

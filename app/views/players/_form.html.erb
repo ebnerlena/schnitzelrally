@@ -2,7 +2,9 @@
 
     <% if !current_or_guest_user.player.nil?%>
         <% if !@player.avatar.nil?%>
-            <div class="player_avatar"> <%= avatar %></div>
+            <div class="player">
+                <div class="player__avatar player__avatar--alone"> <%= avatar %></div>
+            </div>
         <% end %>
     <% end %>
 

@@ -1,0 +1,36 @@
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    
+
+    .player__avatar {
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+
+            @include desktop {
+                width: 110px;
+                height: 110px;
+            }
+        }
+    }
+
+    .player__avatar--alone {
+        @include desktop {
+            align-self: start; 
+        }
+    }  
+
+    .player__name {
+        font-weight: 800;
+        font-size: 1.3rem;
+    }
+
+    a {
+        align-self: flex-end;
+    }
+}

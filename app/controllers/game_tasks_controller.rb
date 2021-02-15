@@ -7,12 +7,11 @@ class GameTasksController < ApplicationController
   end
 
   def show
-    if @game_task.state == 'planning'
-      @game_task.start
-    elsif @game_task.state == 'hint'
+    if @game_task.planning?
+      @game_task.hint?
       # @game_task.arrived
       # @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
-    elsif @game_task.state == 'task'
+    elsif @game_task.task?
       @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
 
       if @game_task.all_answered?

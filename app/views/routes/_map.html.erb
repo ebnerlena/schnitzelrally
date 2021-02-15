@@ -19,6 +19,13 @@
             <button id="start_btn" class="btn btn--disabled" data-player_id="<%= current_or_guest_user.player.id %>">Start</button>
         <% end %>
     <% end %>
+
+     <% if (@route.player == current_or_guest_user.player) && !(@route.game_tasks.empty?) %> 
+        <%= link_to 'Start', start_route_path(@route), { class: 'btn' } %>
+    <% else %>
+        <%= link_to 'Ready', start_route_path(@route), { class: 'btn' } %>
+    <% end %>
+
 </div>
 
 <div id="dataDiv" data-player_id="<%= current_or_guest_user.player.name %>" data-route_id="<%= @route.id %>" ></div>

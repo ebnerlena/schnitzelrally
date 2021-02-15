@@ -20,6 +20,10 @@ main {
         margin-top: 10px;
         z-index: 1;
 
+        @include tablet {
+            height: 50vh; 
+        }
+
         @include desktop {
             height: 50vh;
 

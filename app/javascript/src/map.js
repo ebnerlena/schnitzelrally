@@ -16,7 +16,7 @@ render = () => {
     
     if (path == "/routes/new" || path == "/routes") {
         setUpMap();
-        const p = document.querySelector(".input-range_value");
+        const p = document.querySelector(".input-range__value");
         range = document.querySelector(".input-range");
         p.innerHTML = range.value + " km";
 
