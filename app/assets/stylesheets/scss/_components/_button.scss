@@ -62,13 +62,12 @@
         margin: 0;
     }
 
-    &.add {
+    &--add {
         font-size: 2rem;
         min-width: 40px;
         text-align: center;
         align-self: center;
     }
-
 
 
     &:hover:not(.btn--active), &:hover:not(.btn--disabled), &:hover:not(.btn--revert),

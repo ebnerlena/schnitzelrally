@@ -65,6 +65,10 @@ class RoutesController < ApplicationController
       @tasks += ['latitude' => task.latitude, 'longitude' => task.longitude]
     end
 
+    if @route.all_players_ready?
+      RouteAllReadyJob.perform_later(@route)
+    end
+    
     render '_map'
   end
 

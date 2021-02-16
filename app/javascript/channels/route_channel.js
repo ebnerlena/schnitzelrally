@@ -1,8 +1,8 @@
 import consumer from "./consumer"
 
-let url, dataDiv, splittedPath, playerId, routeId, routeChannel, pathName;
+let url, dataDiv, splittedPath, playerId, routeId, routeChannel, pathName, startBtn, readyBtn;
 
-document.addEventListener("turbolinks:load", routeStreaming);
+
 
 function routeStreaming() {
 
@@ -11,11 +11,8 @@ function routeStreaming() {
     if (splittedPath.length > 2) {
         if ((splittedPath[1]=="routes") && splittedPath[2].match(/[0-9]+/)) {
 
-            dataDiv = document.querySelector('#dataDiv');
-            if ( dataDiv ) {
-                playerId = dataDiv.dataset['player_id'];
-                routeId = dataDiv.dataset['route_id'];
-            }
+            lookForElements();
+
     
             routeChannel = consumer.subscriptions.create(
                 { channel: "RouteChannel", route_id: routeId }, {
@@ -53,9 +50,27 @@ function routeStreaming() {
                             url = window.location.origin + "/routes/"+routeId
                             window.location.href = url;
                         }
+                        else if (data.type == "all_ready") {
+                            if(startBtn) {
+                                startBtn.classList.remove("btn--disabled");
+                            }
+                        }
                     }
                 }
             ) 
         }
     }
 }
+
+function lookForElements() {
+    startBtn = document.querySelector("#start_btn");
+    dataDiv = document.querySelector('#dataDiv');
+
+    if ( dataDiv ) {
+        playerId = dataDiv.dataset['player_id'];
+        routeId = dataDiv.dataset['route_id'];
+    }
+}
+
+
+document.addEventListener("turbolinks:load", routeStreaming);
