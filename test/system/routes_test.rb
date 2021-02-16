@@ -21,8 +21,6 @@ class RoutesTest < ApplicationSystemTestCase
     fill_in 'Radius', with: @route.radius
     fill_in 'Start time', with: @route.start_time
     fill_in 'Tasks', with: @route.tasks_id
-    fill_in 'User', with: @route.user_id
-    fill_in 'Users', with: @route.users_id
     click_on 'Create Route'
 
     assert_text 'Route was successfully created'
@@ -40,8 +38,6 @@ class RoutesTest < ApplicationSystemTestCase
     fill_in 'Radius', with: @route.radius
     fill_in 'Start time', with: @route.start_time
     fill_in 'Tasks', with: @route.tasks_id
-    fill_in 'User', with: @route.user_id
-    fill_in 'Users', with: @route.users_id
     click_on 'Update Route'
 
     assert_text 'Route was successfully updated'

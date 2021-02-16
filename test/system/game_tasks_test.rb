@@ -19,8 +19,6 @@ class GameTasksTest < ApplicationSystemTestCase
     fill_in 'Latitude', with: @game_task.latitude
     fill_in 'Longitude', with: @game_task.longitude
     fill_in 'Name', with: @game_task.name
-    fill_in 'User', with: @game_task.user_id
-    fill_in 'Users', with: @game_task.users_id
     click_on 'Create Game task'
 
     assert_text 'Game task was successfully created'
@@ -36,8 +34,6 @@ class GameTasksTest < ApplicationSystemTestCase
     fill_in 'Latitude', with: @game_task.latitude
     fill_in 'Longitude', with: @game_task.longitude
     fill_in 'Name', with: @game_task.name
-    fill_in 'User', with: @game_task.user_id
-    fill_in 'Users', with: @game_task.users_id
     click_on 'Update Game task'
 
     assert_text 'Game task was successfully updated'
