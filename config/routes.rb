@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     end
 
     collection do
-      post :join
+      get :join
       post :join_route
     end
 
