@@ -3,3 +3,4 @@
 <% end %>
 
 <%= render "#{@game_task.type}", locals:{ game_task: @game_task } %>
+<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= @route.id %>" ></div>

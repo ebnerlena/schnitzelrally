@@ -28,17 +28,17 @@
 
     <div class="input">
       <%= form.label "Task Name", :class => 'input-label' %>
-      <%= form.text_field :name, :class => 'input-text', :maxlength => 25 %>
+      <%= form.text_field :name, :class => 'input-text', :maxlength => 25, :required => true  %>
     </div>
 
     <div class="input">
       <%= form.label 'Your Question', :class => 'input-label' %>
-      <%= form.text_field :description, :class => 'input-text', :maxlength => 55 %>
+      <%= form.text_field :description, :class => 'input-text', :maxlength => 55, :required => true  %>
     </div>
 
     <div class="input">
       <%= form.label "Your expected Answer", :class => 'input-label' %>
-      <%= form.text_field :solution, :class => 'input-text', :maxlength => 35 %>
+      <%= form.text_field :solution, :class => 'input-text', :maxlength => 35, :required => true  %>
     </div>
 
     <div class="actions">

@@ -22,7 +22,7 @@
 
   <div class="input">
     <%= form.label 'Location hint', :class => 'input-label' %>
-    <%= form.text_field :hint, :class => 'input-text', :maxlength => 35 %>
+    <%= form.text_field :hint, :class => 'input-text', :maxlength => 35, :required => true  %>
   </div>
 
   <%= form.hidden_field :latitude %>
@@ -30,18 +30,24 @@
 
   <div class="input">
     <%= form.label "Task Name", :class => 'input-label' %>
-    <%= form.text_field :name, :class => 'input-text', :maxlength => 25 %>
+    <%= form.text_field :name, :class => 'input-text', :maxlength => 25, :required => true  %>
   </div>
 
   <div class="input">
     <%= form.label 'Your Question', :class => 'input-label' %>
-    <%= form.text_field :description, :class => 'input-text', :maxlength => 35 %>
+    <%= form.text_field :description, :class => 'input-text', :maxlength => 35, :required => true  %>
   </div>
 
   <div class="input">
     <%= form.label "True or false ?", :class => 'input-label' %>
-    <p class="input__hint"> TRUE for yes - FALSE for no</p>
-    <%= form.text_field :solution, :class => 'input-text', :maxlength => 5 %>
+      <div class="input-radiobutton">
+          <%= form.radio_button :solution, "TRUE", :class => 'input-text' %>
+          <%= form.label "TRUE", :class => 'input-label' %>
+      </div>
+      <div class="input-radiobutton">
+          <%= form.radio_button :solution, "FALSE", :class => 'input-text' %>
+          <%= form.label "FALSE", :class => 'input-label' %>
+      </div>
   </div>
 
   <div class="actions">

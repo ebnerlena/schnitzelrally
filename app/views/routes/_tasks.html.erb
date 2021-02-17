@@ -23,10 +23,8 @@
                         <div class="task__header">
                             <p class="task__name"><strong><%= task.name %></strong></p>
                             <div class="task__links">
-                                <% if !task.multiple_choice? %>
                                 <%= link_to 'Edit', edit_route_game_task_path(@route, task) %>
                                 <span class="links__divider"> | </span>
-                                <% end %>
                                 <%= link_to 'Destroy', [@route,task.becomes(GameTask)], method: :delete, data: { confirm: 'Are you sure?' } %>
                             </div>
                         </div>

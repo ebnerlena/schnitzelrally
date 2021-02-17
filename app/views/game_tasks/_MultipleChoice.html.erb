@@ -20,7 +20,7 @@
     
     <div class="input">
       <%= form.label 'Location hint', :class => 'input-label' %>
-      <%= form.text_field :hint, :class => 'input-text', :maxlength => 35 %>
+      <%= form.text_field :hint, :class => 'input-text', :maxlength => 35, :required => true %>
     </div>
 
     <%= form.hidden_field :latitude %>
@@ -28,27 +28,62 @@
 
     <div class="input">
       <%= form.label "Task Name", :class => 'input-label' %>
-      <%= form.text_field :name, :class => 'input-text', :maxlength => 25 %>
+      <%= form.text_field :name, :class => 'input-text', :maxlength => 25, :required => true  %>
     </div>
 
     <div class="input">
       <%= form.label 'Your Question', :class => 'input-label' %>
-      <%= form.text_field :description, :class => 'input-text', :maxlength => 35 %>
+      <%= form.text_field :description, :class => 'input-text', :maxlength => 35, :required => true  %>
     </div>
 
     <div class="input">
       <%= form.label "Available Options", :class => 'input-label' %>
-      <p class="input__hint"> Please enter in format: option1, option2, option3, option4</p>
-      <%= form.text_field :answers, :class => 'input-text', :maxlength => 50 %>
-    </div>
-    <div class="input">
-      <%= form.label "True is ? ", :class => 'input-label' %>
-      <p class="input__hint"> 1 for option1, 2 for option2 ...</p>
-      <%= form.text_field :solution, :class => 'input-text', :maxlength => 1 %>
-    </div>
+      <p class="input__hint">Please select the correct option</p>
 
+      <div class="input__group">
+        <div class="input-radiobutton">
+            <%= form.radio_button :solution, 'a', :class => 'input-radio' %>
+        </div>
+
+          <div class="input">
+            <%= form.text_field :answers, :class => 'input-text', :id => 'option1', :maxlength => 20, :required => true, :placeholder => 'option1'  %>
+          </div>
+      </div>
+
+      <div class="input__group">
+        <div class="input-radiobutton">
+            <%= form.radio_button :solution, 'b', :class => 'input-radio' %>
+        </div>
+
+          <div class="input">
+            <%= form.text_field :answers, :class => 'input-text', :id => 'option2', :maxlength => 20, :required => true, :placeholder => 'option2'  %>
+          </div>
+      </div>
+
+      <div class="input__group">
+        <div class="input-radiobutton">
+            <%= form.radio_button :solution, 'c', :class => 'input-radio' %>
+        </div>
+
+          <div class="input">
+            <%= form.text_field :answers, :class => 'input-text', :id => 'option3', :maxlength => 20, :required => true, :placeholder => 'option3'  %>
+          </div>
+      </div>
+
+      <div class="input__group">
+        <div class="input-radiobutton">
+            <%= form.radio_button :solution, 'd', :class => 'input-radio' %>
+        </div>
+
+          <div class="input">
+            <%= form.text_field :answers, :class => 'input-text', :id => 'option4', :maxlength => 20, :required => true, :placeholder => 'option4'  %>
+          </div>
+      </div>
+      <%= form.hidden_field :answers, :id => 'mc-answers' %>
+    </div>
+    
     <div class="actions">
-      <%= form.submit 'Create', :class => 'btn btn--disabled' %>
+      <%= form.submit 'Create', :class => 'btn btn--disabled', :id => 'submit_btn' %>
     </div>
   <% end %>
 </div>
