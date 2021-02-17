@@ -2,8 +2,6 @@ import consumer from "./consumer"
 
 let url, dataDiv, splittedPath, playerId, routeId, routeChannel, pathName, startBtn, readyBtn;
 
-
-
 function routeStreaming() {
 
     pathName = window.location.pathname;

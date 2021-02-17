@@ -5,7 +5,7 @@
   <h2>Choose task format</h2>
     <div class="task-format">
         <% GameTask.available_types.each.with_index do |type, index| %>
-        <%= link_to url_for([@route, :game_tasks, { type: type[:class] }]), class: 'btn', data: { method: :post } do %>
+        <%= link_to url_for([@route, :game_tasks, { type: type[:class] }]), class: 'btn', data: { method: :get } do %>
             <%= type[:name] %>
         <% end %>
         <% end %>

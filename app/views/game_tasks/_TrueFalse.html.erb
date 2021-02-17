@@ -25,8 +25,10 @@
     <%= form.text_field :hint, :class => 'input-text', :maxlength => 35, :required => true  %>
   </div>
 
+
   <%= form.hidden_field :latitude %>
   <%= form.hidden_field :longitude %>
+  <%= form.hidden_field :type %>
 
   <div class="input">
     <%= form.label "Task Name", :class => 'input-label' %>
