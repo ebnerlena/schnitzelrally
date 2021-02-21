@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get :map
       get :start
       get :add_task
+      get :results
     end
   end
 

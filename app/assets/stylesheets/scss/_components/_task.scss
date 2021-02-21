@@ -57,3 +57,22 @@
         }
     }
 }
+
+.photos__container {
+
+    .photo {
+
+        img {
+            max-width: 400px;
+            height: auto;
+            max-height: 400px;
+    
+            @include mobile {
+                max-width: 80vw;
+                height: auto;
+                max-height: 200px;
+            }
+        }
+    }
+}
+

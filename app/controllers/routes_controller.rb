@@ -1,5 +1,5 @@
 class RoutesController < ApplicationController
-  before_action :set_route, only: %i[show edit map start add_task update destroy]
+  before_action :set_route, only: %i[show edit map start add_task results update destroy]
 
   def index
     @player = current_or_guest_user.player

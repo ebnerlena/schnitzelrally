@@ -1,6 +1,31 @@
 <h2> Answers for: <%= @game_task.name %> </h2>
-<p> Answers: </p>
-<ul>
-</ul>
+<p> Question: <%= @game_task.description %> </p>
+<div class="card__answers">
+            <h3>All submitions:  
+                <% if !@game_task.photo_upload? %>
+                    <span>  <%= @game_task.correct_answers %> correct</span> 
+                <% end%>
+            </h3>  
+            <ul class="answer__list">
+                <% if @game_task.photo_upload? %>
+                <div class="photos__container">
+                    <% @game_task.images.each do | image | %>
+                        <div class="photo"> <%= image_tag image %> </div>
+                    <% end %>
+                </div>
+                <% else %>
+                    <% @game_task.answers.each do | key, value | %>                    
+                        <div class="answer">
+                            <%= value %> by <%= Player.find(key).name %> 
+                            <% if value == @game_task.solution %>
+                            <p class="answer__state"> correct</p>
+                            <% else %>
+                            <p class="answer__state"> incorrect</p>
+                            <% end %>
+                        </div>
+                    <% end %>
+                <% end %>
+            </ul>
+        </div>    
   
-<%= link_to "Continue", route_path(@route), {class: 'btn' } %>
+<%= link_to "Back", results_route_path(@route), {class: 'btn' } %>

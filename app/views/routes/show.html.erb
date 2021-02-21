@@ -11,7 +11,7 @@
     <p class="congrats"> Congrats! You have successfully completed route:  <span> <%= @route.name %></span> !</p>
 
     <div class="buttons-group">
-      <%= link_to 'Results', route_path(@route), {class: 'btn btn--disabled' } %>
+      <%= link_to 'Results', results_route_path(@route), {class: 'btn' } %>
 
       <%= link_to 'Back to Menu', root_path, {class: 'btn' } %>
     </div>

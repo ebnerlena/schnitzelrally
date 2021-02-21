@@ -83,6 +83,16 @@ class GameTask < ApplicationRecord
     end
   end
 
+  def correct_answers
+    cnt = 0
+    answers.each_value do | value |
+      if value == solution
+        cnt = cnt+1
+      end
+    end
+    cnt
+  end
+
   def multiple_choice?
     type == 'MultipleChoice'
   end

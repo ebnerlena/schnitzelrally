@@ -1,0 +1,31 @@
+<% content_for :nav do %>
+  <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{@route.name}"} %>
+<% end %>
+
+<div class="card">
+    <h2>Results for <span> <%= @route.name %></span>  </h2>
+
+    <div class="card__tasks">
+            <h3> <%= @route.game_tasks.size %> Tasks completed: </h3>  
+            <ul class="tasks__list">
+                <% @route.game_tasks.each do | task | %>
+                    <div class="task">
+                        <div class="task__header">
+                            <p class="task__name"><strong><%= task.name %></strong></p>
+                            <div class="task__links">
+                                <%= link_to 'Show results', route_game_task_path(@route, task) %>
+                            </div>
+                        </div>
+                        <p class="task__description"><%= task.description %></p>
+                    </div>
+                <% end %>
+            </ul>
+        </div>    
+    
+
+    <div class="buttons-group">
+
+      <%= link_to 'Back to Menu', root_path, {class: 'btn' } %>
+    </div>
+
+</div>
