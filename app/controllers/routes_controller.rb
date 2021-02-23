@@ -66,7 +66,9 @@ class RoutesController < ApplicationController
     end
 
     if @route.all_players_ready?
-      RouteAllReadyJob.perform_later(@route)
+      RouteAllReadyJob.perform_later(@route, true)
+    else
+      RouteAllReadyJob.perform_later(@route, false)
     end
     
     render '_map'

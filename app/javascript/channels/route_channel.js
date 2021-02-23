@@ -1,6 +1,6 @@
 import consumer from "./consumer"
 
-let url, dataDiv, splittedPath, playerId, routeId, routeChannel, pathName, startBtn, readyBtn;
+let url, dataDiv, splittedPath, playerId, routeId, routeChannel, pathName, startBtn, readyBtn, btnHint;
 
 function routeStreaming() {
 
@@ -50,7 +50,13 @@ function routeStreaming() {
                         }
                         else if (data.type == "all_ready") {
                             if(startBtn) {
-                                startBtn.classList.remove("btn--disabled");
+                                if(data.state) {
+                                    startBtn.classList.remove("btn--disabled");
+                                    btnHint.innerHTML = "All players are ready to start";
+                                } else {
+                                    startBtn.classList.add("btn--disabled");
+                                    btnHint.innerHTML = "Not all players are ready yet";
+                                }
                             }
                         }
                     }
@@ -63,6 +69,7 @@ function routeStreaming() {
 function lookForElements() {
     startBtn = document.querySelector("#start_btn");
     dataDiv = document.querySelector('#dataDiv');
+    btnHint = document.querySelector('#start-btn__hint');
 
     if ( dataDiv ) {
         playerId = dataDiv.dataset['player_id'];

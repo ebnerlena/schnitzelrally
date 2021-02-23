@@ -20,12 +20,12 @@
             <%= link_to 'Start', start_route_path(@route), { class: 'btn', id: 'start_btn' } %>
         <% else %>
            <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled', id: 'start_btn' } %>
-           <p class="btn__hint"> Not all players are ready yet </p>
+           <p class="btn__hint" id="start-btn__hint"> Not all players are ready yet </p>
         <% end %>
     <% else %>
         <% if (current_or_guest_user.player.ready?) %>
             <%= button_to 'Ready!', player_path(current_or_guest_user.player), { action: "update", method: "patch", params: {"player"=> { state: "ready" }}, class: 'btn btn--pressed', id: 'ready_btn' } %>
-            <%= button_to 'No I am not ready yet', player_path(current_or_guest_user.player), { action: "update", method: "patch", params: {"player"=> { state: "planning" }}, class: 'btn btn--revert' } %>
+            <%= button_to 'No I am not ready yet', player_path(current_or_guest_user.player), { action: "update", method: "patch", params: {"player"=> { state: "planning" }}, class: 'btn btn--revert', id: 'revert_btn'  } %>
         <% else %>
             <%= button_to 'Ready?', player_path(current_or_guest_user.player), { action: "update", method: "patch", params: {"player"=> { state: "ready" }}, class: 'btn', id: 'ready_btn' } %>
         <% end %>
