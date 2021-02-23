@@ -8,7 +8,7 @@
 
             <% @answers.each do |key, value| %>
                 <div class="input-radiobutton">
-                    <%= form.radio_button :answers, value, :class => 'input-text' %>
+                    <%= form.radio_button :answers, key, :class => 'input-text' %>
                     <%= form.label value, :class => 'input-label' %>
                 </div>
             <% end %>

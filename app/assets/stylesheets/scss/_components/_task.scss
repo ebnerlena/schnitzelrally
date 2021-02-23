@@ -18,6 +18,10 @@
         padding: $default_padding;
     }
 
+    &--results {
+        height: 65vh;
+    }
+
     h3 {
         margin-top: 0;
     }
@@ -54,23 +58,116 @@
                 font-size: 20px;
                 font-weight: bold;
             }
+
+            .task__description {
+                margin-top: 5px;
+            }
         }
     }
 }
 
-.photos__container {
-
-    .photo {
-
-        img {
-            max-width: 400px;
-            height: auto;
-            max-height: 400px;
+.task__question {
+    align-self: start;
+    margin-top: 0;
     
-            @include mobile {
-                max-width: 80vw;
-                height: auto;
-                max-height: 200px;
+    span {
+        font-style: italic;
+        margin-top: 0;
+    }
+}
+
+.card__answers {
+    margin: 2% 0;
+    padding: $default_padding/2;
+    background: $backgroundColor2;
+    border-radius: $borderradius;
+    width: 95%;
+    height: 53vh;
+    overflow-x: hidden;
+
+    @include tablet {
+        width: 100%;
+        padding: $default_padding;
+    }
+
+    @include desktop {
+        width: 95%;
+        @include maxwidthcontainer;
+        padding: $default_padding;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .answer__list {
+        padding: 0;
+
+        .photos__container {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+
+            @include desktop {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .photo {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                margin: $default_margin 0;
+
+                img {
+                    max-width: 300px;
+                    height: auto;
+                    max-height: 400px;
+            
+                    @include mobile {
+                        max-width: 80vw;
+                        height: auto;
+                        max-height: 200px;
+                    }
+                }
+            }
+        }
+
+        & > li {
+            margin-left: 1.5*$default_margin;
+        }
+    }
+
+    .answer {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        margin: 0.5*$default_margin 0;
+
+        p {
+            margin: 0;
+        }
+        
+        .answer__state {
+            color: white;
+            border-radius: 5px;
+            padding: 2px;
+            margin-right: 10px;
+        }
+        
+        .answer__state--true {
+            background-color: #61b15a;
+        }
+        
+        .answer__state--false {
+            background-color: #ec524b;
+        }
+
+        .answer__value {
+            word-break: break-word;
+
+            span {
+                font-weight: bold;
             }
         }
     }
