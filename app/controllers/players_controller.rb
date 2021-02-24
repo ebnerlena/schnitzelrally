@@ -49,13 +49,11 @@ class PlayersController < ApplicationController
 
   def all_tasks
     @game_tasks = @player.game_tasks
-
     render 'all_tasks'
   end
 
   def all_routes
     @routes = @player.routes
-
     render 'all_routes'
   end
 

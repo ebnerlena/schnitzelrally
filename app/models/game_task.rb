@@ -85,10 +85,8 @@ class GameTask < ApplicationRecord
 
   def correct_answers
     cnt = 0
-    answers.each_value do | value |
-      if value == solution
-        cnt = cnt+1
-      end
+    answers.each_value do |value|
+      cnt += 1 if value == solution
     end
     cnt
   end

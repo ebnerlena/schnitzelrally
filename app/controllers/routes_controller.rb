@@ -70,7 +70,7 @@ class RoutesController < ApplicationController
     else
       RouteAllReadyJob.perform_later(@route, false)
     end
-    
+
     render '_map'
   end
 

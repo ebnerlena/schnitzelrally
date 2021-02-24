@@ -12,19 +12,26 @@
     <% end %> 
     
     <% if @player.game_tasks.empty? %>
-        <div class="card-tasks">
+        <div class="card__tasks card__tasks--high">
             <p>You haven't created any tasks yet...</p>
         </div>
     <% else %>  
-        <div class="card-tasks">
+        <div class="card__tasks card__tasks--high">
             <h3>Your created tasks:</h3>  
-            <ul class="card-tasks_list">
+            <ul class="tasks__list">
                 <% @player.game_tasks.each do | task | %>
                     <div class="task">
-                        <div class="task-header">
-                            <p class="task-name"><strong><%= task.name %></strong></p>
+                        <div class="task__header">
+                            <p class="task__name"><strong><%= task.name %></strong></p>
+                            <div class="task__links">
+                                <% if task.route.finished? %>
+                                    <%= link_to 'Results', route_game_task_path(task.route, task) %>
+                                <% else %>
+                                    <%= link_to 'Edit', edit_route_game_task_path(task.route, task) %>
+                                <% end %>
+                            </div>
                         </div>
-                        <p class="task-description"><%= task.description %></p>
+                        <p class="task__description"><%= task.description %></p>
                     </div>
                 <% end %>
             </ul>

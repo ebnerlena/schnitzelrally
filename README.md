@@ -36,3 +36,16 @@ start geht nur bei allen wenn auf map oder tasks (nicht wenn man noch aufgabe er
 - Usability and Style (more elegant)
 - input fields max length
 - Start kann erst gedrückt werden wenn alle Teilnehmer sich für bereit gemeldet haben
+
+## User testing Full Stack
+- everyone gets the same task or another?
+- disadvantaged if randomized - a lot to travel
+
+- forget password not working
+- click on the map
+- creator of route wants to see participants
+- go back to route if visiting other pages
+
+- photo upload verification by route creator
+- see all tasks
+- task completion overview of each player

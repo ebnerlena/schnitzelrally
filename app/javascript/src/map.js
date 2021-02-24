@@ -1,4 +1,4 @@
-let map, lngInput, latInput, range, radius;
+let map, lngInput, latInput, range, radius, marker;
 var re = new RegExp("\\d+");
 
 var markerIcon = L.icon({
@@ -50,10 +50,11 @@ render = () => {
     } 
     else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/) && splittedPath[5] =="edit") {
         setUpMapForGameTask();
-        addTasks();
+        addLocation();
     }
     else if (path.endsWith("game_tasks/new")) {
         setUpMapForGameTask();
+        map.once("click", addMarker);
     }
     else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/)) {
         setUpMap();
@@ -72,8 +73,6 @@ setUpMapForGameTask = () => {
     if (lngInput.value > 0 && latInput.value > 0) {
         button.classList.remove('btn--disabled');    
     }
-
-    map.once("click", addMarker);
 }
 
 setUpMap = () => {
@@ -99,8 +98,6 @@ addViewToMap = () => {
 
         map.setView([lat, long], 13);
     }
-    
-    
 }
 
 function changeLatLngInput(e) {
@@ -123,11 +120,15 @@ function addLatLngInput(e) {
 function addMarker(e) {
     let button = document.querySelector('.btn--disabled');
 
-    button.classList.remove('btn--disabled');
+    if(button)
+    {
+        button.classList.remove('btn--disabled');
+    }
 
-    let marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: markerIcon, draggable: true}).addTo(map);
+    marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: markerIcon, draggable: true}).addTo(map);
     addLatLngInput(e);
     marker.on("moveend", changeLatLngInput);
+    map.on("click", moveMarker);
 }
 
 function addRadius(e) {
@@ -146,6 +147,31 @@ function addTasks() {
         tasks = tasks.dataset.tasks;
         tasks = JSON.parse(tasks);
         tasks.forEach(task => L.marker([task.latitude, task.longitude], {icon: markerIcon}).addTo(map));
+    }
+}
+
+function addLocation() {
+    let tasks = document.querySelector("#tasks")
+    
+    if (tasks != null) {
+        tasks = tasks.dataset.tasks;
+        tasks = JSON.parse(tasks);
+        marker = L.marker([tasks[0].latitude, tasks[0].longitude], {icon: markerIcon, draggable: true}).addTo(map);
+        map.on("click", moveMarker);
+    }
+}
+
+function moveMarker(e) {
+
+    marker.setLatLng([e.latlng.lat, e.latlng.lng]);
+    latInput.value = e.latlng.lat;
+    lngInput.value = e.latlng.lng;
+
+    let path = window.location.pathname;
+    
+    if (path == "/routes/new") {
+        radius.setLatLng([e.latlng.lat, e.latlng.lng]);
+        radius.redraw();
     }
 }
 
