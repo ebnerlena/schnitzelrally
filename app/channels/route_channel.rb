@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RouteChannel < ApplicationCable::Channel
   def subscribed
     stream_from "route_#{route.id}"
@@ -14,12 +16,13 @@ class RouteChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    if data['command'] == 'start'
+    case data['command']
+    when 'start'
       player = Player.find(data['player_id'])
       player.route_start
       ActionCable.server.broadcast "route_#{route.id}", route_id: data['route_id'], task_id: data['task_id'],
                                                         type: 'start'
-    elsif data['command'] == 'next_task'
+    when 'next_task'
       player = Player.find(data['player_id'])
       player.route_start
     end

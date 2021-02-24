@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CleanDeadPlayersRoutesReferences < ActiveRecord::Migration[6.0]
   def change
     remove_reference :players, :route, null: true, foreign_key: true

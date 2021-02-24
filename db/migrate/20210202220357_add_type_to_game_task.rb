@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTypeToGameTask < ActiveRecord::Migration[6.0]
   def change
     add_column :game_tasks, :type, :string

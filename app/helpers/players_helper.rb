@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PlayersHelper
   def avatar
     player = current_or_guest_user.player

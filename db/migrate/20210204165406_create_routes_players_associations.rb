@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRoutesPlayersAssociations < ActiveRecord::Migration[6.0]
   def change
     create_table :routes_players_associations do |t|

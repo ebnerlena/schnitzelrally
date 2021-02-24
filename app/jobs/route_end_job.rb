@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RouteEndJob < ApplicationJob
   queue_as :default
 

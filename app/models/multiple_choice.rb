@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MultipleChoice < GameTask
   def answers=(val)
     super(val)

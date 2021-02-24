@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Route < ApplicationRecord
   belongs_to :player
   has_many :routes_players_association, dependent: :destroy
@@ -53,12 +55,12 @@ class Route < ApplicationRecord
   end
 
   def next_task
-    players.each { |p| p.next_task }
+    players.each(&:next_task)
     @current_task = game_tasks.where(state: 'planning').first
   end
 
   def end
-    players.each { |p| p.finished }
+    players.each(&:finished)
     update(game_state: 'finished', end_time: Time.zone.now)
     save!
   end

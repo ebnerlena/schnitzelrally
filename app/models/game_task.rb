@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GameTask < ApplicationRecord
   belongs_to :player
   belongs_to :route
