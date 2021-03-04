@@ -12,12 +12,14 @@ class GameTasksController < ApplicationController
 
   def show
     @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
+    @players = {}
+    @game_task.answers.each_key do |key|
+      @players.merge({ key => Player.find(key).name })
+    end
   end
 
   def answer
-    if @game_task.photo_upload?
-      @game_task.attach(params[:images])
-    end
+    @game_task.attach(params[:images]) if @game_task.photo_upload?
 
     @game_task.answer({ current_or_guest_user.player.id => params[:answers] })
     current_or_guest_user.player.answer
@@ -63,10 +65,7 @@ class GameTasksController < ApplicationController
       RouteTasksUpdateJob.perform_later(@route)
       redirect_to route_path(@route)
     else
-      Rails.logger.warn('not ok')
-      @game_task.errors.full_messages.each do |message|
-        Rails.logger.warn(message)
-      end
+      redirect_back
     end
   end
 

@@ -1,44 +1,43 @@
-
-  <div class="card__nav"> 
-    <h3 class="nav__link"><%= link_to_unless_current "Map", map_route_path(@route),  { action: "map", method: "get", params: {"route"=>{ route_id: @route_id }} } %></h3>
+<div class="card__nav">
+    <h3 class="nav__link"><%= link_to_unless_current "Map", map_route_path(route),  { action: "map", method: "get", params: {"route"=>{ route_id: route.id }} } %></h3>
     <h3 class="nav__link nav__link--active"><%= link_to_unless_current "Tasks", route_path %></h3>
-  </div>
+</div>
 
-    <% if @route.game_tasks.size==1 %>
-        <p class="left"><span id="tasks_nr"><%= @route.game_tasks.size %></span> task in total</p>
-    <% else %>
-        <p class="left"><span id="tasks_nr"><%= @route.game_tasks.size %></span> tasks in total</p>
-    <% end %> 
-    
-    <% if @route.game_tasks.where(player: current_or_guest_user.player).empty? %>
-        <div class="card__tasks">
-            <p class="tasks__empty"> You haven't created any tasks yet... <span> click + , go wild and create one </span> </p>
-        </div>
-    <% else %>  
-        <div class="card__tasks">
-            <h3>Your created tasks:</h3>  
-            <ul class="tasks__list">
-                <% @route.game_tasks.where(player: current_or_guest_user.player).each do | task | %>
-                    <div class="task">
-                        <div class="task__header">
-                            <p class="task__name"><strong><%= task.name %></strong></p>
-                            <div class="task__links">
-                                <%= link_to 'Edit', edit_route_game_task_path(@route, task) %>
-                                <span class="links__divider"> | </span>
-                                <%= link_to 'Destroy', [@route,task.becomes(GameTask)], method: :delete, data: { confirm: 'Are you sure?' } %>
-                            </div>
+<% if route.game_tasks.size==1 %>
+    <p class="left"><span id="tasks_nr"><%= route.game_tasks.size %></span> task in total</p>
+<% else %>
+    <p class="left"><span id="tasks_nr"><%= route.game_tasks.size %></span> tasks in total</p>
+<% end %>
+
+<% if route.game_tasks.where(player: current_or_guest_user.player).empty? %>
+    <div class="card__tasks">
+        <p class="tasks__empty"> You haven't created any tasks yet... <span> click + , go wild and create one </span> </p>
+    </div>
+<% else %>
+    <div class="card__tasks">
+        <h3>Your created tasks:</h3>
+        <ul class="tasks__list">
+            <% route.game_tasks.where(player: current_or_guest_user.player).each do | task | %>
+                <div class="task">
+                    <div class="task__header">
+                        <p class="task__name"><strong><%= task.name %></strong></p>
+                        <div class="task__links">
+                            <%= link_to 'Edit', edit_route_game_task_path(route, task) %>
+                            <span class="links__divider"> | </span>
+                            <%= link_to 'Destroy', [route,task.becomes(GameTask)], method: :delete, data: { confirm: 'Are you sure?' } %>
                         </div>
-                        <p class="task__description"><%= task.description %></p>
                     </div>
-                <% end %>
-            </ul>
-        </div>    
-    <% end %>   
+                    <p class="task__description"><%= task.description %></p>
+                </div>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
 
-    <% if current_or_guest_user.player.ready? %>
-        <%= link_to '+', add_task_route_path(@route),  {params: {"game_task"=>{ route_id: @route.id }}, class: 'btn  btn--disabled btn--add' } %>
-    <% else %>
-        <%= link_to '+', add_task_route_path(@route),  {params: {"game_task"=>{ route_id: @route.id }}, class: 'btn btn--add' } %>
-    <% end %>
+<% if current_or_guest_user.player.ready? %>
+    <%= link_to '+', add_task_route_path(route), {params: {"game_task"=>{ route_id: route.id }}, class: 'btn  btn--disabled btn--add' } %>
+<% else %>
+    <%= link_to '+', add_task_route_path(route), {params: {"game_task"=>{ route_id: route.id }}, class: 'btn btn--add' } %>
+<% end %>
 
-    <div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= @route.id %>" ></div>
+<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= route.id %>" ></div>

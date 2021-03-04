@@ -17,7 +17,7 @@
 
   <p class="map__instruction"> Click on the map to choose the route location </p>
   <div id="map"> </div>
-  
+
   <%= form.hidden_field :latitude %>
   <%= form.hidden_field :longitude %>
 
@@ -26,7 +26,7 @@
       <%= form.label :radius, :class => 'input-label' %>
       <p class="input-range__value"></p>
     </div>
-    
+
     <%= form.range_field :radius, in: 1..10, value: 1, :class => 'input-range' %>
     <div class="numbering">
       <p>1</p>

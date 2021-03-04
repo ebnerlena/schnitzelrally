@@ -6,7 +6,7 @@
     <h2>Results for <span> <%= @route.name %></span>  </h2>
 
     <div class="card__tasks card__tasks--high">
-            <h3> <%= @route.game_tasks.size %> Tasks completed: </h3>  
+            <h3> <%= @route.game_tasks.size %> Tasks completed: </h3>
             <ul class="tasks__list">
                 <% @route.game_tasks.each do | task | %>
                     <div class="task">
@@ -20,8 +20,8 @@
                     </div>
                 <% end %>
             </ul>
-        </div>    
-    
+        </div>
+
       <%= link_to 'Back to Menu', root_path, {class: 'btn' } %>
 
 </div>

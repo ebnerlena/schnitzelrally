@@ -1,25 +1,25 @@
 <% content_for :nav do %>
-  <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{@route.name}"} %>
+  <%= render partial: 'layouts/nav_in_route', locals: {title: "Route: #{route.name}"} %>
 <% end %>
 
 <div class="card">
-    <div class="card__nav"> 
+    <div class="card__nav">
         <h3 class="nav__link nav__link--active"><%= link_to_unless_current "Map", map_route_path %></h3>
         <h3 class="nav__link"><%= link_to_unless_current "Tasks", route_path %></h3>
     </div>
 
     <div class="card__map">
-        <div id="map" data-lat="<%= @route.latitude %>" data-long="<%= @route.longitude %>"> </div>
+        <div id="map" data-lat="<%= route.latitude %>" data-long="<%= route.longitude %>"> </div>
     </div>
 
-    <%= content_tag "div", id: "tasks", data: {tasks: @tasks} do %>
+    <%= content_tag "div", id: "tasks", data: {tasks: tasks} do %>
     <% end %>
 
-     <% if (@route.player == current_or_guest_user.player)%> 
-        <% if !(@route.game_tasks.empty?) && @route.all_players_ready? %>
-            <%= link_to 'Start', start_route_path(@route), { class: 'btn', id: 'start_btn' } %>
+     <% if (route.player == current_or_guest_user.player)%>
+        <% if !(@route.game_tasks.empty?) && route.all_players_ready? %>
+            <%= link_to 'Start', start_route_path(route), { class: 'btn', id: 'start_btn' } %>
         <% else %>
-           <%= link_to 'Start', start_route_path(@route), { class: 'btn btn--disabled', id: 'start_btn' } %>
+           <%= link_to 'Start', start_route_path(route), { class: 'btn btn--disabled', id: 'start_btn' } %>
            <p class="btn__hint" id="start-btn__hint"> Not all players are ready yet </p>
         <% end %>
     <% else %>
@@ -33,4 +33,4 @@
 
 </div>
 
-<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= @route.id %>" ></div>
+<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= route.id %>" ></div>

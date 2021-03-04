@@ -65,11 +65,6 @@ class Player < ApplicationRecord
     save!
   end
 
-  def found
-    update(state: 'answering')
-    save!
-  end
-
   def next_task
     update(state: 'searching')
     save!

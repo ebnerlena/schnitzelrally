@@ -49,11 +49,6 @@ class GameTask < ApplicationRecord
     save!
   end
 
-  def arrived
-    update(state: 'task')
-    save!
-  end
-
   def answering
     update(state: 'waiting_for_answers')
     save!
@@ -87,7 +82,7 @@ class GameTask < ApplicationRecord
   def correct_answers
     cnt = 0
     answers.each_value do |value|
-      cnt += 1 if value == solution
+      cnt += 1 if value.downcase == solution.downcase
     end
     cnt
   end

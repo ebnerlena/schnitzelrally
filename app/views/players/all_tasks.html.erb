@@ -9,15 +9,15 @@
         <p class="left"><%= @player.game_tasks.size %> task in total</p>
     <% else %>
         <p class="left"><%= @player.game_tasks.size %> tasks in total</p>
-    <% end %> 
-    
+    <% end %>
+
     <% if @player.game_tasks.empty? %>
         <div class="card__tasks card__tasks--high">
             <p>You haven't created any tasks yet...</p>
         </div>
-    <% else %>  
+    <% else %>
         <div class="card__tasks card__tasks--high">
-            <h3>Your created tasks:</h3>  
+            <h3>Your created tasks:</h3>
             <ul class="tasks__list">
                 <% @player.game_tasks.each do | task | %>
                     <div class="task">
@@ -35,6 +35,6 @@
                     </div>
                 <% end %>
             </ul>
-        </div>    
-    <% end %>   
+        </div>
+    <% end %>
 </div>

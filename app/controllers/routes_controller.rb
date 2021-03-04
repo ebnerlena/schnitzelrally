@@ -27,9 +27,6 @@ class RoutesController < ApplicationController
 
       ok = @user.save
       if !ok
-        @user.errors.full_messages.each do |m|
-          Rails.logger.warn(m)
-        end
         redirect_to routes_path, notice: 'Not a valid username'
       else
         @route = Route.last
@@ -48,7 +45,6 @@ class RoutesController < ApplicationController
       redirect_to @route
     else
       Rails.logger.warn('route is nil')
-      # render 'join'
     end
   end
 
@@ -72,7 +68,7 @@ class RoutesController < ApplicationController
       RouteAllReadyJob.perform_later(@route, false)
     end
 
-    render '_map'
+    render '_map', locals: { game_task: @game_task, route: @route, tasks: @tasks }
   end
 
   def start
@@ -90,9 +86,6 @@ class RoutesController < ApplicationController
     @player = current_or_guest_user.player
     @route = Route.new(route_params)
     @route.player_id = @player.id
-
-    results = Geocoder.search([@route.latitude, @route.longitude])
-    # @route.location = results.first.address
 
     respond_to do |format|
       if @route.save
@@ -133,12 +126,10 @@ class RoutesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_route
     @route = Route.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def route_params
     params.require(:route).permit(:id, :name, :latitude, :longitude, :radius)
   end

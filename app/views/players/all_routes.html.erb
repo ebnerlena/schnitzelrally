@@ -9,15 +9,15 @@
         <p class="left"><%= @player.routes.size %> route in total</p>
     <% else %>
         <p class="left"><%= @player.routes.size %> routes in total</p>
-    <% end %> 
-    
+    <% end %>
+
     <% if @player.routes.empty? %>
         <div class="card__tasks card__tasks--high">
             <p>You haven't created any routes yet...</p>
         </div>
-    <% else %>  
+    <% else %>
         <div class="card__tasks card__tasks--high">
-            <h3>Your created routes:</h3>  
+            <h3>Your created routes:</h3>
             <ul class="tasks__list">
                 <% @player.routes.each do | route | %>
                     <div class="task">
@@ -39,6 +39,6 @@
                     </div>
                 <% end %>
             </ul>
-        </div>    
-    <% end %>   
+        </div>
+    <% end %>
 </div>

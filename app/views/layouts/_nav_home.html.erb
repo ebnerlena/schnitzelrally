@@ -5,18 +5,17 @@
         </a>
     </li>
     <li class="header__right">
-    <% if user_signed_in? %> 
-        <div class="sidebar__trigger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    
-    <% else %>
-     <%= link_to "Login", new_user_session_path %> 
-     <%= display_svg("login") %>
-    <% end %>
-    
+        <% if user_signed_in? %>
+            <div class="sidebar__trigger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        <% else %>
+            <%= link_to "Login", new_user_session_path %>
+            <%= display_svg("login") %>
+        <% end %>
+
         <div class="sidebar__trigger sidebar__trigger--hidden">
             <div></div>
             <div></div>
@@ -24,4 +23,3 @@
         </div>
     </li>
 </ul>
-
