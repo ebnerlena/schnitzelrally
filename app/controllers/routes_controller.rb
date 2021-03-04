@@ -19,21 +19,7 @@ class RoutesController < ApplicationController
   end
 
   def join
-    if params[:name].nil?
-      @route = Route.last
-      render '_form_join'
-    else
-      @user = current_or_guest_user
-      @user.name = params[:name]
-
-      ok = @user.save
-      if !ok
-        redirect_to routes_path, notice: 'Not a valid username'
-      else
-        @route = Route.last
-        render '_form_join'
-      end
-    end
+    render '_form_join'
   end
 
   def join_route
@@ -63,11 +49,7 @@ class RoutesController < ApplicationController
       @tasks += ['latitude' => task.latitude, 'longitude' => task.longitude]
     end
 
-    if @route.all_players_ready?
-      RouteAllReadyJob.perform_later(@route, true)
-    else
-      RouteAllReadyJob.perform_later(@route, false)
-    end
+    RouteAllReadyJob.perform_later(@route, @route.all_players_ready?)
 
     render '_map', locals: { game_task: @game_task, route: @route, tasks: @tasks }
   end

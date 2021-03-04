@@ -57,13 +57,13 @@ class GameTask < ApplicationRecord
 
   def all_answered?
     players = route.players
-    unless answers.nil?
-      players.size == if multiple_choice?
-                        (answers.size - 1)
-                      else
-                        answers.size
-                      end
-    end
+    return if answers.nil?
+
+    players.size == if multiple_choice?
+                      (answers.size - 1)
+                    else
+                      answers.size
+                    end
   end
 
   def completed

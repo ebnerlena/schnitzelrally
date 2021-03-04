@@ -14,8 +14,8 @@ class GameTasksController < ApplicationController
   def show
     @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
     @players = {}
-    @game_task.answers.each_key do |key|
-      @players.merge({ key => Player.find(key).name })
+    @game_task.answers&.each_key do |key|
+      @players.merge({ key => Player.find(key).name }) if key != 'answers'
     end
   end
 
