@@ -1,8 +1,8 @@
-<h2> Task instructions for <%= @game_task.name %>:</h2>
-<p class="hint"> <%= @game_task.description %> </p>
+<h2> Task instructions for <%= game_task.name %>:</h2>
+<p class="hint"> <%= game_task.description %> </p>
 
-<%= form_with(url: answer_route_game_task_path(@route, @game_task), method: "post", multipart: true, local: true) do |form| %>
-    <% if @game_task.multiple_choice? %>
+<%= form_with(url: answer_route_game_task_path(route, game_task), method: "post", multipart: true, local: true) do |form| %>
+    <% if game_task.multiple_choice? %>
         <div class="input">
             <p>Select your answer</p>
 
@@ -13,12 +13,12 @@
                 </div>
             <% end %>
         </div>
-    <% elsif @game_task.photo_upload? %>
+    <% elsif game_task.photo_upload? %>
         <div class="input input--borderless">
             <%= form.label "Choose your picture", :class => 'input-label' %>
             <%= form.file_field :images %>
         </div>
-    <% elsif @game_task.true_false? %>
+    <% elsif game_task.true_false? %>
         <div class="input">
             <p>TRUE or FALSE?</p>
 
@@ -42,4 +42,4 @@
     <%= form.submit 'Submit answer', { :class => 'btn', :id => 'add_btn' } %>
   </div>
 <% end %>
-<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= @route.id %>" ></div>
+<div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= route.id %>" ></div>

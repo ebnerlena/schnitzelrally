@@ -75,14 +75,13 @@ class GameTask < ApplicationRecord
     save!
   end
 
-  def player_has_answered(player)
-    unless answers.nil?
-      if answers.include?(player.id.to_s)
-        answering
-      else
-        arrived
-      end
+  def answer(answer)
+    if answers.nil?
+      update(answers: answer)
+    else
+      update(answers: answers.merge(answer))
     end
+    save!
   end
 
   def correct_answers

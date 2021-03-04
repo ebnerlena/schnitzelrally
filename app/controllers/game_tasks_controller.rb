@@ -16,22 +16,14 @@ class GameTasksController < ApplicationController
 
   def answer
     if @game_task.photo_upload?
-      @game_task.images.attach(params[:images])
-      @game_task.answers
+      @game_task.attach(params[:images])
     end
-    answer = { current_or_guest_user.player.id => params[:answers] }
-    @game_task.answers = if @game_task.answers.nil?
-                           answer
-                         else
-                           @game_task.answers.merge(answer)
-                         end
-    @game_task.save!
 
+    @game_task.answer({ current_or_guest_user.player.id => params[:answers] })
     current_or_guest_user.player.answer
 
     if @game_task.all_answered?
       @game_task.completed
-
       @game_task = @route.next_task
 
       if @game_task.nil?
@@ -69,7 +61,6 @@ class GameTasksController < ApplicationController
 
     if @game_task.save
       RouteTasksUpdateJob.perform_later(@route)
-      Rails.logger.warn('create was ok')
       redirect_to route_path(@route)
     else
       Rails.logger.warn('not ok')

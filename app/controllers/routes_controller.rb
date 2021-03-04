@@ -11,7 +11,6 @@ class RoutesController < ApplicationController
     @which = 'Tasks'
     @player = current_or_guest_user.player
     @tasks = @route.game_tasks.where(player: @player)
-    # render '_tasks'
   end
 
   def new

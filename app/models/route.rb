@@ -8,8 +8,6 @@ class Route < ApplicationRecord
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
 
-  scope :available, -> { where(game_state: 'planning') }
-
   validates :name, length: { minimum: 3 }, uniqueness: true
   validates :latitude, :longitude, presence: true
 

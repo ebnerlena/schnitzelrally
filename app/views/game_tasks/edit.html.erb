@@ -2,5 +2,5 @@
   <%= render partial: 'layouts/nav_in_route', locals: {title: "Edit Task"} %>
 <% end %>
 
-<%= render "#{@game_task.type}", locals:{ game_task: @game_task } %>
+<%= render "#{@game_task.type}", locals:{ game_task: @game_task, route: @route } %>
 <div id="dataDiv" data-player_id="<%= current_or_guest_user.player.id %>" data-route_id="<%= @route.id %>" ></div>
