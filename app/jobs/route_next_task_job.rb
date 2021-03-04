@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# route next task job
 class RouteNextTaskJob < ApplicationJob
   queue_as :default
 

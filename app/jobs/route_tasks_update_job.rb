@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# route tasks update job
 class RouteTasksUpdateJob < ApplicationJob
   queue_as :default
 

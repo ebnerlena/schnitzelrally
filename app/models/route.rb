@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# route model class
 class Route < ApplicationRecord
   belongs_to :player
   has_many :routes_players_association, dependent: :destroy

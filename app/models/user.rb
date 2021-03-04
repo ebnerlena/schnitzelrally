@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# user model class
 class User < ApplicationRecord
   # belongs_to :route
   has_one :player, dependent: :destroy

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# gametasks controller
 class GameTasksController < ApplicationController
   before_action :set_game_task, only: %i[show edit answer update destroy]
   before_action :set_route

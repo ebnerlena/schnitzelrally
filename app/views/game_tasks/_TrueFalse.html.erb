@@ -1,5 +1,5 @@
   <h2> True or False </h2>
- <% route = @route; game_task = @game_task %>
+  <% route = @route; game_task = @game_task %>
 
   <%= form_with(model: [route, game_task], local: true) do |form| %>
   <% if game_task.errors.any? %>

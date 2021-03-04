@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# routes controller
 class RoutesController < ApplicationController
   before_action :set_route, only: %i[show edit map start add_task results update destroy]
 

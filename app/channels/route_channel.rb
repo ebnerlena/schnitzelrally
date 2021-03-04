@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# route channel for websockets
 class RouteChannel < ApplicationCable::Channel
   def subscribed
     stream_from "route_#{route.id}"

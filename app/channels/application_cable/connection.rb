@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module ApplicationCable
+  # application cable connection class
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
 
@@ -13,11 +14,6 @@ module ApplicationCable
 
     def find_devise_user
       env['warden'].user
-      # if verified_user = User.find_by(id: cookies.encrypted[:user_id])
-      #   verified_user
-      # else
-      #   reject_unauthorized_connection
-      # end
     end
   end
 end
