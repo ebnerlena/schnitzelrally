@@ -1,53 +1,41 @@
+# frozen_string_literal: true
+
+# gametasks controller
 class GameTasksController < ApplicationController
   before_action :set_game_task, only: %i[show edit answer update destroy]
   before_action :set_route
 
   def index
-    @game_tasks = GameTask.all
+    @type = params[:type]
+    @game_task = GameTask.new
+    redirect_to new_route_game_task_path(@route, type: @type)
   end
 
   def show
-    if @game_task.state == 'planning'
-      @game_task.start
-    elsif @game_task.state == 'hint'
-      # @game_task.arrived
-      # @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
-    elsif @game_task.state == 'task'
-      @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
-
-      if @game_task.all_answered?
-        @game_task.completed
-        RouteChannel.broadcast_to @route, route_state: @route.game_state, route_id: @route.id, task_id: @game_task.id,
-                                          type: 'next_task'
-      else
-        @game_task.player_has_answered(current_or_guest_user.player)
-      end
+    @answers = @game_task.answers['answers'] if @game_task.multiple_choice?
+    @players = {}
+    @game_task.answers&.each_key do |key|
+      @players.merge({ key => Player.find(key).name }) if key != 'answers'
     end
   end
 
   def answer
-    if @game_task.photo_upload?
-      @game_task.images.attach(params[:images])
-      @game_task.answers
-    end
-    answer = { current_or_guest_user.player.id => params[:answers] }
-    @game_task.answers = if @game_task.answers.nil?
-                           answer
-                         else
-                           @game_task.answers.merge(answer)
-                         end
-    @game_task.save!
+    @game_task.attach(params[:images]) if @game_task.photo_upload?
+
+    @game_task.answer({ current_or_guest_user.player.id => params[:answers] })
+    current_or_guest_user.player.answer
 
     if @game_task.all_answered?
       @game_task.completed
-
       @game_task = @route.next_task
 
       if @game_task.nil?
         @route.end
-        RouteChannel.broadcast_to @route, route_state: @route.game_state, route_id: @route.id, type: 'route_end'
+        RouteEndJob.perform_later(@route)
         redirect_to route_path(@route)
       else
+        @game_task.start
+        RouteNextTaskJob.perform_later(@route, @game_task)
         redirect_to route_game_task_path(@route, @game_task)
       end
 
@@ -66,33 +54,23 @@ class GameTasksController < ApplicationController
   def edit
     @type = @game_task
     @game_task = @game_task.becomes(GameTask)
-
     @tasks = ['latitude' => @game_task.latitude, 'longitude' => @game_task.longitude]
   end
 
   def create
     @player = current_or_guest_user.player
-    @game_task = @player.game_tasks.new
-    @game_task.latitude = 0.0
-    @game_task.longitude = 0.0
-
+    @game_task = @player.game_tasks.new(game_task_params)
     @game_task.route_id = @route.id
-    @game_task.type = params[:type]
 
     if @game_task.save
-      Rails.logger.warn('create was ok')
-      redirect_to edit_route_game_task_path(@route, @game_task)
+      RouteTasksUpdateJob.perform_later(@route)
+      redirect_to route_path(@route)
     else
-      Rails.logger.warn('not ok')
-      @game_task.errors.full_messages.each do |message|
-        Rails.logger.warn(message)
-      end
+      redirect_back
     end
   end
 
   def update
-    RouteChannel.broadcast_to @route, route_id: @route.id, tasks_nr: @route.game_tasks.size, type: 'tasks_update'
-
     respond_to do |format|
       if @game_task.update(game_task_params)
         format.html { redirect_to route_path(@route) }
@@ -114,7 +92,6 @@ class GameTasksController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_game_task
     @game_task = GameTask.find(params[:id])
   end
@@ -123,7 +100,6 @@ class GameTasksController < ApplicationController
     @route = Route.find(params[:route_id])
   end
 
-  # Only allow a list of trusted parameters through.
   def game_task_params
     params.require(:game_task).permit(:id, :name, :type, :solution, :answers, :description, :hint, :latitude,
                                       :longitude, images: [])

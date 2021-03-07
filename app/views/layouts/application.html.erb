@@ -7,17 +7,17 @@
     <title>SchnitzelRally</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-  
+
     <%= stylesheet_link_tag 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    
+
     <%= javascript_include_tag 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
   <header>
-    <nav class="nav"> 
+    <nav class="nav">
       <%= yield :nav %>
     </nav>
    <%= render '/layouts/sidebar' %>
@@ -26,7 +26,7 @@
   <main class="content">
     <%= yield %>
   </main>
-    <footer> 
+    <footer>
     </footer>
   </body>
 </html>

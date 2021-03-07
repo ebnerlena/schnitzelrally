@@ -3,14 +3,14 @@
 <% end %>
 
 <div class="card">
-  <% if @game_task.hint? %>
+  <% if @game_task.hint? && current_or_guest_user.player.searching? %>
     <%= render partial: 'hint', locals: { route: @route, game_task: @game_task } %>
-  <% elsif @game_task.task? %>
-    <%= render partial: 'task', locals: { route: @route, game_task: @game_task } %>
-  <% elsif @game_task.waiting_for_answers? %>
+  <% elsif current_or_guest_user.player.answering? %>
+    <%= render partial: 'task', locals: { route: @route, game_task: @game_task, answers: @answers } %>
+  <% elsif @game_task.waiting_for_answers? && current_or_guest_user.player.answered? %>
     <p> Waiting for other players to answer </p>
   <% else %>
-    <%= render partial: 'result', locals: { route: @route, game_task: @game_task } %>
+    <%= render partial: 'result', locals: { route: @route, game_task: @game_task, players: @players } %>
   <% end %>
 </div>
 

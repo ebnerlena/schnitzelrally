@@ -1,4 +1,4 @@
-let map, lngInput, latInput, range, radius;
+let map, lngInput, latInput, range, radius, marker;
 var re = new RegExp("\\d+");
 
 var markerIcon = L.icon({
@@ -16,7 +16,7 @@ render = () => {
     
     if (path == "/routes/new" || path == "/routes") {
         setUpMap();
-        const p = document.querySelector(".input-range_value");
+        const p = document.querySelector(".input-range__value");
         range = document.querySelector(".input-range");
         p.innerHTML = range.value + " km";
 
@@ -50,10 +50,11 @@ render = () => {
     } 
     else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/) && splittedPath[5] =="edit") {
         setUpMapForGameTask();
-        addTasks();
+        addLocation();
     }
     else if (path.endsWith("game_tasks/new")) {
         setUpMapForGameTask();
+        map.once("click", addMarker);
     }
     else if ((splittedPath[1]=="routes") && (splittedPath[3] == "game_tasks") && splittedPath[4].match(/[0-9]+/)) {
         setUpMap();
@@ -72,24 +73,31 @@ setUpMapForGameTask = () => {
     if (lngInput.value > 0 && latInput.value > 0) {
         button.classList.remove('btn--disabled');    
     }
-
-    map.once("click", addMarker);
 }
 
 setUpMap = () => {
-    map = L.map('map');
 
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-    }).addTo(map);
+    let mapContainer = document.querySelector("#map");
+
+    if (mapContainer) {
+        map = L.map('map');
+
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+        }).addTo(map);
+    }
+    
 }
 
 addViewToMap = () => {
     mapdiv = document.querySelector('#map');
-    lat = mapdiv.dataset.lat;
-    long = mapdiv.dataset.long;
 
-    map.setView([lat, long], 13);
+    if (mapdiv) {
+        lat = mapdiv.dataset.lat;
+        long = mapdiv.dataset.long;
+
+        map.setView([lat, long], 13);
+    }
 }
 
 function changeLatLngInput(e) {
@@ -112,11 +120,15 @@ function addLatLngInput(e) {
 function addMarker(e) {
     let button = document.querySelector('.btn--disabled');
 
-    button.classList.remove('btn--disabled');
+    if(button)
+    {
+        button.classList.remove('btn--disabled');
+    }
 
-    let marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: markerIcon, draggable: true}).addTo(map);
+    marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: markerIcon, draggable: true}).addTo(map);
     addLatLngInput(e);
     marker.on("moveend", changeLatLngInput);
+    map.on("click", moveMarker);
 }
 
 function addRadius(e) {
@@ -135,6 +147,31 @@ function addTasks() {
         tasks = tasks.dataset.tasks;
         tasks = JSON.parse(tasks);
         tasks.forEach(task => L.marker([task.latitude, task.longitude], {icon: markerIcon}).addTo(map));
+    }
+}
+
+function addLocation() {
+    let tasks = document.querySelector("#tasks")
+    
+    if (tasks != null) {
+        tasks = tasks.dataset.tasks;
+        tasks = JSON.parse(tasks);
+        marker = L.marker([tasks[0].latitude, tasks[0].longitude], {icon: markerIcon, draggable: true}).addTo(map);
+        map.on("click", moveMarker);
+    }
+}
+
+function moveMarker(e) {
+
+    marker.setLatLng([e.latlng.lat, e.latlng.lng]);
+    latInput.value = e.latlng.lat;
+    lngInput.value = e.latlng.lng;
+
+    let path = window.location.pathname;
+    
+    if (path == "/routes/new") {
+        radius.setLatLng([e.latlng.lat, e.latlng.lng]);
+        radius.redraw();
     }
 }
 

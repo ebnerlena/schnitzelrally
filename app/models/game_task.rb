@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# game task model class
 class GameTask < ApplicationRecord
   belongs_to :player
   belongs_to :route
@@ -36,7 +39,6 @@ class GameTask < ApplicationRecord
     event :completed do
       transitions from: :waiting_for_answers, to: :answered
     end
-    # state :saved
   end
 
   def to_s
@@ -48,11 +50,6 @@ class GameTask < ApplicationRecord
     save!
   end
 
-  def arrived
-    update(state: 'task')
-    save!
-  end
-
   def answering
     update(state: 'waiting_for_answers')
     save!
@@ -60,13 +57,13 @@ class GameTask < ApplicationRecord
 
   def all_answered?
     players = route.players
-    unless answers.nil?
-      players.size == if multiple_choice?
-                        (answers.size - 1)
-                      else
-                        answers.size
-                      end
-    end
+    return if answers.nil?
+
+    players.size == if multiple_choice?
+                      (answers.size - 1)
+                    else
+                      answers.size
+                    end
   end
 
   def completed
@@ -74,14 +71,21 @@ class GameTask < ApplicationRecord
     save!
   end
 
-  def player_has_answered(player)
-    unless answers.nil?
-      if answers.include?(player.id.to_s)
-        answering
-      else
-        arrived
-      end
+  def answer(answer)
+    if answers.nil?
+      update(answers: answer)
+    else
+      update(answers: answers.merge(answer))
     end
+    save!
+  end
+
+  def correct_answers
+    cnt = 0
+    answers.each_value do |value|
+      cnt += 1 if value.downcase == solution.downcase
+    end
+    cnt
   end
 
   def multiple_choice?

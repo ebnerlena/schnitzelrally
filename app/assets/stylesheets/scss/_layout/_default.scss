@@ -20,20 +20,14 @@ main {
         margin-top: 10px;
         z-index: 1;
 
+        @include tablet {
+            height: 50vh; 
+        }
+
         @include desktop {
             height: 50vh;
 
             @include maxwidthcontainer;
-        }
-    }
-
-    .player_avatar {
-        display: flex;
-        justify-content: center;
-
-        img {
-            width: 120px;
-            border-radius: 50%;
         }
     }
 }

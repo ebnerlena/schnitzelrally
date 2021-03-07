@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :routes do
     resources :game_tasks do
@@ -5,7 +7,7 @@ Rails.application.routes.draw do
     end
 
     collection do
-      post :join
+      get :join
       post :join_route
     end
 
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
       get :map
       get :start
       get :add_task
+      get :results
     end
   end
 

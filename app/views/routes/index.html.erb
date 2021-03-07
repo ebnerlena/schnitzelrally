@@ -3,25 +3,25 @@
 <% end %>
 
 <div class="card">
-  <div class="card-home">
+  <div class="card--home">
   <section class="intro">
-    <h2 class="intro_title">Griasti at <span>SchnitzelRally</span></h2>
-    <p class="intro_text">Start a new route or join an existing route with a route name.</p>
+    <h2 class="intro__title">Griasti at <span>SchnitzelRally</span></h2>
+    <p class="intro__text">Start a new route or join an existing route with a route name.</p>
   </section>
 
   <section class="buttons">
     <% if current_or_guest_user.player.nil? %>
       <%= button_to "Create a Player", new_player_path, { method: "get", class: 'btn' } %>
 
-      <%= button_to 'Join Route', join_routes_path, { method: "post", class: 'btn btn--disabled' }  %>
-      <%= button_to 'Create Route', new_route_path, { method: "get", class: 'btn btn--disabled btn--disabled' }  %>    
+      <%= button_to 'Join Route', join_routes_path, { method: "get", class: 'btn btn--disabled' }  %>
+      <%= button_to 'Create Route', new_route_path, { method: "get", class: 'btn btn--disabled' }  %>
     <% else %>
       <div class="player">
-        <div class="player_avatar"> <%= link_to avatar, edit_player_path(current_or_guest_user.player) %> </div>
-        <p><span class="player_name"><%= current_or_guest_user.player.name %></span></p>
+        <div class="player__avatar"> <%= link_to avatar, edit_player_path(current_or_guest_user.player) %> </div>
+        <p><span class="player__name"><%= current_or_guest_user.player.name %></span></p>
       </div>
 
-      <%= button_to 'Join Route', join_routes_path, { method: "post", class: 'btn' }  %>
+      <%= button_to 'Join Route', join_routes_path, { method: "get", class: 'btn' }  %>
       <%= button_to 'Create Route', new_route_path, { method: "get", class: 'btn' }  %>
     <% end %>
   </section>

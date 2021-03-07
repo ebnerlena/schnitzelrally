@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# players controller
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[show edit update destroy all_tasks all_routes]
 
@@ -30,7 +33,7 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
-        format.html { redirect_to root_path }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render :show, status: :created, location: @player }
       else
         format.html { render :new }
@@ -49,13 +52,11 @@ class PlayersController < ApplicationController
 
   def all_tasks
     @game_tasks = @player.game_tasks
-
     render 'all_tasks'
   end
 
   def all_routes
     @routes = @player.routes
-
     render 'all_routes'
   end
 
@@ -68,6 +69,6 @@ class PlayersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def player_params
-    params.require(:player).permit(:id, :name, :avatar)
+    params.require(:player).permit(:id, :name, :avatar, :state)
   end
 end

@@ -3,15 +3,15 @@
 <% end %>
 <div class="card">
   <h2>Join a route</h2>
-  <p class="hint"> Enter valid route name (min 3 char) </p>
+  <p class="card__hint"> Enter valid route name <span>(min. 3 char) </span></p>
 
-  <p class="hint" id="notice"><%= notice %></p>
+  <p class="card__hint" id="notice"><%= notice %></p>
 
   <%= form_with url: "join_route", method: "post" do |form| %>
 
     <div class="input">
       <%= form.label "Route Name", :class => 'input-label' %>
-      <%= form.text_field :name, { :class => 'input-text', :id => 'route_name' } %>
+      <%= form.text_field :name, { :class => 'input-text', :id => 'route_name', :maxlength => 10 } %>
     </div>
 
     <div class="actions">

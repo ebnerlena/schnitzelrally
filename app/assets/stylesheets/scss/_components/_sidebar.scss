@@ -27,7 +27,7 @@
     }
 
     li {
-        padding-top: $default_padding;
+        padding-top: $default_padding/2;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -46,7 +46,7 @@
         }
     
         @include desktop {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         svg {
@@ -54,41 +54,65 @@
             margin-right: 15px;
         }
 
-        &:last-child {
-            bottom: 150px;
+        &.link__logout {
+            bottom: 120px;
             position: absolute;
         }
 
-        &.player_avatar {
+        &.player__avatar {
             align-self: center;
 
             img {
                 width: 90px;
+                height: 90px;
                 border-radius: 50%;
+                object-fit: cover;
+
+                @include tablet {
+                    width: 100px;
+                    height: 100px;
+                }
+                @include desktop {
+                    width: 110px;
+                    height: 110px;
+                }
             }
         }
-        &.player_name {
+        &.player__name {
             font-weight: 800;
             align-self: center;
             padding-top: ($default_padding)/2;
-            padding-bottom: 3*$default_padding;
+            padding-bottom: 2*$default_padding;
         }
 
     }
 
-    &.open {
+    &--open {
         right: 0;
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
     }
 
-    &_link-group {
+    &__link-group {
         list-style: none;
         padding: 0;
+        margin-top: 1rem;
+    }
+
+    &__link {
+        padding-left: $default_padding*1.5;
+
+        @include tablet {
+            padding-left: $default_padding*3; 
+        }
+
+        @include desktop {
+            padding-left: $default_padding*4; 
+        }
     }
 }
 
-.sidebar_trigger {
+.sidebar__trigger {
     display: inline-block;
     cursor: pointer;
 
@@ -121,7 +145,7 @@
         transform: scale(1.02);
     }
 
-    &__hidden {
+    &--hidden {
         display: none;
     }
 }

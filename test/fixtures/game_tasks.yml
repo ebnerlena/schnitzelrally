@@ -8,6 +8,7 @@ one:
   longitude: 1.5
   route: one
   player: one
+  type: TextInput
   
 
 two:
@@ -18,4 +19,5 @@ two:
   longitude: 1.5
   route: one
   player: two
+  type: TextInput
   

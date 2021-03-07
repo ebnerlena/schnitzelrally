@@ -1,9 +1,9 @@
-.card-nav {
+.card__nav {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     
-    .card-nav_element {
+    .nav__link {
         position: relative;
         display: flex;
         justify-content: center;
@@ -12,7 +12,7 @@
         margin-top: 0;
         margin: 2%;
         padding: 0;
-        background: $backgroundColor2;
+        background: $accentColor;
         color: $white;
         border: none;
         border-radius: 5px;
@@ -27,7 +27,7 @@
         -webkit-appearance: none;
         -moz-appearance: none;  
         
-        &:hover:not(.card-nav_element--active) {
+        &:hover:not(.nav__link--active) {
             transform: scale(1.02);
             box-shadow: 0 0 8px rgba(0,0,0,0.3);
             background: $accentColor;

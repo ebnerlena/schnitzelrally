@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
+# route model class
 class Route < ApplicationRecord
   belongs_to :player
-  has_many :routes_players_association, :dependent  => :destroy
+  has_many :routes_players_association, dependent: :destroy
   has_many :players, through: :routes_players_association
   has_many :game_tasks, dependent: :destroy
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
-
-  scope :available, -> { where(game_state: 'planning') }
 
   validates :name, length: { minimum: 3 }, uniqueness: true
   validates :latitude, :longitude, presence: true
@@ -40,6 +41,7 @@ class Route < ApplicationRecord
     save!
     @tasks = game_tasks.clone
     @current_task = @tasks.where(state: 'planning').first
+    @current_task.start
   end
 
   def players
@@ -52,11 +54,21 @@ class Route < ApplicationRecord
   end
 
   def next_task
+    players.each(&:next_task)
     @current_task = game_tasks.where(state: 'planning').first
   end
 
   def end
+    players.each(&:finished)
     update(game_state: 'finished', end_time: Time.zone.now)
     save!
+  end
+
+  def all_players_ready?
+    ready_cnt = 0
+    players.each do |p|
+      ready_cnt += 1 if p.ready?
+    end
+    ready_cnt == players.size - 1
   end
 end

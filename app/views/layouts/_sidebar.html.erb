@@ -1,22 +1,22 @@
 <ul class="sidebar">
     <%if !current_or_guest_user.player.nil?%>
-        <li class="player_avatar"> <%= link_to avatar, edit_player_path(current_or_guest_user.player) %> </li>
-        <li class="player_name"><%= current_or_guest_user.player.name %> </li>
+        <li class="player__avatar"> <%= link_to avatar, edit_player_path(current_or_guest_user.player) %> </li>
+        <li class="player__name"><%= current_or_guest_user.player.name %> </li>
     <% end %>
 
-    <li> <%= display_svg("home") %> <%= link_to "Home", routes_path %> </li>
+    <li class="sidebar__link"> <%= display_svg("home") %> <%= link_to "Home", routes_path %> </li>
 
-    <% if user_signed_in? && !current_or_guest_user.player.nil? %> 
-        <ul class="sidebar_link-group">
-            <li> <%= display_svg("routes") %> <%= link_to "Routes", all_routes_player_path(current_or_guest_user.player.id) %> </li>
-            <li> <%= display_svg("tasks") %> <%= link_to "Tasks", all_tasks_player_path(current_or_guest_user.player.id) %> </li>
-            <li> <%= display_svg("settings") %> <%= link_to "Settings", edit_player_path(current_or_guest_user.player) %> </li>
-            <li> <%= display_svg("logout") %> <%= link_to "Logout", logout_path %> </li>
+    <% if user_signed_in? && !current_or_guest_user.player.nil? %>
+        <ul class="sidebar__link-group">
+            <li class="sidebar__link"> <%= display_svg("routes") %> <%= link_to "Routes", all_routes_player_path(current_or_guest_user.player.id) %> </li>
+            <li class="sidebar__link"> <%= display_svg("tasks") %> <%= link_to "Tasks", all_tasks_player_path(current_or_guest_user.player.id) %> </li>
+            <li class="sidebar__link"> <%= display_svg("settings") %> <%= link_to "Settings", edit_player_path(current_or_guest_user.player) %> </li>
+            <li class="sidebar__link link__logout"> <%= display_svg("logout") %> <%= link_to "Logout", logout_path %> </li>
         </ul>
     <% elsif user_signed_in? %>
-        <li> <%= display_svg("logout") %> <%= link_to "Logout", logout_path %> </li>
+        <li class="sidebar__link link__logout"> <%= display_svg("logout") %> <%= link_to "Logout", logout_path %> </li>
     <% else %>
-     <li> </li>
+        <li> </li>
     <% end %>
- 
+
 </ul>

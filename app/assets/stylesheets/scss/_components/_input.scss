@@ -3,14 +3,28 @@
     flex-direction: column;
     margin-top: $default_margin;
     margin-bottom: $default_margin;
-    width: 90vw;
+    width: 100%;
 
     @include tablet {
-        width: 50vw;
+        width: 70vw;
+        max-width: 25em;
     }
 
     @include desktop {
         width: 30vw;
+    }
+
+    .input__group {
+        display: flex;
+        flex-direction: row;
+
+        .input-text {
+            border: none;
+            border-radius: 5px;
+            width: 70%;
+        }
+
+
     }
 
     input, select {
@@ -25,6 +39,10 @@
         outline: none;
         max-width: 30em;
         color: $secondaryColor;
+
+        @include tablet {
+            max-width: 25em;
+        }
     }
 
     .input-radiobutton {
@@ -32,16 +50,21 @@
         display: flex;
         align-items: center;
 
+        @include mobile {
+            margin: $default_margin/2 0;
+        }
+
         input[type='radio'] {
             margin: 0 1rem 0 3rem;
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
         }
     }
 
     &--borderless {
         input {
             border: none;
+            padding: ($default_padding/2) $default_padding ($default_padding/2) 0.2rem;
         }
     }
 
@@ -71,6 +94,7 @@
         letter-spacing: 1.5px;
         margin-top: 10px;
         margin-bottom: 10px;
+        padding-left: 5px;
 
         @include mobile {
             font-size: 17px;
@@ -91,20 +115,35 @@
         }
     }
 
-    .input-label_container {
+    .input-label__container {
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-direction: row;
     
-        .input-range_value {
+        .input-range__value {
             margin: 0;
             font-weight: 600;
         }
     }
 
-    .note {
+    &__hint {
         margin: 0;
+    }
+}
+
+
+.map__instruction {
+    font-family: $roboto;
+    font-size: 22px;
+    font-weight: 600;
+    padding-left: 3px;
+    letter-spacing: 1px;
+    margin-top: 1.5rem;
+    margin-bottom: 10px;
+
+    @include mobile {
+        font-size: 17px;
     }
 }
 
@@ -116,7 +155,7 @@ input[type=range] {
     background: $backgroundColor;
     /*required for proper track sizing in FF*/
     width: 100%;
-    padding: ($default_padding/2) 0;
+    padding: ($default_padding/2) 0.2rem;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -173,6 +212,7 @@ input[type=range]:focus::-moz-range-track {
 .numbering {
     display: flex;
     justify-content: space-between;
+    padding: 0 0.2rem;
 
     p {
         margin-top: 0;

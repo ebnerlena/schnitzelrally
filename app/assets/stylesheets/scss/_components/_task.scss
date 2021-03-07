@@ -1,10 +1,91 @@
-.card-tasks {
+.card__tasks {
     margin: 2% 0;
     padding: $default_padding/2;
     background: $backgroundColor2;
     border-radius: $borderradius;
     width: 95%;
-    height: 55vh;
+    height: 53vh;
+    overflow-x: hidden;
+
+    @include tablet {
+        width: 100%;
+        padding: $default_padding;
+    }
+
+    @include desktop {
+        width: 95%;
+        @include maxwidthcontainer;
+        padding: $default_padding;
+    }
+
+    &--high {
+        height: 65vh;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .tasks__empty {
+        margin: 0;
+        padding: $default_padding;
+    }
+    
+    .tasks__list {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 0;
+
+        .task {
+            margin: 3% 0;
+            padding: $default_padding;
+            background: $white;
+            border-radius: $borderradius;
+            min-height: 6.5vh;
+    
+            .task__header {
+                display: flex;
+                justify-content: space-between;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            p {
+                margin-bottom: 0;
+            }
+
+            .links__divider {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .task__description {
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+.task__question,
+.task__solution {
+    align-self: start;
+    margin-top: 0;
+    
+    span {
+        font-style: italic;
+        margin-top: 0;
+    }
+}
+
+.card__answers {
+    margin: 2% 0;
+    padding: $default_padding/2;
+    background: $backgroundColor2;
+    border-radius: $borderradius;
+    width: 95%;
+    height: 53vh;
     overflow-x: hidden;
 
     @include tablet {
@@ -21,34 +102,77 @@
     h3 {
         margin-top: 0;
     }
-    
-    .card-tasks_list {
+
+    .answer__list {
         padding: 0;
 
-        .task {
-            margin: 3% 0;
-            padding: $default_padding;
-            background: $white;
-            border-radius: $borderradius;
-            min-height: 6.5vh;
-    
-            .task-header {
-                display: flex;
-                justify-content: space-between;
+        .photos__container {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
 
-                p {
-                    margin: 0;
+            @include desktop {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .photo {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                margin: $default_margin 0;
+
+                img {
+                    max-width: 300px;
+                    height: auto;
+                    max-height: 400px;
+            
+                    @include mobile {
+                        max-width: 80vw;
+                        height: auto;
+                        max-height: 200px;
+                    }
                 }
             }
+        }
 
-            p {
-                margin-bottom: 0;
-            }
+        & > li {
+            margin-left: 1.5*$default_margin;
+        }
+    }
 
-            .divider {
-                font-size: 20px;
+    .answer {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        margin: 0.5*$default_margin 0;
+
+        p {
+            margin: 0;
+        }
+        
+        .answer__state {
+            color: white;
+            border-radius: 5px;
+            padding: 2px;
+            margin-right: 10px;
+        }
+        
+        .answer__state--true {
+            background-color: #61b15a;
+        }
+        
+        .answer__state--false {
+            background-color: #ec524b;
+        }
+
+        .answer__value {
+            word-break: break-word;
+
+            span {
                 font-weight: bold;
             }
         }
     }
 }
+

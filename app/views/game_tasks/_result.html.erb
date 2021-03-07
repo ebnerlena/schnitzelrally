@@ -1,6 +1,47 @@
-<h2> Answers for: <%= @game_task.name %> </h2>
-<p> Answers: </p>
-<ul>
-</ul>
-  
-<%= link_to "Continue", route_path(@route), {class: 'btn' } %>
+<h2 class="task__heading"> Answers for: <%= game_task.name %> </h2>
+<p class="task__question"> Question: <span><%= game_task.description %></span></p>
+<% if !game_task.photo_upload? %>
+    <p class="task__solution"> Solution: <span><%= game_task.solution.capitalize %></span></p>
+<% end %>
+<div class="card__answers">
+    <h3>All submitions:
+        <% if !game_task.photo_upload? %>
+            <span><%= game_task.correct_answers %> correct</span>
+        <% end%>
+    </h3>
+    <ul class="answer__list">
+        <% if game_task.photo_upload? %>
+            <ul class="photos__container">
+                <% game_task.images.each do | image | %>
+                    <li class="photo"> <%= image_tag image %> </li>
+                <% end %>
+            </ul>
+        <% elsif game_task.multiple_choice? %>
+            <% game_task.answers.each do | key, value | %>
+                <% if key != "answers" %>
+                    <li class="answer">
+                        <% if value == game_task.solution %>
+                            <p class="answer__state answer__state--true"> &check; </p>
+                        <% else %>
+                            <p class="answer__state answer__state--false"> &cross;</p>
+                        <% end %>
+                        <p class="answer__value"> <span><%= players[key] %></span> answered: <%= game_task.answers['answers'][value] %></p>
+                    </li>
+                <% end %>
+            <% end %>
+        <% else %>
+            <% game_task.answers.each do | key, value | %>
+                <li class="answer">
+                    <% if value.downcase == game_task.solution.downcase %>
+                        <p class="answer__state answer__state--true"> &check; </p>
+                    <% else %>
+                        <p class="answer__state answer__state--false"> &cross;</p>
+                    <% end %>
+                    <p class="answer__value"> <span><%= players[key] %></span> answered: <%= value %></p>
+                </li>
+            <% end %>
+        <% end %>
+    </ul>
+</div>
+
+<%= link_to "Back", results_route_path(route), {class: 'btn' } %>

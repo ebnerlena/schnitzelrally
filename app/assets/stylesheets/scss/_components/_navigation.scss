@@ -6,13 +6,14 @@
     z-index: 5;
     position: fixed;
     padding: 0 20px;
+    transition: all 0.2s ease-in;
 
     @include mobile {
         padding-left: ($default_padding)/2;
         height: 65px;
     }
 
-    .nav_header {
+    .nav__header {
         list-style: none;
         display: flex;
         flex-direction: row;
@@ -22,7 +23,7 @@
         margin: 0;
         width: 100vw;
 
-        .logo_link {
+        .logo__link {
             svg {
                 width: 50px;
                 height: 40px;
@@ -39,7 +40,7 @@
             }
         }
 
-        .back-arrow_link {
+        .back-arrow__link {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -60,11 +61,11 @@
             }
         }
 
-        .nav_header_left {
+        .header__left {
             display: flex;
             flex-direction: row;
 
-            .nav_header_title {
+            .header__title {
                 font-size: 1.3rem;
                 white-space: nowrap;
 
@@ -78,7 +79,7 @@
             }
         }
 
-        .nav_header_right {
+        .header__right {
             display: flex;
             align-items: center;
             padding-right: 3*$default_padding;

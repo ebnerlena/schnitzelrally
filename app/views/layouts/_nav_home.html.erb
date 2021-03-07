@@ -1,27 +1,25 @@
-<ul class="nav_header">
-    <li class="nav_header_left">
-        <a href="/" class="logo_link" alt="Logo" >
+<ul class="nav__header">
+    <li class="header__left">
+        <a href="/" class="logo__link" alt="Logo" >
             <%= display_svg("logo") %>
         </a>
     </li>
-    <li class="nav_header_right">
-    <% if user_signed_in? %> 
-        <div class="sidebar_trigger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    
-    <% else %>
-     <%= link_to "Login", new_user_session_path %> 
-     <%= display_svg("login") %>
-    <% end %>
-    
-        <div class="sidebar_trigger sidebar_trigger__hidden">
+    <li class="header__right">
+        <% if user_signed_in? %>
+            <div class="sidebar__trigger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        <% else %>
+            <%= link_to "Login", new_user_session_path %>
+            <%= display_svg("login") %>
+        <% end %>
+
+        <div class="sidebar__trigger sidebar__trigger--hidden">
             <div></div>
             <div></div>
             <div></div>
         </div>
     </li>
 </ul>
-

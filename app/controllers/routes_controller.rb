@@ -1,48 +1,25 @@
-class RoutesController < ApplicationController
-  before_action :set_route, only: %i[show edit map start add_task update destroy]
+# frozen_string_literal: true
 
-  # GET /routes
-  # GET /routes.json
+# routes controller
+class RoutesController < ApplicationController
+  before_action :set_route, only: %i[show edit map start add_task results update destroy]
+
   def index
     @player = current_or_guest_user.player
-
-    # ActionCable.server.broadcast("Z2lkOi8vcHJvdG90eXBlMDEvUm91dGUvNw", body: "This Room is Best Room.")
-    # RouteChannel.broadcast_to(@route, "hiiii")
   end
 
-  # GET /routes/1
-  # GET /routes/1.json
   def show
     @which = 'Tasks'
     @player = current_or_guest_user.player
     @tasks = @route.game_tasks.where(player: @player)
-    # render '_tasks'
   end
 
-  # GET /routes/new
   def new
     @route = Route.new
   end
 
   def join
-    if params[:name].nil?
-      @route = Route.last
-      render '_form_join'
-    else
-      @user = current_or_guest_user
-      @user.name = params[:name]
-
-      ok = @user.save
-      if !ok
-        @user.errors.full_messages.each do |m|
-          Rails.logger.warn(m)
-        end
-        redirect_to routes_path, notice: 'Not a valid username'
-      else
-        @route = Route.last
-        render '_form_join'
-      end
-    end
+    render '_form_join'
   end
 
   def join_route
@@ -50,12 +27,11 @@ class RoutesController < ApplicationController
     @player = current_or_guest_user.player
 
     if !@route.nil?
+      @player.planning
       RoutesPlayersAssociation.create(player: @player, route: @route)
-
       redirect_to @route
     else
       Rails.logger.warn('route is nil')
-      # render 'join'
     end
   end
 
@@ -73,32 +49,30 @@ class RoutesController < ApplicationController
       @tasks += ['latitude' => task.latitude, 'longitude' => task.longitude]
     end
 
-    render '_map'
+    RouteAllReadyJob.perform_later(@route, @route.all_players_ready?)
+
+    render '_map', locals: { game_task: @game_task, route: @route, tasks: @tasks }
   end
 
   def start
     @route.start
     @player = @route.player
-    @tasks = @route.game_tasks.where(player: @player)
+    @task = @route.current_task
+    @player.route_start
+    RouteStartJob.perform_later(@route, @task)
     redirect_to route_game_task_path(@route, @route.current_task)
   end
 
-  # GET /routes/1/edit
   def edit; end
 
-  # POST /routes
-  # POST /routes.json
   def create
     @player = current_or_guest_user.player
     @route = Route.new(route_params)
     @route.player_id = @player.id
-    # @route.save!
-
-    results = Geocoder.search([@route.latitude, @route.longitude])
-    # @route.location = results.first.address
 
     respond_to do |format|
       if @route.save
+        @player.planning
         RoutesPlayersAssociation.create(player: @player, route: @route)
         format.html { redirect_to @route, notice: 'Route was successfully created.' }
         format.json { render :show, status: :created, location: @route }
@@ -109,8 +83,6 @@ class RoutesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /routes/1
-  # PATCH/PUT /routes/1.json
   def update
     @user = current_or_guest_user
     @route = Route.find(params[:id])
@@ -127,8 +99,6 @@ class RoutesController < ApplicationController
     end
   end
 
-  # DELETE /routes/1
-  # DELETE /routes/1.json
   def destroy
     @route.destroy
     respond_to do |format|
@@ -139,12 +109,10 @@ class RoutesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_route
     @route = Route.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def route_params
     params.require(:route).permit(:id, :name, :latitude, :longitude, :radius)
   end
